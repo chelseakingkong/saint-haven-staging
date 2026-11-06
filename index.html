@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Saint Haven · Apply for membership</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Stand-ins: Instrument Serif for IvyPresto Display, Archivo for GT America -->
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#141414;
+    --text:#2a2826;
+    --mute:#74736f;
+    --line:#e8e8e5;
+    --field:#d9d9d5;
+    --ivory:#fdfdfc;
+    --sand:#f4f4f2;
+    --serif:"Instrument Serif","IvyPresto Display",Georgia,serif;
+    --sans:"Archivo","GT America Standard",Arial,sans-serif;
+    --ease:cubic-bezier(.2,.7,.2,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:#0e0c0a}
+  body{font-family:var(--sans);color:var(--text);-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.5;min-height:100vh}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  svg{display:block}
+
+  /* ---------- Full-screen backdrop ---------- */
+  .backdrop{position:fixed;inset:0;z-index:0;overflow:hidden;background:#0e0c0a}
+  .backdrop img,.backdrop video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.04);transition:opacity 1.4s ease, transform 12s ease-out}
+  .backdrop .show{opacity:1;transform:scale(1)}
+  .backdrop::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,12,10,.62) 0%,rgba(14,12,10,.42) 35%,rgba(14,12,10,.55) 70%,rgba(14,12,10,.82) 100%)}
+
+  .page{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column}
+
+  /* ---------- Header ---------- */
+  header{display:flex;justify-content:space-between;align-items:center;padding:30px 48px}
+  .logo{height:24px;filter:invert(1)}
+  .private{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.78)}
+
+  /* ---------- Stage tracker ---------- */
+  .tracker{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;width:min(680px,calc(100% - 40px));margin:6px auto 0}
+  .tracker div{display:flex;flex-direction:column;align-items:stretch;gap:12px}
+  .tracker span{font-size:13px;color:rgba(255,255,255,.5);transition:color .4s;text-align:center}
+  .tracker i{height:2px;background:rgba(255,255,255,.22);position:relative;overflow:hidden}
+  .tracker i::after{content:"";position:absolute;inset:0;background:#fff;transform-origin:left;transform:scaleX(var(--p,0));transition:transform .7s var(--ease)}
+  .tracker .on span,.tracker .done span{color:#fff}
+
+  /* ---------- Card ---------- */
+  main{flex:1;display:flex;justify-content:center;align-items:flex-start;padding:44px 20px 40px}
+  .card{width:100%;max-width:620px;background:var(--ivory);padding:52px 56px 44px;box-shadow:0 40px 80px -30px rgba(0,0,0,.6)}
+  .eyebrow{display:flex;justify-content:flex-end;align-items:center;gap:8px;font-size:13px;color:var(--mute);margin:-24px -28px 22px 0}
+  .eyebrow svg{opacity:.8}
+  .card h1{font-family:var(--serif);font-weight:400;font-size:48px;line-height:1.02;color:var(--ink);letter-spacing:-.01em}
+  .card .lead{color:var(--mute);margin-top:12px;font-size:16px;font-weight:300;max-width:46ch}
+  .body{margin-top:34px;display:grid;gap:24px}
+  .in-anim{animation:rise .55s var(--ease) both}
+  @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+  /* Fields */
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  label.l{display:block;font-size:14px;font-weight:500;color:var(--ink);margin-bottom:8px}
+  label.l em{font-style:normal;font-weight:400;color:var(--mute)}
+  .in{width:100%;height:56px;border:1px solid var(--field);border-radius:0;background:#fff linear-gradient(var(--ink),var(--ink)) no-repeat left bottom / 0% 1px;padding:0 18px;font:inherit;font-size:16px;color:var(--ink);outline:none;transition:border-color .3s, box-shadow .4s, background-size .5s cubic-bezier(.2,.7,.2,1);-webkit-appearance:none;appearance:none}
+  .in::placeholder{color:#a9a8a3}
+  .in:focus{border-color:#e6e6e2;background-size:100% 1px;box-shadow:0 14px 30px -18px rgba(20,20,20,.28)}
+  .in:focus::placeholder{color:#c8c7c2}
+  select.in{background-color:#fff;background-image:linear-gradient(var(--ink),var(--ink)),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23141414' stroke-width='1.4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left bottom,right 18px center;background-size:0% 1px,12px 8px;padding-right:44px}
+  select.in:focus{background-size:100% 1px,12px 8px}
+  .phone{display:flex}
+  .phone .cc{height:56px;display:flex;align-items:center;padding:0 16px;border:1px solid var(--field);border-right:0;font-size:16px;color:var(--ink);background:var(--sand)}
+  .link{font-weight:500;color:var(--ink);text-decoration:underline;text-underline-offset:4px;font-size:14px;justify-self:start}
+
+  /* Choice tiles */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .grid.one{grid-template-columns:1fr}
+  .tile{display:flex;align-items:center;justify-content:space-between;gap:12px;text-align:left;min-height:56px;padding:14px 18px;border:1px solid var(--field);background:#fff;font-size:15px;color:var(--ink);transition:background .25s, border-color .25s, color .25s}
+  .tile:hover{border-color:var(--ink)}
+  .tile .box{flex:none;width:18px;height:18px;border:1px solid #b4b3ae;display:grid;place-items:center;transition:all .25s}
+  .tile.radio .box{border-radius:50%}
+  .tile.sel{background:var(--ink);border-color:var(--ink);color:#fff}
+  .tile.sel .box{border-color:#fff;background:#fff}
+  .tile.sel .box::after{content:"";width:8px;height:4px;border:solid var(--ink);border-width:0 0 1.6px 1.6px;transform:rotate(-45deg) translate(1px,-1px)}
+  .tile.radio.sel .box::after{width:6px;height:6px;border:0;border-radius:50%;background:var(--ink);transform:none}
+
+  .city{font-size:13px;color:var(--mute);margin:4px 0 -14px}
+  .club{min-height:64px}
+  .club strong{font-family:var(--serif);font-weight:400;font-size:24px;line-height:1}
+  .club.wide{grid-column:1/-1}
+  .club.wide strong{font-family:var(--sans);font-size:15px;font-weight:400}
+
+  .note{display:flex;gap:14px;align-items:center;padding:16px 18px;background:var(--sand);font-size:14px;color:var(--text)}
+  .note svg{flex:none}
+
+  /* Price */
+  .price{text-align:center;padding:30px 20px 28px;background:var(--sand)}
+  .price b{display:block;font-family:var(--serif);font-weight:400;font-size:84px;line-height:.9;color:var(--ink);letter-spacing:-.02em}
+  .price span{display:block;margin-top:10px;color:var(--mute);font-size:15px}
+  .tbc{background:#fff0bf;padding:0 3px;color:var(--text)}
+
+  /* Consent */
+  .chk{display:flex;gap:14px;align-items:flex-start;text-align:left;padding:18px;border:1px solid var(--field);background:#fff;font-size:15px;color:var(--ink);line-height:1.45;width:100%;transition:border-color .2s}
+  .chk:hover{border-color:var(--ink)}
+  .chk .box{flex:none;width:20px;height:20px;border:1px solid #b4b3ae;display:grid;place-items:center}
+  .chk.sel{border-color:var(--ink)}
+  .chk.sel .box{background:var(--ink);border-color:var(--ink)}
+  .chk.sel .box::after{content:"";width:9px;height:5px;border:solid #fff;border-width:0 0 1.6px 1.6px;transform:rotate(-45deg) translate(1px,-1px)}
+  .chk u{text-underline-offset:3px}
+  .chk em{font-style:normal;color:var(--mute)}
+
+  /* Buttons */
+  .actions{display:flex;gap:10px;margin-top:38px}
+  .btn{height:58px;display:inline-flex;align-items:center;justify-content:center;gap:12px;font-size:14px;font-weight:500;letter-spacing:.04em;transition:background .25s, color .25s, opacity .25s}
+  .btn.primary{flex:1;background:var(--ink);color:#fff}
+  .btn.primary:hover{background:#000}
+  .btn.primary svg{transition:transform .25s}
+  .btn.primary:hover svg{transform:translateX(3px)}
+  .btn.primary[disabled]{background:#cfcfcb;cursor:not-allowed}
+  .btn.ghost{width:130px;border:1px solid var(--field);color:var(--ink)}
+  .btn.ghost:hover{border-color:var(--ink)}
+  .btn.light{background:#fff;color:var(--ink);padding:0 40px}
+  .btn.light:hover{background:var(--sand)}
+  .fineprint{display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;color:var(--mute);margin-top:20px}
+
+  /* Footer progress */
+  footer{display:flex;justify-content:center;padding:0 20px 28px}
+  footer p{font-size:13px;color:rgba(255,255,255,.7)}
+
+  /* ---------- Intro ---------- */
+  .intro{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;padding:20px 24px 80px}
+  .intro .kicker{font-size:14px;color:rgba(255,255,255,.75);margin-bottom:22px}
+  .intro h1{font-family:var(--serif);font-weight:400;font-size:clamp(52px,7vw,104px);line-height:.95;letter-spacing:-.015em;max-width:11ch}
+  .intro p.lead{font-size:17px;font-weight:300;color:rgba(255,255,255,.85);max-width:430px;margin:26px auto 40px;line-height:1.55}
+  .facts{display:flex;gap:34px;margin-top:44px;font-size:13px;color:rgba(255,255,255,.75)}
+  .facts span{display:flex;align-items:center;gap:9px}
+
+  /* ---------- Submitted ---------- */
+  .tick{width:56px;height:56px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;margin-bottom:26px}
+  .ref{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;background:var(--sand);font-size:14px;margin-top:30px}
+  .ref b{font-weight:500;color:var(--ink)}
+  .tl{margin-top:30px}
+  .tl h2{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:18px}
+  .tl div{display:grid;grid-template-columns:30px 1fr;gap:16px;position:relative;padding-bottom:20px}
+  .tl div:last-child{padding-bottom:0}
+  .tl div::before{content:"";position:absolute;left:14.5px;top:32px;bottom:2px;width:1px;background:var(--line)}
+  .tl div:last-child::before{display:none}
+  .tl .n{width:30px;height:30px;border-radius:50%;border:1px solid var(--field);display:grid;place-items:center;font-size:13px;color:var(--ink);background:#fff}
+  .tl .now .n{background:var(--ink);border-color:var(--ink);color:#fff}
+  .tl p{font-size:15px;font-weight:500;color:var(--ink);line-height:1.3;padding-top:5px}
+  .tl small{display:block;font-size:14px;color:var(--mute);font-weight:400;margin-top:3px}
+
+  .consent{display:grid;gap:12px;padding-top:4px}
+  .consent p{font-size:13px;color:var(--mute)}
+  .consent u{text-underline-offset:3px}
+  .mini{display:flex;gap:12px;align-items:center;text-align:left;font-size:14px;color:var(--text)}
+  .mini .box{flex:none;width:18px;height:18px;border:1px solid #b4b3ae;display:grid;place-items:center}
+  .mini.sel .box{background:var(--ink);border-color:var(--ink)}
+  .mini.sel .box::after{content:"";width:8px;height:4px;border:solid #fff;border-width:0 0 1.6px 1.6px;transform:rotate(-45deg) translate(1px,-1px)}
+  /* ---------- Option demos ---------- */
+  .backdrop{transform:translate(var(--px,0),var(--py,0)) scale(var(--bs,1));transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+  .clubcap{position:fixed;left:48px;bottom:40px;z-index:1;color:#fff;opacity:0;transform:translateY(8px);transition:opacity .8s, transform .8s}
+  .clubcap.show{opacity:1;transform:none}
+  .clubcap small{display:block;font-size:13px;color:rgba(255,255,255,.7);margin-bottom:6px}
+  .clubcap b{font-family:var(--serif);font-weight:400;font-size:40px;line-height:1}
+  .clubcap span{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.6);margin-top:10px}
+  .intro.leaving{opacity:0;transform:scale(.98);transition:opacity .6s ease, transform .6s ease}
+  .veil{position:fixed;inset:0;z-index:2;background:#0e0c0a;opacity:0;pointer-events:none;transition:opacity .7s ease}
+  .veil.on{opacity:1}
+  .invite{margin-top:22px;font-size:14px;color:rgba(255,255,255,.8)}
+  .invite button{color:#fff;text-decoration:underline;text-underline-offset:4px}
+  .invite form{display:flex;gap:0;margin-top:4px}
+  .invite input{height:48px;width:220px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.4);border-right:0;color:#fff;padding:0 16px;font:inherit;font-size:15px;letter-spacing:.12em;text-transform:uppercase;outline:none}
+  .invite input::placeholder{color:rgba(255,255,255,.5);letter-spacing:.04em;text-transform:none}
+  .invite form button{height:48px;padding:0 20px;background:#fff;color:var(--ink);text-decoration:none;font-weight:500}
+  .invite .ok{display:flex;align-items:center;gap:10px;color:#fff}
+  .founder{display:grid;grid-template-columns:150px 1fr;gap:20px;align-items:center;margin-top:28px;padding:18px;background:var(--sand)}
+  .founder .vid{position:relative;aspect-ratio:4/5;overflow:hidden}
+  .founder .vid img{width:100%;height:100%;object-fit:cover;display:block}
+  .founder .vid i{position:absolute;inset:0;display:grid;place-items:center;background:rgba(0,0,0,.25);color:#fff}
+  .founder .vid em{position:absolute;left:10px;bottom:8px;font-style:normal;font-size:12px;color:#fff}
+  .founder .q{font-family:var(--serif);font-size:22px;line-height:1.25;color:var(--ink)}
+  .founder .sig{font-size:13px;color:var(--mute);margin-top:10px}
+  .pass{margin-top:28px;background:var(--ink);color:#fff;padding:22px 24px;display:grid;gap:18px}
+  .pass .top{display:flex;justify-content:space-between;align-items:center}
+  .pass .top img{height:18px;filter:invert(1)}
+  .pass .top span{font-size:12px;color:rgba(255,255,255,.6)}
+  .pass .cells{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .pass .cells small{display:block;font-size:11px;color:rgba(255,255,255,.55);margin-bottom:4px}
+  .pass .cells b{font-weight:500;font-size:15px}
+  .pass .status{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.8)}
+  .pass .status i{width:7px;height:7px;border-radius:50%;background:#d9c39a;box-shadow:0 0 0 4px rgba(217,195,154,.18)}
+  .walletbtn{margin-top:10px;height:52px;width:100%;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;gap:10px;font-weight:500;font-size:14px}
+  .preparing{text-align:center;padding:40px 0 30px}
+  .preparing h1{font-size:38px}
+  .preparing .line{height:1px;background:var(--line);margin:34px auto 0;max-width:260px;position:relative;overflow:hidden}
+  .preparing .line::after{content:"";position:absolute;inset:0;background:var(--ink);transform-origin:left;animation:fill 1.9s cubic-bezier(.6,0,.2,1) forwards}
+  @keyframes fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @media (max-width:760px){ .clubcap{display:none} .founder{grid-template-columns:96px 1fr} .founder .q{font-size:18px} .pass .cells{grid-template-columns:1fr 1fr} }
+  /* ---------- Save and finish later + simulated SMS ---------- */
+  .hright{display:flex;align-items:center;gap:28px}
+  .savelater{font-size:13px;color:#fff;border-bottom:1px solid rgba(255,255,255,.6);padding-bottom:2px}
+  .savelater:hover{border-color:#fff}
+  .saved{text-align:left}
+  .saved .rows{margin-top:28px;display:grid;gap:10px}
+  .saved .rows div{display:flex;justify-content:space-between;padding:14px 16px;background:var(--sand);font-size:14px}
+  .saved .rows b{font-weight:500;color:var(--ink)}
+  .phonewrap{position:fixed;right:6vw;top:50%;z-index:6;transform:translate(0,-50%) translateY(110vh);transition:transform 1s cubic-bezier(.2,.8,.2,1);display:flex;flex-direction:column;align-items:center;gap:14px}
+  .phonewrap.up{transform:translate(0,-50%)}
+  .phonewrap.buzz .phone-dev{animation:buzz .5s linear 2}
+  @keyframes buzz{0%,100%{transform:translateX(0) rotate(0)}20%{transform:translateX(-3px) rotate(-1deg)}40%{transform:translateX(3px) rotate(1deg)}60%{transform:translateX(-2px)}80%{transform:translateX(2px)}}
+  .phonecap{font-size:12px;color:rgba(255,255,255,.7);max-width:300px;text-align:center}
+  .phone-dev{position:relative;width:300px;height:620px;border-radius:48px;background:#111;padding:11px;box-shadow:0 0 0 2px #3a3a3a,0 50px 90px -30px rgba(0,0,0,.8)}
+  .island{position:absolute;top:22px;left:50%;transform:translateX(-50%);width:92px;height:26px;border-radius:20px;background:#000;z-index:5}
+  .scr{position:absolute;inset:11px;border-radius:38px;overflow:hidden;opacity:0;pointer-events:none;transition:opacity .45s ease}
+  .scr.show{opacity:1;pointer-events:auto}
+  .lock img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.55) blur(1px);transform:scale(1.05)}
+  .lk-time{position:absolute;top:70px;width:100%;text-align:center;color:#fff;font-size:68px;font-weight:300;letter-spacing:-.02em;font-family:-apple-system,"SF Pro Display",var(--sans)}
+  .lk-date{position:absolute;top:58px;width:100%;text-align:center;color:rgba(255,255,255,.85);font-size:15px;font-weight:500;font-family:-apple-system,var(--sans)}
+  .notif{position:absolute;left:10px;right:10px;top:200px;display:flex;gap:10px;align-items:flex-start;text-align:left;padding:12px 13px;border-radius:20px;background:rgba(245,245,245,.78);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);font-family:-apple-system,var(--sans);color:#111;opacity:0;transform:translateY(-16px) scale(.96);transition:opacity .5s ease, transform .6s cubic-bezier(.2,.9,.3,1.2)}
+  .notif.up{opacity:1;transform:none}
+  .notif .ic{flex:none;width:34px;height:34px;border-radius:9px;background:#34c759;display:grid;place-items:center}
+  .notif .nt{font-size:13px;line-height:1.3}
+  .notif .nt b{font-weight:600}
+  .notif .nt em{float:right;font-style:normal;color:#666;font-size:12px}
+  .notif .nt span{display:block;margin-top:2px}
+  .thread{background:#fff;font-family:-apple-system,var(--sans)}
+  .th-top{padding:58px 14px 12px;display:flex;flex-direction:column;align-items:center;gap:4px;border-bottom:1px solid #eee;position:relative;background:#f7f7f7}
+  .th-top .chev{position:absolute;left:14px;top:66px;color:#0a84ff;font-size:30px;line-height:1}
+  .th-top .av{width:44px;height:44px;border-radius:50%;background:#1d1d1d;color:#fff;display:grid;place-items:center;font-size:15px;font-weight:600}
+  .th-top b{font-size:12px;font-weight:500}
+  .th-date{text-align:center;font-size:11px;color:#8e8e93;margin:14px 0 8px}
+  .bubble{margin:0 46px 0 12px;background:#e9e9eb;color:#111;padding:9px 13px;border-radius:18px;font-size:14.5px;line-height:1.35}
+  .bubble a{color:#0a84ff;text-decoration:underline;cursor:pointer}
+  .lp{margin:6px 46px 0 12px;border-radius:16px;overflow:hidden;background:#e9e9eb;cursor:pointer}
+  .lp img{width:100%;height:110px;object-fit:cover;display:block}
+  .lp div{padding:8px 12px 10px}
+  .lp b{display:block;font-size:13px;font-weight:600}
+  .lp small{font-size:12px;color:#8e8e93}
+  .opening{background:#fff;font-family:-apple-system,var(--sans);display:flex;flex-direction:column;align-items:center}
+  .urlbar{margin-top:56px;width:86%;background:#f0f0f2;border-radius:12px;padding:9px;text-align:center;font-size:13px;color:#333}
+  .spin{margin-top:180px;width:26px;height:26px;border-radius:50%;border:2px solid #ddd;border-top-color:#111;animation:sp 0.8s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .opening p{margin-top:14px;font-size:13px;color:#666}
+  .toast{position:fixed;left:50%;top:26px;transform:translate(-50%,-20px);z-index:7;background:var(--ivory);color:var(--ink);padding:12px 20px;font-size:14px;box-shadow:0 20px 40px -20px rgba(0,0,0,.6);opacity:0;transition:all .5s ease;pointer-events:none}
+  .toast.up{opacity:1;transform:translate(-50%,0)}
+  @media (max-width:760px){ .hright{gap:14px} .phonewrap{right:50%;transform:translate(50%,-50%) translateY(110vh) scale(.82)} .phonewrap.up{transform:translate(50%,-50%) scale(.82)} }
+  .hide{display:none!important}
+
+  /* ---------- Mobile ---------- */
+  @media (max-width:760px){
+    header{padding:20px 20px}
+    .logo{height:19px}
+    .private span{display:none}
+    .tracker{gap:5px;width:calc(100% - 40px)}
+    .tracker span{display:none}
+    main{padding:22px 12px 24px}
+    .card{padding:32px 22px 26px}
+    .card h1{font-size:36px}
+    .eyebrow{margin:-14px -6px 14px 0;font-size:12px}
+    .row,.grid{grid-template-columns:1fr}
+    .grid.clubs{grid-template-columns:1fr 1fr}
+    .club strong{font-size:20px}
+    .club{padding:12px 14px}
+    .btn.ghost{width:96px}
+    .price b{font-size:68px}
+    .facts{flex-direction:column;gap:12px;margin-top:34px}
+    .intro{padding-bottom:40px}
+  }
+</style>
+</head>
+<body>
+
+<div class="backdrop" id="backdrop">
+  <video data-k="door" autoplay muted loop playsinline src="https://cdn.prod.website-files.com/691a56a26182cc58941e9b93%2F693b67b5179c213cd4aa111e_Saint%20Haven%20-%20Front%20Door%20Loop%20-%2001_prob4_16x9_1920x1080-optim_mp4.mp4"></video>
+  <img data-k="corridor" src="img/corridor.jpg" alt="">
+  <img data-k="bar" src="img/bar.jpg" alt="">
+  <img data-k="pool" src="img/pool.jpg" alt="">
+  <img data-k="lounge" src="img/lounge.jpg" alt="">
+  <img data-k="bath" src="img/bath.jpg" alt="">
+  <img data-k="clubfilm" src="https://cdn.prod.website-files.com/691a56a26182cc58941e9b93/69c087956b8c9a679379f99e_bg-img-02.avif" alt="">
+</div>
+<div class="clubcap" id="clubcap"><small>Your club</small><b id="clubcapName"></b><span>▶&nbsp; Club film plays here (placeholder footage)</span></div>
+<div class="veil" id="veil"></div>
+<div class="phonewrap" id="phonewrap">
+  <p class="phonecap">Simulated. In the live build this text arrives 1 hour after they leave.</p>
+  <div class="phone-dev" id="phone">
+    <div class="island"></div>
+    <div class="scr lock show" id="scrLock">
+      <img src="img/corridor.jpg" alt="">
+      <div class="lk-time" id="lkTime">9:41</div>
+      <div class="lk-date" id="lkDate">Friday 6 November</div>
+      <button class="notif" id="notif">
+        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M12 3C6.5 3 2 6.7 2 11.2c0 2.6 1.5 4.9 3.8 6.4L5 21l4-2.1c.9.2 1.9.3 3 .3 5.5 0 10-3.7 10-8.2S17.5 3 12 3z"/></svg></span>
+        <span class="nt"><b>SaintHaven</b><em>now</em><span id="notifText"></span></span>
+      </button>
+    </div>
+    <div class="scr thread" id="scrThread">
+      <div class="th-top"><span class="chev">‹</span><span class="av">SH</span><b>SaintHaven</b></div>
+      <p class="th-date">Text Message · Today <span id="thTime"></span></p>
+      <div class="bubble" id="bubble"></div>
+      <div class="lp" id="linkPreview"><img src="img/bar.jpg" alt=""><div><b>Finish your application</b><small>sainthaven.com.au</small></div></div>
+    </div>
+    <div class="scr opening" id="scrOpen">
+      <div class="urlbar">🔒 sainthaven.com.au</div>
+      <div class="spin"></div>
+      <p>Restoring your application…</p>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<div class="page">
+  <header>
+    <img class="logo" src="https://cdn.prod.website-files.com/691a56a26182cc58941e9b93/69bcde1087407558797f75e1_logo.svg" alt="Saint Haven Private Club">
+    <div class="hright">
+      <button class="savelater hide" id="saveLater">Save and finish later</button>
+    </div>
+  </header>
+
+  <div class="tracker" id="tracker"></div>
+  <main id="main"></main>
+  <footer id="footer"><p id="foot"></p></footer>
+</div>
+
+<script>
+const ICON = {
+  arrow:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h16M14 6l6 6-6 6"/></svg>',
+  check:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+  star:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></svg>',
+  lock:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="11" width="16" height="10" rx="1"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
+  clock:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+  save:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></svg>',
+  people:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14.5c2.4 0 4.1 1.6 4.6 4.5"/></svg>',
+};
+const STAGES = ["About you","Your club","Lifestyle","Background"];
+const S = { first:"", last:"", mobile:"", email:"", club:null, postcode:"", how:new Set(), freq:null, role:"", jobtitle:"", company:"", industry:"", came:null, member:"", other:new Set(), mkt:false };
+const TOTAL = 6;
+
+const tiles = (key, opts, multi) => opts.map(o=>{
+  const on = multi ? S[key].has(o) : S[key]===o;
+  return `<button class="tile ${multi?'':'radio'} ${on?'sel':''}" data-${multi?'multi':'one'}="${key}" data-v="${o}">${o}<span class="box"></span></button>`;
+}).join("");
+const club = (n)=>`<button class="tile radio club ${S.club===n?'sel':''}" data-one="club" data-v="${n}"><strong>${n}</strong><span class="box"></span></button>`;
+const field = (f, label, attrs="") => `<div><label class="l">${label}</label><input class="in" data-f="${f}" value="${S[f]}" ${attrs}></div>`;
+const select = (f, label, opts) => `<div><label class="l">${label}</label><select class="in" data-f="${f}"><option value="">Select</option>${opts.map(o=>`<option ${S[f]===o?"selected":""}>${o}</option>`).join("")}</select></div>`;
+const emailOk = ()=>/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(S.email);
+
+/* auto: what triggers the move to the next screen
+   - "enter": last text field confirmed (Enter or leaving the field)
+   - "pick":  single choice tapped
+   - "digits": postcode complete
+   - "select": last dropdown chosen
+   - null: final screen, explicit submit */
+const screens = [
+  null,
+  { stage:0, img:"corridor", auto:"enter", title:"Let's begin with you.", lead:"Your application is saved from this point, so you can return to it at any time.",
+    body:()=>`
+      <div class="row">${field("first","First name",'autocomplete="given-name" placeholder="First name"')}${field("last","Last name",'autocomplete="family-name" placeholder="Last name"')}</div>
+      <div><label class="l">Mobile</label><div class="phone"><span class="cc">+61</span><input class="in" data-f="mobile" value="${S.mobile}" type="tel" placeholder="400 000 000"></div></div>
+      ${field("email","Email",'type="email" placeholder="you@example.com" data-last')}`,
+    ok:()=>S.first&&S.last&&S.mobile.replace(/\D/g,"").length>=9&&emailOk() },
+  { stage:1, img:"bar", auto:"pick", title:"Which club would you call home?", lead:"Your application is reviewed by this club's Membership Committee.",
+    body:()=>`
+      <p class="city">Melbourne</p>
+      <div class="grid clubs">${["South Melbourne","South Yarra","Toorak","St Kilda","Collingwood"].map(club).join("")}</div>
+      <p class="city">Sydney</p>
+      <div class="grid clubs">${["North Sydney","Bondi","Mosman"].map(club).join("")}</div>
+      <div class="grid"><button class="tile radio club wide ${S.club==='Not sure yet'?'sel':''}" data-one="club" data-v="Not sure yet"><strong>Not sure yet, help me choose</strong><span class="box"></span></button></div>`,
+    ok:()=>!!S.club },
+  { stage:1, img:"bar", auto:"digits", title:"Where are you based?", lead:"So we can tell you how close you are to your club.",
+    body:()=>`<div style="max-width:280px">${field("postcode","Home postcode",'inputmode="numeric" maxlength="4" placeholder="e.g. 3205" data-last')}</div>`,
+    ok:()=>/^\d{4}$/.test(S.postcode) },
+  { stage:2, img:"pool", auto:"pick", pickKey:"freq", title:"How would you use Saint Haven?", lead:"Select all that apply.",
+    body:()=>`
+      <div class="grid">${tiles("how",["Bathhouse and recovery","Longevity and health testing","Training and movement","Dining and nourishment","Members' events","Working from the club"],true)}</div>
+      <div><label class="l">How often would you visit?</label>
+      <div class="grid">${tiles("freq",["4 or more times a week","2–3 times a week","Once a week","Not sure yet"])}</div></div>`,
+    ok:()=>S.how.size>0 && !!S.freq },
+  { stage:3, img:"lounge", auto:"select", title:"What do you do?", lead:"This helps the committee get to know you.",
+    body:()=>`
+      ${select("role","Which best describes your role?",["Founder or owner","Executive or C-suite","Director or senior manager","Professional (medical, legal, finance)","Manager","Creative or freelance","Other"])}
+      <div class="row">${field("jobtitle","Job title",'placeholder="e.g. Managing Director"')}${field("company","Company",'placeholder="Company name"')}</div>
+      ${select("industry","Industry",["Finance and investment","Property","Health and medicine","Law","Technology","Creative and media","Hospitality","Other"])}`,
+    ok:()=>S.role&&S.jobtitle&&S.company&&S.industry },
+  { stage:3, img:"lounge", auto:null, title:"How did you hear about us?", lead:"",
+    body:()=>`
+      ${S.invite?`<div class="note">${ICON.star}<span>You were invited by a member with code <b>${S.invite}</b>. Their introduction is already noted.</span></div>`:`<div class="note">${ICON.star}<span>Applicants introduced by a member receive privileges we don't publish.</span></div>`}
+      <div class="grid">${tiles("came",["Introduced by a member","A friend or colleague","Instagram or social media","Google search","Press","Other"])}</div>
+      ${S.came==="Introduced by a member"&&!S.invite?`<div class="in-anim">${field("member","Member's full name",'placeholder="Who introduced you?"')}</div>`:""}
+      <div><label class="l">Are you a member anywhere else? <em>(optional)</em></label>
+      <div class="grid">${tiles("other",["Private members' club","Premium gym or health club","Standard gym","None"],true)}</div></div>
+      <div class="consent">
+        <button class="mini ${S.mkt?'sel':''}" data-mkt><span class="box"></span>Keep me updated with news and invitations from Saint Haven.</button>
+        <p>By submitting, you confirm you're 21 or over and agree to our <u>Privacy Policy</u>.</p>
+      </div>`,
+    ok:()=>!!S.came && (S.came!=="Introduced by a member" || !!S.member), cta:"Submit application" },
+];
+
+let cur = 0, timer = null;
+const Q = new URLSearchParams(location.search);
+const OPT = new Set((Q.get("opt")||"").split(",").filter(Boolean));
+const DEFAULT = new Set(["club","name","founder","parallax","loading"]); // options 1, 3, 5, 7 are part of the design
+const has = k => OPT.has("all") || DEFAULT.has(k) || OPT.has(k);
+if(Q.get("first")) S.first = Q.get("first");
+if(Q.get("club")) S.club = Q.get("club");
+if(Q.get("email")) S.email = Q.get("email");
+const realClub = () => S.club && S.club!=="Not sure yet" ? S.club : null;
+const $ = s=>document.querySelector(s);
+
+function backdrop(k){ document.querySelectorAll("#backdrop [data-k]").forEach(e=>e.classList.toggle("show", e.dataset.k===k)); }
+
+function tracker(stage, fill){
+  $("#tracker").innerHTML = STAGES.map((name,i)=>{
+    const p = i<stage ? 1 : i===stage ? fill : 0;
+    const cls = i<stage ? "done" : i===stage ? "on" : "";
+    return `<div class="${cls}"><i style="--p:${p}"></i><span>${name}</span></div>`;
+  }).join("");
+}
+
+let savedAt = null;
+function exitFlow(){
+  clearTimeout(timer);
+  savedAt = cur;
+  $("#saveLater").classList.add("hide");
+  $("#tracker").classList.add("hide");
+  $("#footer").classList.add("hide");
+  $("#clubcap").classList.remove("show");
+  backdrop("door");
+  const left = TOTAL - savedAt + 1;
+  $("#main").innerHTML = `
+    <div class="card saved in-anim">
+      <h1>Your application is saved.</h1>
+      <p class="lead">We've kept your answers. We'll send a link to your mobile so you can finish whenever suits.</p>
+      <div class="rows">
+        <div><span>Questions left</span><b>${left} of ${TOTAL}</b></div>
+        <div><span>Time to finish</span><b>About 2 minutes</b></div>
+      </div>
+      <div class="actions"><button class="btn ghost" style="width:auto;padding:0 22px;flex:1" id="backIn">Return to my application</button></div>
+    </div>`;
+  $("#backIn").onclick=()=>{ hidePhone(); go(savedAt); };
+  setTimeout(()=>{ if(savedAt!==null) showPhone(); }, 3500);
+}
+function smsText(){
+  const name = S.first || "Charlotte";
+  return `${name}, you're about 2 minutes from completing your Saint Haven application. Pick up where you left off: <a id="smsLink">sainthaven.com.au/apply/SH0417</a><br><br>Reply STOP to opt out.`;
+}
+function showPhone(){
+  const now = new Date();
+  const t = now.toLocaleTimeString("en-AU",{hour:"numeric",minute:"2-digit"}).replace(/\s?[ap]m/i,"");
+  $("#lkTime").textContent = t; $("#thTime").textContent = t;
+  $("#lkDate").textContent = now.toLocaleDateString("en-AU",{weekday:"long",day:"numeric",month:"long"});
+  $("#notifText").innerHTML = smsText().replace(/<a[^>]*>|<\/a>/g,"").replace(/<br><br>.*$/,"");
+  $("#bubble").innerHTML = smsText();
+  ["#scrThread","#scrOpen"].forEach(id=>$(id).classList.remove("show")); $("#scrLock").classList.add("show");
+  $("#notif").classList.remove("up");
+  $("#phonewrap").classList.add("up");
+  setTimeout(()=>{ $("#notif").classList.add("up"); $("#phonewrap").classList.add("buzz"); setTimeout(()=>$("#phonewrap").classList.remove("buzz"),1100); }, 1100);
+  $("#notif").onclick=()=>{ $("#scrLock").classList.remove("show"); $("#scrThread").classList.add("show");
+    const resume=()=>{ $("#scrThread").classList.remove("show"); $("#scrOpen").classList.add("show"); setTimeout(resumeFlow, 1600); };
+    $("#smsLink").onclick=resume; $("#linkPreview").onclick=resume; };
+}
+function hidePhone(){ $("#phonewrap").classList.remove("up"); }
+function resumeFlow(){
+  hidePhone();
+  const n = savedAt; savedAt = null;
+  go(n);
+  const t=$("#toast"); t.textContent = `Welcome back${S.first?`, ${S.first}`:""}. Your answers are just as you left them.`;
+  t.classList.add("up"); setTimeout(()=>t.classList.remove("up"), 3600);
+}
+$("#saveLater").onclick = exitFlow;
+
+function go(n){
+  clearTimeout(timer);
+  if(n===TOTAL+1 && cur===TOTAL && has("loading")){ return preparing(); }
+  render(n);
+}
+function preparing(){
+  const c = realClub() || "Saint Haven";
+  $("#main").innerHTML = `<div class="card in-anim"><div class="preparing"><h1>Sending your application to the ${c} Membership Committee</h1><div class="line"></div></div></div>`;
+  $("#footer").classList.add("hide");
+  setTimeout(()=>render(TOTAL+1), 2100);
+}
+function doorOpen(){
+  const v = document.querySelector('#backdrop [data-k="door"]');
+  document.querySelector(".intro").classList.add("leaving");
+  v.style.transition = "transform 2.2s cubic-bezier(.55,0,.15,1)";
+  v.style.transformOrigin = "50% 52%";
+  v.style.transform = "scale(3.4)";
+  setTimeout(()=>$("#veil").classList.add("on"), 1500);
+  setTimeout(()=>{ go(1); setTimeout(()=>{ $("#veil").classList.remove("on"); v.style.transition=""; v.style.transform=""; }, 120); }, 2200);
+}
+function inviteHTML(){
+  if(S.invite) return `<span class="ok">${ICON.check.replace('width="22" height="22"','width="16" height="16"')}Invitation ${S.invite} accepted. Your introduction is noted.</span>`;
+  if(S.inviteOpen) return `<form id="inviteForm"><input id="inviteCode" placeholder="Invitation code" maxlength="10" autocomplete="off"><button type="submit">Apply</button></form>`;
+  return `Received an invitation? <button id="inviteOpen">Enter your code</button>`;
+}
+function bindInvite(){
+  const box = $("#invite"); if(!box) return;
+  const o=$("#inviteOpen"); if(o) o.onclick=()=>{ S.inviteOpen=true; box.innerHTML=inviteHTML(); bindInvite(); $("#inviteCode").focus(); };
+  const f=$("#inviteForm"); if(f) f.onsubmit=e=>{ e.preventDefault(); const v=$("#inviteCode").value.trim().toUpperCase(); if(!v) return;
+    S.invite=v; S.came="Introduced by a member"; S.member="Invitation "+v; box.innerHTML=inviteHTML(); };
+}
+if(Q.get("invite")==="open") S.inviteOpen=true;
+if(has("parallax")) addEventListener("mousemove", e=>{
+  const x=(e.clientX/innerWidth-.5), y=(e.clientY/innerHeight-.5), b=$("#backdrop");
+  b.style.setProperty("--px", (-x*22)+"px"); b.style.setProperty("--py", (-y*14)+"px"); b.style.setProperty("--bs", 1.05);
+});
+function advanceSoon(){ clearTimeout(timer); timer = setTimeout(()=>{ if(screens[cur] && screens[cur].ok()) render(cur+1); }, 480); }
+
+function render(n){
+  cur = n;
+  history.replaceState(null,"","#"+n);
+  window.scrollTo(0,0);
+  $("#tracker").classList.toggle("hide", n===0);
+  $("#clubcap").classList.remove("show");
+  $("#saveLater").classList.toggle("hide", !(typeof n==="number" && n>=2 && n<=TOTAL));
+  $("#footer").classList.add("hide");
+
+  if(n===0){
+    backdrop("door");
+    $("#main").style.padding="0"; $("#main").style.alignItems="stretch";
+    $("#main").innerHTML = `
+      <section class="intro">
+        <h1 class="in-anim">Membership is by application.</h1>
+        <p class="lead in-anim">Every application is read by our Membership Committee. Tell us a little about yourself, and we'll be in touch.</p>
+        <button class="btn light in-anim" id="start">Begin your application ${ICON.arrow}</button>
+        ${has("invite")?`<div class="invite in-anim" id="invite">${inviteHTML()}</div>`:""}
+        <div class="facts in-anim">
+          <span>${ICON.clock}About 2 minutes</span>
+          <span>${ICON.save}Saved as you go</span>
+          <span>${ICON.people}A decision within 3–5 business days</span>
+        </div>
+      </section>`;
+    $("#start").onclick=()=>{ if(has("door")) doorOpen(); else go(1); };
+    bindInvite();
+    return;
+  }
+  $("#main").style.padding=""; $("#main").style.alignItems="";
+
+  if(n===TOTAL+1){
+    $("#clubcap").classList.remove("show");
+    backdrop("pool");
+    tracker(STAGES.length,1);
+    const c = S.club && S.club!=="Not sure yet" ? S.club : "South Melbourne";
+    $("#main").innerHTML = `
+      <div class="card in-anim">
+        <div class="tick">${ICON.check}</div>
+        <h1>Thank you${S.first?`, ${S.first}`:""}.<br>Your application is in.</h1>
+        <p class="lead">It's now with the ${c} Membership Committee. A confirmation is on its way to ${S.email||"your inbox"}.</p>
+        ${has("wallet")?`
+        <div class="pass">
+          <div class="top"><img src="https://cdn.prod.website-files.com/691a56a26182cc58941e9b93/69bcde1087407558797f75e1_logo.svg" alt=""><span>Membership application</span></div>
+          <div class="cells"><div><small>Applicant</small><b>${S.first||"Charlotte"} ${S.last||"Ashby"}</b></div><div><small>Club</small><b>${c}</b></div><div><small>Reference</small><b>SH-0417</b></div></div>
+          <div class="status"><i></i>With the Membership Committee · updates live</div>
+        </div>
+        <button class="walletbtn">Add to Apple Wallet or Google Wallet</button>`:`<div class="ref"><span>Application reference</span><b>SH-0417</b></div>`}
+        ${has("founder")?`
+        <div class="founder">
+          <div class="vid"><img src="img/corridor.jpg" alt=""><i><svg width="34" height="34" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></i><em>0:20</em></div>
+          <div><p class="q">"[A short personal welcome from the founder, two or three lines, to come from Saint Haven.]"</p><p class="sig">[Founder name], Founder, Saint Haven</p></div>
+        </div>`:""}
+        <div class="tl">
+          <h2>What happens next</h2>
+          <div class="now"><span class="n">1</span><p>Committee review<small>You'll hear from us within 3–5 business days.</small></p></div>
+          <div><span class="n">2</span><p>A call from your club manager<small>To arrange your private tour.</small></p></div>
+          <div><span class="n">3</span><p>Your private tour<small>See ${c} in person.</small></p></div>
+          <div><span class="n">4</span><p>Secure your place<small>A holding fee adds you to the waitlist.</small></p></div>
+          <div><span class="n">5</span><p>Membership begins<small>Three months after your holding fee.</small></p></div>
+        </div>
+      </div>`;
+    return;
+  }
+
+  const sc = screens[n];
+  const clubMode = has("club") && realClub() && n>=3;
+  backdrop(clubMode ? "clubfilm" : sc.img);
+  if(clubMode){ $("#clubcapName").textContent = realClub(); }
+  $("#clubcap").classList.toggle("show", !!clubMode);
+  let title = sc.title, lead = sc.lead;
+  if(has("name") && S.first && n>=2) title = `${S.first}, ${title[0].toLowerCase()+title.slice(1)}`;
+  if(clubMode) lead = lead.replace("your club", realClub());
+  const inStage = screens.filter(s=>s&&s.stage===sc.stage);
+  tracker(sc.stage, (inStage.indexOf(sc)+1)/(inStage.length+1));
+  const mins = Math.max(1, Math.round((TOTAL+1-n)*0.35));
+  // Continue only shows on the first screen and the final submit, or as a fallback once a screen is complete
+  const showNext = true;
+  $("#main").innerHTML = `
+    <div class="card in-anim">
+      <div class="eyebrow">${ICON.clock}<span>${n===TOTAL ? "Last question" : `About ${mins} minute${mins>1?"s":""} left`}</span></div>
+      <h1>${title}</h1>
+      ${lead?`<p class="lead">${lead}</p>`:""}
+      <div class="body">${sc.body()}</div>
+      <div class="actions">
+        ${n>1?`<button class="btn ghost" id="back">Back</button>`:""}
+        ${showNext?`<button class="btn primary" id="next" ${sc.ok()?"":"disabled"}>${sc.cta||"Continue"} ${ICON.arrow}</button>`:""}
+      </div>
+      <p class="fineprint">${ICON.lock}Private and confidential</p>
+    </div>`;
+
+  bind();
+}
+
+function refresh(){ const y=scrollY, a=document.activeElement, f=a&&a.dataset?a.dataset.f:null, pos=a&&a.selectionStart;
+  render(cur); scrollTo(0,y); document.querySelectorAll(".in-anim").forEach(e=>e.style.animation="none");
+  if(f){ const el=document.querySelector(`[data-f="${f}"]`); if(el){ el.focus(); try{el.setSelectionRange(pos,pos)}catch(e){} } } }
+
+function updateNext(){ const nx=$("#next"); if(nx) nx.disabled=!screens[cur].ok(); }
+
+function bind(){
+  const sc = screens[cur];
+  const nx=$("#next"), bk=$("#back");
+  if(nx) nx.onclick=()=>go(cur+1);
+  if(bk) bk.onclick=()=>go(cur-1);
+
+  document.querySelectorAll("[data-one]").forEach(b=>b.onclick=()=>{
+    const key=b.dataset.one; S[key]=b.dataset.v; refresh();
+    const trigger = sc.auto==="pick" && (!sc.pickKey || sc.pickKey===key);
+    if(trigger && sc.ok()) advanceSoon();
+  });
+  document.querySelectorAll("[data-multi]").forEach(b=>b.onclick=()=>{ const set=S[b.dataset.multi], v=b.dataset.v;
+    if(v==="None"){ const had=set.has(v); set.clear(); if(!had) set.add(v);} else { set.delete("None"); set.has(v)?set.delete(v):set.add(v);} refresh(); });
+  const mk=document.querySelector("[data-mkt]"); if(mk) mk.onclick=()=>{ S.mkt=!S.mkt; refresh(); };
+
+  document.querySelectorAll("input[data-f]").forEach(el=>{
+    el.oninput=()=>{ let v=el.value; if(el.dataset.f==="postcode"){ v=v.replace(/\D/g,"").slice(0,4); el.value=v; }
+      S[el.dataset.f]=v; updateNext();
+      if(sc.auto==="digits" && sc.ok()) advanceSoon(); };
+    if(el.hasAttribute("data-last") && sc.auto==="enter"){
+      el.onkeydown=e=>{ if(e.key==="Enter" && sc.ok()) go(cur+1); };
+      el.onchange=()=>{ if(sc.ok()) advanceSoon(); };
+    }
+    if(el.dataset.f==="member") el.oninput=()=>{ S.member=el.value; updateNext(); };
+  });
+  document.querySelectorAll("select[data-f]").forEach(el=>el.onchange=()=>{
+    S[el.dataset.f]=el.value; updateNext();
+    if(sc.auto==="select" && el.dataset.f==="industry" && sc.ok()) advanceSoon();
+    else if(sc.ok() && !$("#next")) refresh();
+  });
+  // text fields on the work screen: if industry was already chosen, finishing the last text field moves on
+  if(sc.auto==="select") document.querySelectorAll("input[data-f]").forEach(el=>el.onchange=()=>{ if(sc.ok()) advanceSoon(); });
+}
+
+// Review shortcuts: #0 intro, #1–#6 questions, #7 submitted.
+render(Math.min(TOTAL+1,Math.max(0,parseInt(location.hash.slice(1))||0)));
+addEventListener("hashchange",()=>{ const n=parseInt(location.hash.slice(1))||0; if(n!==cur) go(n); });
+</script>
+</body>
+</html>

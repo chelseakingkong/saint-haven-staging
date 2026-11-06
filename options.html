@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Saint Haven · Premium options</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#141414;--mute:#7a746c;--line:#e2dcd2;--ivory:#fbf9f5;--sand:#f3efe8;--serif:"Instrument Serif",Georgia,serif;--sans:"Archivo",Arial,sans-serif}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:var(--sans);color:#2a2826;background:var(--sand);-webkit-font-smoothing:antialiased;line-height:1.5}
+  header{background:#0e0c0a;color:#fff;padding:28px 48px 56px}
+  header img{height:22px;filter:invert(1)}
+  header h1{font-family:var(--serif);font-weight:400;font-size:56px;line-height:1;margin-top:48px}
+  header p{color:rgba(255,255,255,.75);max-width:620px;margin-top:14px;font-size:16px}
+  header a{display:inline-block;margin-top:24px;color:#fff;font-size:14px;font-weight:500;text-decoration:underline;text-underline-offset:4px}
+  main{max-width:1240px;margin:0 auto;padding:48px 32px 80px;display:grid;grid-template-columns:1fr 1fr;gap:28px}
+  .opt{background:var(--ivory);border:1px solid var(--line);display:flex;flex-direction:column}
+  .frame{position:relative;aspect-ratio:16/10;overflow:hidden;background:#0e0c0a}
+  .frame iframe{position:absolute;top:0;left:0;width:1440px;height:900px;border:0;transform-origin:0 0}
+  .info{padding:24px 26px 26px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .num{font-size:13px;color:var(--mute);display:flex;justify-content:space-between}
+  .num b{font-weight:500;color:var(--ink)}
+  h2{font-family:var(--serif);font-weight:400;font-size:30px;line-height:1.05;color:var(--ink)}
+  .info p{font-size:15px}
+  .try{font-size:14px;color:var(--mute)}
+  .need{font-size:14px;color:var(--mute);border-top:1px solid var(--line);padding-top:12px;margin-top:auto}
+  .need b{color:var(--ink);font-weight:500}
+  .open{align-self:flex-start;margin-top:6px;height:46px;padding:0 20px;display:inline-flex;align-items:center;background:var(--ink);color:#fff;font-size:14px;font-weight:500;text-decoration:none}
+  @media (max-width:900px){main{grid-template-columns:1fr;padding:24px 14px 60px}header{padding:24px 20px 40px}header h1{font-size:40px}}
+</style>
+</head>
+<body>
+<header>
+  <img src="https://cdn.prod.website-files.com/691a56a26182cc58941e9b93/69bcde1087407558797f75e1_logo.svg" alt="Saint Haven">
+  <h1>Premium options for the application</h1>
+  <p>Each preview below is live, so you can click inside it. Open any option full screen to try it properly. The first three are the ones I'd recommend doing together.</p>
+  <a href="index.html?opt=all#0">See every option together, full screen →</a>
+</header>
+
+<main id="grid"></main>
+
+<script>
+const OPTIONS = [
+  { key:"club", rec:true, title:"Your club, on screen",
+    what:"Once someone picks a club, the background changes to that club's own film, its name sits in the corner, and the rest of the application names it: \"Applying to South Melbourne\", \"how close you are to South Melbourne\".",
+    try:"Preview shows question 3 after choosing South Melbourne.",
+    need:"A 10–20 second loop of each club. The preview uses a photo from the website as a stand-in.",
+    src:"index.html?opt=club&club=South%20Melbourne#3" },
+  { key:"door", rec:true, title:"The door opens",
+    what:"Clicking \"Begin your application\" pushes the camera through the front door before the first question appears, so starting the application feels like arriving.",
+    try:"Click \"Begin your application\" in the preview.",
+    need:"Nothing new for the mockup. For launch, ideally a short clip of the door opening.",
+    src:"index.html?opt=door#0" },
+  { key:"name", rec:true, title:"Spoken to by name",
+    what:"After the first screen, every heading uses their first name: \"Charlotte, which club would you call home?\" It's simple, and it makes the form feel attended to rather than processed.",
+    try:"Preview shows question 2 for an applicant called Charlotte.",
+    need:"Nothing. This is a build detail.",
+    src:"index.html?opt=name&first=Charlotte#2" },
+  { key:"invite", title:"Invitation code",
+    what:"A quiet \"Received an invitation?\" link on the welcome screen. Members' guests enter a code, and their introduction is recorded automatically and scored as a member referral.",
+    try:"Type any code in the preview and press Apply.",
+    need:"Codes for members to share, which HubSpot can generate per member.",
+    src:"index.html?opt=invite&invite=open#0" },
+  { key:"founder", title:"A welcome from the founder",
+    what:"On the thank-you screen, a 20-second welcome from the founder with a short signed note. The audit found founder and member stories are barely used, yet they perform.",
+    try:"Preview shows the thank-you screen.",
+    need:"A short founder clip and two or three lines of their words.",
+    src:"index.html?opt=founder&first=Charlotte&club=South%20Melbourne#7" },
+  { key:"wallet", title:"Application pass in their Wallet",
+    what:"The thank-you screen offers an Apple or Google Wallet pass showing their club, reference and live status. It stays on their phone through review and the three-month wait, which is where interest fades.",
+    try:"Preview shows the pass on the thank-you screen.",
+    need:"A Wallet pass service connected to HubSpot stages.",
+    src:"index.html?opt=wallet&first=Charlotte&club=South%20Melbourne#7" },
+  { key:"motion", title:"Small motion details",
+    what:"The background drifts gently as the cursor moves, and submitting shows a brief \"Sending your application to the South Melbourne Membership Committee\" moment before the thank-you screen.",
+    try:"Move your cursor over the preview, then pick a source and press Submit.",
+    need:"Nothing. These are build details.",
+    src:"index.html?opt=parallax,loading&first=Charlotte&club=South%20Melbourne#6" },
+];
+
+document.getElementById("grid").innerHTML = OPTIONS.map((o,i)=>`
+  <article class="opt">
+    <div class="frame"><iframe src="${o.src}" loading="lazy" title="${o.title}"></iframe></div>
+    <div class="info">
+      <div class="num"><span>Option ${i+1}</span>${o.rec?"<b>Recommended</b>":""}</div>
+      <h2>${o.title}</h2>
+      <p>${o.what}</p>
+      <p class="try">${o.try}</p>
+      <p class="need"><b>Needed from Saint Haven:</b> ${o.need}</p>
+      <a class="open" href="${o.src.replace("#","&full=1#")}">Open full screen</a>
+    </div>
+  </article>`).join("");
+
+function fit(){ document.querySelectorAll(".frame").forEach(f=>{ f.querySelector("iframe").style.transform=`scale(${f.clientWidth/1440})`; }); }
+addEventListener("resize", fit); fit();
+</script>
+</body>
+</html>

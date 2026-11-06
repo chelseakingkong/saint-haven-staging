@@ -136,6 +136,9 @@
   .intro p.lead{font-size:17px;font-weight:300;color:rgba(255,255,255,.85);max-width:430px;margin:26px auto 40px;line-height:1.55}
   .facts{display:flex;gap:34px;margin-top:44px;font-size:13px;color:rgba(255,255,255,.75)}
   .facts span{display:flex;align-items:center;gap:9px}
+  .facts em{font-style:normal}
+  .facts .short{display:none}
+  br.mb{display:none}
 
   /* ---------- Submitted ---------- */
   .tick{width:56px;height:56px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;margin-bottom:26px}
@@ -266,7 +269,19 @@
     .club{padding:12px 14px}
     .btn.ghost{width:96px}
     .price b{font-size:68px}
-    .facts{flex-direction:column;gap:12px;margin-top:34px}
+    /* Mobile welcome: door framed above, content anchored to the bottom */
+    body.is-intro .backdrop video{object-position:50% 30%}
+    body.is-intro .backdrop::after{background:linear-gradient(180deg,rgba(14,12,10,.45) 0%,rgba(14,12,10,.05) 22%,rgba(14,12,10,.15) 42%,rgba(14,12,10,.78) 64%,rgba(14,12,10,.96) 100%)}
+    .intro{justify-content:flex-end;align-items:stretch;text-align:left;padding:0 22px calc(26px + env(safe-area-inset-bottom))}
+    .intro h1{font-size:50px;line-height:.95;max-width:none}
+    .intro p.lead{font-size:15.5px;margin:16px 0 28px;max-width:none;color:rgba(255,255,255,.8)}
+    .intro .lead .more{display:none}
+    .intro .btn.light{width:100%;height:58px;justify-content:space-between;padding:0 22px}
+    .facts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:22px;padding-top:18px;border-top:1px solid rgba(255,255,255,.18)}
+    .facts span{flex-direction:column;align-items:flex-start;gap:8px;font-size:12px;line-height:1.35;color:rgba(255,255,255,.72)}
+    .facts .long{display:none}
+    .facts .short{display:inline}
+    br.mb{display:inline}
     .intro{padding-bottom:40px}
   }
 </style>
@@ -515,6 +530,7 @@ function render(n){
   history.replaceState(null,"","#"+n);
   window.scrollTo(0,0);
   $("#tracker").classList.toggle("hide", n===0);
+  document.body.classList.toggle("is-intro", n===0);
   $("#clubcap").classList.remove("show");
   $("#saveLater").classList.toggle("hide", !(typeof n==="number" && n>=2 && n<=TOTAL));
   $("#footer").classList.add("hide");
@@ -524,14 +540,14 @@ function render(n){
     $("#main").style.padding="0"; $("#main").style.alignItems="stretch";
     $("#main").innerHTML = `
       <section class="intro">
-        <h1 class="in-anim">Membership is by application.</h1>
-        <p class="lead in-anim">Every application is read by our Membership Committee. Tell us a little about yourself, and we'll be in touch.</p>
+        <h1 class="in-anim">Membership is <br class="mb">by application.</h1>
+        <p class="lead in-anim">Every application is read by our Membership Committee.<span class="more"> Tell us a little about yourself, and we'll be in touch.</span></p>
         <button class="btn light in-anim" id="start">Begin your application ${ICON.arrow}</button>
         ${has("invite")?`<div class="invite in-anim" id="invite">${inviteHTML()}</div>`:""}
         <div class="facts in-anim">
-          <span>${ICON.clock}About 2 minutes</span>
-          <span>${ICON.save}Saved as you go</span>
-          <span>${ICON.people}A decision within 3–5 business days</span>
+          <span>${ICON.clock}<em>About 2 minutes</em></span>
+          <span>${ICON.save}<em>Saved as you go</em></span>
+          <span>${ICON.people}<em class="long">A decision within 3–5 business days</em><em class="short">Decision in 3–5 days</em></span>
         </div>
       </section>`;
     $("#start").onclick=()=>{ if(has("door")) doorOpen(); else go(1); };

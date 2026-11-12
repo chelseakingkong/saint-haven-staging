@@ -132,7 +132,7 @@
   /* ---------- Intro ---------- */
   .intro{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;padding:20px 24px 80px}
   .intro .kicker{font-size:14px;color:rgba(255,255,255,.75);margin-bottom:22px}
-  .intro h1{font-family:var(--serif);font-weight:400;font-size:clamp(52px,7vw,104px);line-height:.95;letter-spacing:-.015em;max-width:none}
+  .intro h1{font-family:var(--serif);font-weight:400;font-size:clamp(52px,7vw,104px);line-height:.95;letter-spacing:-.015em;max-width:11ch}
   .intro p.lead{font-size:17px;font-weight:300;color:rgba(255,255,255,.85);max-width:430px;margin:26px auto 40px;line-height:1.55}
   .facts{display:flex;gap:34px;margin-top:44px;font-size:13px;color:rgba(255,255,255,.75)}
   .facts span{display:flex;align-items:center;gap:9px}
@@ -294,7 +294,7 @@ const emailOk = ()=>/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(S.email);
    - null: final screen, explicit submit */
 const screens = [
   null,
-  { stage:0, img:"corridor", auto:"enter", title:"Let's begin with you.", lead:"We'll use these details to keep you updated on your application.",
+  { stage:0, img:"corridor", auto:"enter", title:"Apply To Become A Member", lead:"We'll use these details to keep you updated on your application.",
     body:()=>`
       <div class="row">${field("first","First name",'autocomplete="given-name" placeholder="First name"')}${field("last","Last name",'autocomplete="family-name" placeholder="Last name"')}</div>
       <div><label class="l">Mobile</label><div class="phone"><span class="cc">+61</span><input class="in" data-f="mobile" value="${S.mobile}" type="tel" placeholder="400 000 000"></div></div>
@@ -412,7 +412,7 @@ function render(n){
     $("#main").style.padding="0"; $("#main").style.alignItems="stretch";
     $("#main").innerHTML = `
       <section class="intro">
-        <h1 class="in-anim">Apply To<br>Become A Member</h1>
+        <h1 class="in-anim">Membership is <br class="mb">by application.</h1>
         <p class="lead in-anim">Every application is read by our Membership Committee.<span class="more"> Tell us a little about yourself, and we'll be in touch.</span></p>
         <button class="btn light in-anim" id="start">Begin your application ${ICON.arrow}</button>
         ${has("invite")?`<div class="invite in-anim" id="invite">${inviteHTML()}</div>`:""}

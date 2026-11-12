@@ -37,7 +37,7 @@
   .page{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column}
 
   /* ---------- Header ---------- */
-  header{display:flex;justify-content:space-between;align-items:center;padding:30px 48px}
+  header{display:flex;justify-content:center;align-items:center;padding:30px 48px}
   .logo{height:24px;filter:invert(1)}
   .private{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.78)}
 
@@ -132,7 +132,7 @@
   /* ---------- Intro ---------- */
   .intro{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;padding:20px 24px 80px}
   .intro .kicker{font-size:14px;color:rgba(255,255,255,.75);margin-bottom:22px}
-  .intro h1{font-family:var(--serif);font-weight:400;font-size:clamp(52px,7vw,104px);line-height:.95;letter-spacing:-.015em;max-width:11ch}
+  .intro h1{font-family:var(--serif);font-weight:400;font-size:clamp(52px,7vw,104px);line-height:.95;letter-spacing:-.015em;max-width:none}
   .intro p.lead{font-size:17px;font-weight:300;color:rgba(255,255,255,.85);max-width:430px;margin:26px auto 40px;line-height:1.55}
   .facts{display:flex;gap:34px;margin-top:44px;font-size:13px;color:rgba(255,255,255,.75)}
   .facts span{display:flex;align-items:center;gap:9px}
@@ -202,54 +202,6 @@
   .preparing .line::after{content:"";position:absolute;inset:0;background:var(--ink);transform-origin:left;animation:fill 1.9s cubic-bezier(.6,0,.2,1) forwards}
   @keyframes fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
   @media (max-width:760px){ .clubcap{display:none} .founder{grid-template-columns:96px 1fr} .founder .q{font-size:18px} .pass .cells{grid-template-columns:1fr 1fr} }
-  /* ---------- Save and finish later + simulated SMS ---------- */
-  .hright{display:flex;align-items:center;gap:28px}
-  .savelater{font-size:13px;color:#fff;border-bottom:1px solid rgba(255,255,255,.6);padding-bottom:2px}
-  .savelater:hover{border-color:#fff}
-  .saved{text-align:left}
-  .saved .rows{margin-top:28px;display:grid;gap:10px}
-  .saved .rows div{display:flex;justify-content:space-between;padding:14px 16px;background:var(--sand);font-size:14px}
-  .saved .rows b{font-weight:500;color:var(--ink)}
-  .phonewrap{position:fixed;right:6vw;top:50%;z-index:6;transform:translate(0,-50%) translateY(110vh);transition:transform 1s cubic-bezier(.2,.8,.2,1), visibility 0s linear 1s;visibility:hidden;display:flex;flex-direction:column;align-items:center;gap:14px}
-  .phonewrap.up{transform:translate(0,-50%);visibility:visible;transition:transform 1s cubic-bezier(.2,.8,.2,1), visibility 0s}
-  .phonewrap.buzz .phone-dev{animation:buzz .5s linear 2}
-  @keyframes buzz{0%,100%{transform:translateX(0) rotate(0)}20%{transform:translateX(-3px) rotate(-1deg)}40%{transform:translateX(3px) rotate(1deg)}60%{transform:translateX(-2px)}80%{transform:translateX(2px)}}
-  .phonecap{font-size:12px;color:rgba(255,255,255,.7);max-width:300px;text-align:center}
-  .phone-dev{position:relative;width:300px;height:620px;border-radius:48px;background:#111;padding:11px;box-shadow:0 0 0 2px #3a3a3a,0 50px 90px -30px rgba(0,0,0,.8)}
-  .island{position:absolute;top:22px;left:50%;transform:translateX(-50%);width:92px;height:26px;border-radius:20px;background:#000;z-index:5}
-  .scr{position:absolute;inset:11px;border-radius:38px;overflow:hidden;opacity:0;pointer-events:none;transition:opacity .45s ease}
-  .scr.show{opacity:1;pointer-events:auto}
-  .lock img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.55) blur(1px);transform:scale(1.05)}
-  .lk-time{position:absolute;top:70px;width:100%;text-align:center;color:#fff;font-size:68px;font-weight:300;letter-spacing:-.02em;font-family:-apple-system,"SF Pro Display",var(--sans)}
-  .lk-date{position:absolute;top:58px;width:100%;text-align:center;color:rgba(255,255,255,.85);font-size:15px;font-weight:500;font-family:-apple-system,var(--sans)}
-  .notif{position:absolute;left:10px;right:10px;top:200px;display:flex;gap:10px;align-items:flex-start;text-align:left;padding:12px 13px;border-radius:20px;background:rgba(245,245,245,.78);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);font-family:-apple-system,var(--sans);color:#111;opacity:0;transform:translateY(-16px) scale(.96);transition:opacity .5s ease, transform .6s cubic-bezier(.2,.9,.3,1.2)}
-  .notif.up{opacity:1;transform:none}
-  .notif .ic{flex:none;width:34px;height:34px;border-radius:9px;background:#34c759;display:grid;place-items:center}
-  .notif .nt{font-size:13px;line-height:1.3}
-  .notif .nt b{font-weight:600}
-  .notif .nt em{float:right;font-style:normal;color:#666;font-size:12px}
-  .notif .nt span{display:block;margin-top:2px}
-  .thread{background:#fff;font-family:-apple-system,var(--sans)}
-  .th-top{padding:58px 14px 12px;display:flex;flex-direction:column;align-items:center;gap:4px;border-bottom:1px solid #eee;position:relative;background:#f7f7f7}
-  .th-top .chev{position:absolute;left:14px;top:66px;color:#0a84ff;font-size:30px;line-height:1}
-  .th-top .av{width:44px;height:44px;border-radius:50%;background:#1d1d1d;color:#fff;display:grid;place-items:center;font-size:15px;font-weight:600}
-  .th-top b{font-size:12px;font-weight:500}
-  .th-date{text-align:center;font-size:11px;color:#8e8e93;margin:14px 0 8px}
-  .bubble{margin:0 46px 0 12px;background:#e9e9eb;color:#111;padding:9px 13px;border-radius:18px;font-size:14.5px;line-height:1.35}
-  .bubble a{color:#0a84ff;text-decoration:underline;cursor:pointer}
-  .lp{margin:6px 46px 0 12px;border-radius:16px;overflow:hidden;background:#e9e9eb;cursor:pointer}
-  .lp img{width:100%;height:110px;object-fit:cover;display:block}
-  .lp div{padding:8px 12px 10px}
-  .lp b{display:block;font-size:13px;font-weight:600}
-  .lp small{font-size:12px;color:#8e8e93}
-  .opening{background:#fff;font-family:-apple-system,var(--sans);display:flex;flex-direction:column;align-items:center}
-  .urlbar{margin-top:56px;width:86%;background:#f0f0f2;border-radius:12px;padding:9px;text-align:center;font-size:13px;color:#333}
-  .spin{margin-top:180px;width:26px;height:26px;border-radius:50%;border:2px solid #ddd;border-top-color:#111;animation:sp 0.8s linear infinite}
-  @keyframes sp{to{transform:rotate(360deg)}}
-  .opening p{margin-top:14px;font-size:13px;color:#666}
-  .toast{position:fixed;left:50%;top:26px;transform:translate(-50%,-20px);z-index:7;background:var(--ivory);color:var(--ink);padding:12px 20px;font-size:14px;box-shadow:0 20px 40px -20px rgba(0,0,0,.6);opacity:0;transition:all .5s ease;pointer-events:none}
-  .toast.up{opacity:1;transform:translate(-50%,0)}
-  @media (max-width:760px){ .hright{gap:14px} .phonewrap{right:50%;transform:translate(50%,-50%) translateY(110vh) scale(.82)} .phonewrap.up{transform:translate(50%,-50%) scale(.82)} }
   .hide{display:none!important}
 
   /* ---------- Mobile ---------- */
@@ -299,40 +251,11 @@
 </div>
 <div class="clubcap" id="clubcap"><small>Your club</small><b id="clubcapName"></b><span>▶&nbsp; Club film plays here (placeholder footage)</span></div>
 <div class="veil" id="veil"></div>
-<div class="phonewrap" id="phonewrap">
-  <p class="phonecap">Simulated. In the live build this text arrives 1 hour after they leave.</p>
-  <div class="phone-dev" id="phone">
-    <div class="island"></div>
-    <div class="scr lock show" id="scrLock">
-      <img src="img/corridor.jpg" alt="">
-      <div class="lk-time" id="lkTime">9:41</div>
-      <div class="lk-date" id="lkDate">Friday 6 November</div>
-      <button class="notif" id="notif">
-        <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M12 3C6.5 3 2 6.7 2 11.2c0 2.6 1.5 4.9 3.8 6.4L5 21l4-2.1c.9.2 1.9.3 3 .3 5.5 0 10-3.7 10-8.2S17.5 3 12 3z"/></svg></span>
-        <span class="nt"><b>SaintHaven</b><em>now</em><span id="notifText"></span></span>
-      </button>
-    </div>
-    <div class="scr thread" id="scrThread">
-      <div class="th-top"><span class="chev">‹</span><span class="av">SH</span><b>SaintHaven</b></div>
-      <p class="th-date">Text Message · Today <span id="thTime"></span></p>
-      <div class="bubble" id="bubble"></div>
-      <div class="lp" id="linkPreview"><img src="img/bar.jpg" alt=""><div><b>Finish your application</b><small>sainthaven.com.au</small></div></div>
-    </div>
-    <div class="scr opening" id="scrOpen">
-      <div class="urlbar">🔒 sainthaven.com.au</div>
-      <div class="spin"></div>
-      <p>Restoring your application…</p>
-    </div>
-  </div>
-</div>
-<div class="toast" id="toast"></div>
+
 
 <div class="page">
   <header>
     <img class="logo" src="https://cdn.prod.website-files.com/691a56a26182cc58941e9b93/69bcde1087407558797f75e1_logo.svg" alt="Saint Haven Private Club">
-    <div class="hright">
-      <button class="savelater hide" id="saveLater">Save and finish later</button>
-    </div>
   </header>
 
   <div class="tracker" id="tracker"></div>
@@ -371,7 +294,7 @@ const emailOk = ()=>/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(S.email);
    - null: final screen, explicit submit */
 const screens = [
   null,
-  { stage:0, img:"corridor", auto:"enter", title:"Let's begin with you.", lead:"Your application is saved from this point, so you can return to it at any time.",
+  { stage:0, img:"corridor", auto:"enter", title:"Let's begin with you.", lead:"We'll use these details to keep you updated on your application.",
     body:()=>`
       <div class="row">${field("first","First name",'autocomplete="given-name" placeholder="First name"')}${field("last","Last name",'autocomplete="family-name" placeholder="Last name"')}</div>
       <div><label class="l">Mobile</label><div class="phone"><span class="cc">+61</span><input class="in" data-f="mobile" value="${S.mobile}" type="tel" placeholder="400 000 000"></div></div>
@@ -435,57 +358,7 @@ function tracker(stage, fill){
   }).join("");
 }
 
-let savedAt = null;
-function exitFlow(){
-  clearTimeout(timer);
-  savedAt = cur;
-  $("#saveLater").classList.add("hide");
-  $("#tracker").classList.add("hide");
-  $("#footer").classList.add("hide");
-  $("#clubcap").classList.remove("show");
-  backdrop("door");
-  const left = TOTAL - savedAt + 1;
-  $("#main").innerHTML = `
-    <div class="card saved in-anim">
-      <h1>Your application is saved.</h1>
-      <p class="lead">We've kept your answers. We'll send a link to your mobile so you can finish whenever suits.</p>
-      <div class="rows">
-        <div><span>Questions left</span><b>${left} of ${TOTAL}</b></div>
-        <div><span>Time to finish</span><b>About 2 minutes</b></div>
-      </div>
-      <div class="actions"><button class="btn ghost" style="width:auto;padding:0 22px;flex:1" id="backIn">Return to my application</button></div>
-    </div>`;
-  $("#backIn").onclick=()=>{ hidePhone(); go(savedAt); };
-  setTimeout(()=>{ if(savedAt!==null) showPhone(); }, 3500);
-}
-function smsText(){
-  const name = S.first || "Charlotte";
-  return `${name}, you're about 2 minutes from completing your Saint Haven application. Pick up where you left off: <a id="smsLink">sainthaven.com.au/apply/SH0417</a><br><br>Reply STOP to opt out.`;
-}
-function showPhone(){
-  const now = new Date();
-  const t = now.toLocaleTimeString("en-AU",{hour:"numeric",minute:"2-digit"}).replace(/\s?[ap]m/i,"");
-  $("#lkTime").textContent = t; $("#thTime").textContent = t;
-  $("#lkDate").textContent = now.toLocaleDateString("en-AU",{weekday:"long",day:"numeric",month:"long"});
-  $("#notifText").innerHTML = smsText().replace(/<a[^>]*>|<\/a>/g,"").replace(/<br><br>.*$/,"");
-  $("#bubble").innerHTML = smsText();
-  ["#scrThread","#scrOpen"].forEach(id=>$(id).classList.remove("show")); $("#scrLock").classList.add("show");
-  $("#notif").classList.remove("up");
-  $("#phonewrap").classList.add("up");
-  setTimeout(()=>{ $("#notif").classList.add("up"); $("#phonewrap").classList.add("buzz"); setTimeout(()=>$("#phonewrap").classList.remove("buzz"),1100); }, 1100);
-  $("#notif").onclick=()=>{ $("#scrLock").classList.remove("show"); $("#scrThread").classList.add("show");
-    const resume=()=>{ $("#scrThread").classList.remove("show"); $("#scrOpen").classList.add("show"); setTimeout(resumeFlow, 1600); };
-    $("#smsLink").onclick=resume; $("#linkPreview").onclick=resume; };
-}
-function hidePhone(){ $("#phonewrap").classList.remove("up"); }
-function resumeFlow(){
-  hidePhone();
-  const n = savedAt; savedAt = null;
-  go(n);
-  const t=$("#toast"); t.textContent = `Welcome back${S.first?`, ${S.first}`:""}. Your answers are just as you left them.`;
-  t.classList.add("up"); setTimeout(()=>t.classList.remove("up"), 3600);
-}
-$("#saveLater").onclick = exitFlow;
+
 
 function go(n){
   clearTimeout(timer);
@@ -532,7 +405,6 @@ function render(n){
   $("#tracker").classList.toggle("hide", n===0);
   document.body.classList.toggle("is-intro", n===0);
   $("#clubcap").classList.remove("show");
-  $("#saveLater").classList.toggle("hide", !(typeof n==="number" && n>=2 && n<=TOTAL));
   $("#footer").classList.add("hide");
 
   if(n===0){
@@ -540,13 +412,13 @@ function render(n){
     $("#main").style.padding="0"; $("#main").style.alignItems="stretch";
     $("#main").innerHTML = `
       <section class="intro">
-        <h1 class="in-anim">Membership is <br class="mb">by application.</h1>
+        <h1 class="in-anim">Apply To<br>Become A Member</h1>
         <p class="lead in-anim">Every application is read by our Membership Committee.<span class="more"> Tell us a little about yourself, and we'll be in touch.</span></p>
         <button class="btn light in-anim" id="start">Begin your application ${ICON.arrow}</button>
         ${has("invite")?`<div class="invite in-anim" id="invite">${inviteHTML()}</div>`:""}
         <div class="facts in-anim">
           <span>${ICON.clock}<em>About 2 minutes</em></span>
-          <span>${ICON.save}<em>Saved as you go</em></span>
+          <span>${ICON.save}<em>Six short questions</em></span>
           <span>${ICON.people}<em class="long">A decision within 3–5 business days</em><em class="short">Decision in 3–5 days</em></span>
         </div>
       </section>`;

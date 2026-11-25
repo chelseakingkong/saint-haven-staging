@@ -1,0 +1,1062 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Saint Haven ATF · One Message</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,200..600&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+/* ============ Tokens (names mirror the Saint Haven Figma variables) ============ */
+:root{
+  --sh-neutral-0:#FFFFFF; --sh-neutral-50:#F5F5F5; --sh-neutral-100:#E6E6E6; --sh-neutral-200:#CCCCCC; --sh-neutral-300:#B3B3B3;
+  --sh-neutral-400:#999999; --sh-neutral-600:#595959; --sh-neutral-800:#333333; --sh-neutral-900:#191919; --sh-neutral-950:#0D0D0D; --sh-neutral-1000:#000000;
+  --sh-champagne-500:#B08A5B; --sh-champagne-600:#8C6B46;
+  --surface-canvas:var(--sh-neutral-0); --text-primary:var(--sh-neutral-1000); --text-secondary:var(--sh-neutral-600); --text-muted:var(--sh-neutral-600);
+  --border-subtle:var(--sh-neutral-100); --action-fill:var(--sh-neutral-1000); --action-hover:var(--sh-neutral-900); --action-label:var(--sh-neutral-0);
+  --accent-line:var(--sh-champagne-600);
+  --font-display:"IvyPresto Display","Instrument Serif",Georgia,serif;
+  --font-body:"GT America Extended","Archivo",system-ui,sans-serif;
+  --radius-field:5px; --size-button-height:56px; --button-width:496px;
+  --tracking-caps:.12em;
+  --motion-ease-reveal:cubic-bezier(.65,0,.35,1); --motion-ease-out:cubic-bezier(.22,1,.36,1);
+  --motion-duration-fast:200ms; --motion-duration-line:900ms; --motion-stagger:120ms;
+}
+.theme-dark{
+  --surface-canvas:var(--sh-neutral-950); --text-primary:var(--sh-neutral-0); --text-secondary:var(--sh-neutral-300); --text-muted:var(--sh-neutral-400);
+  --border-subtle:#262626; --action-fill:var(--sh-neutral-0); --action-hover:var(--sh-neutral-100); --action-label:var(--sh-neutral-1000);
+  --accent-line:var(--sh-champagne-500);
+}
+
+/* ============ Presentation chrome ============ */
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-body);font-stretch:112%;font-weight:300;color:#000;background:#fff;-webkit-font-smoothing:antialiased}
+img,video{display:block}
+a{color:inherit}
+.wrap{max-width:1480px;margin:0 auto;padding:0 32px}
+.bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);border-bottom:1px solid #e6e6e6}
+.bar .wrap{display:flex;align-items:center;gap:28px;height:60px}
+.bar .lg{width:120px;height:22px;background:url(img/logo.svg) left center/contain no-repeat;flex:none}
+.bar nav{display:flex;gap:22px;overflow-x:auto;scrollbar-width:none;font-size:14px;font-weight:400}
+.bar nav a{text-decoration:none;color:#595959;white-space:nowrap}
+.bar nav a:hover{color:#000}
+.intro{padding:72px 0 48px;border-bottom:1px solid #e6e6e6}
+.intro .k{font-size:14px;color:#595959;margin-bottom:18px}
+.intro h1{font-family:var(--font-display);font-weight:400;font-size:clamp(44px,5.6vw,72px);line-height:1;letter-spacing:-.01em}
+.intro p.lede{font-size:18px;line-height:1.55;max-width:66ch;margin-top:20px;color:#333}
+.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:36px}
+.rules div{border:1px solid #e6e6e6;padding:20px}
+.rules h4{font-size:14px;font-weight:500;margin-bottom:6px}
+.rules p,.rules li{font-size:14px;line-height:1.55;color:#333}
+.rules ul{padding-left:18px}
+.opt{padding:72px 0 64px;border-bottom:1px solid #e6e6e6}
+.opt-head{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:end;margin-bottom:28px}
+.opt-head .n{font-size:14px;color:#595959;margin-bottom:8px}
+.opt-head h2{font-family:var(--font-display);font-weight:400;font-size:clamp(36px,4.4vw,56px);line-height:1}
+.opt-head p{font-size:17px;line-height:1.55;color:#333}
+.boards{display:grid;grid-template-columns:1fr 300px;gap:24px;align-items:start}
+.board-col .cap{font-size:13px;color:#595959;margin-top:10px}
+.frame{position:relative;overflow:hidden;background:#111;border:1px solid #e6e6e6}
+.artboard{position:absolute;left:0;top:0;transform-origin:0 0;overflow:hidden;container-type:inline-size;container-name:ab}
+.artboard.d{width:1440px;height:810px}
+.artboard.m{width:390px;height:844px}
+.controls{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:center;margin-top:18px;font-size:13px;color:#595959}
+.controls .grp{display:flex;gap:4px;align-items:center}
+.controls .grp span{margin-right:6px}
+.controls button{font:inherit;font-weight:400;font-size:13px;background:none;border:1px solid #ccc;color:#333;padding:5px 10px;cursor:pointer}
+.controls button.on{border-color:#000;background:#000;color:#fff}
+.controls .replay{margin-left:auto;border-color:#000;color:#000}
+.controls .replay:hover{background:#000;color:#fff}
+.note{margin-top:20px;font-size:14px;line-height:1.55;color:#333;max-width:90ch}
+.note b{font-weight:500}
+.foot{padding:72px 0 120px}
+.foot h2{font-family:var(--font-display);font-weight:400;font-size:clamp(34px,4vw,52px);line-height:1;margin-bottom:24px}
+.foot .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.foot .card{border:1px solid #e6e6e6;padding:24px}
+.foot .card.rec{border-color:#000}
+.foot .card h4{font-size:15px;font-weight:500;margin-bottom:8px}
+.foot .card p,.foot .card li{font-size:15px;line-height:1.55;color:#333}
+.foot .card ul{padding-left:18px}
+.foot .card li+li{margin-top:6px}
+@media (max-width:1000px){.boards{grid-template-columns:1fr}.boards .board-col.mob{max-width:320px}.opt-head{grid-template-columns:1fr;gap:12px}.rules,.foot .grid{grid-template-columns:1fr}}
+@media (max-width:560px){.wrap{padding:0 16px}}
+
+/* ============ The hero (SH/Hero · One Message) ============ */
+.sh-hero{position:absolute;inset:0;background:var(--surface-canvas);color:var(--text-primary);overflow:hidden}
+.sh-nav{position:absolute;left:0;right:0;top:0;height:64px;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border-subtle);z-index:5;background:var(--surface-canvas)}
+.sh-logo{width:172px;height:32px;background:url(img/logo.svg) center/contain no-repeat}
+.theme-dark .sh-logo{filter:invert(1)}
+.stack{position:absolute;left:0;right:0;top:64px;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 160px 40px;z-index:3}
+.sh-h{font-family:var(--font-display);font-weight:400;text-transform:uppercase;letter-spacing:.005em;line-height:1.02;color:var(--text-primary);background:var(--surface-canvas);padding:0 .25em}
+.sh-h.s{font-size:76px} .sh-h.mid{font-size:58px} .sh-h.l{font-size:50px}
+.sh-h.sentence{text-transform:none;letter-spacing:-.01em}
+.ln{display:block;overflow:hidden;padding-bottom:.05em}
+.ln>span{display:block;transform:translateY(105%)}
+.play .ln>span{animation:lineUp var(--motion-duration-line) var(--motion-ease-out) both;animation-delay:calc(350ms + var(--l,0) * 90ms)}
+@keyframes lineUp{to{transform:none}}
+.sh-sub{margin-top:26px;font-family:var(--font-body);font-stretch:125%;font-weight:400;font-size:15px;line-height:1.65;letter-spacing:var(--tracking-caps);text-transform:uppercase;color:var(--text-secondary);max-width:760px;text-wrap:balance;background:var(--surface-canvas);padding:0 .6em}
+.sh-cta{margin-top:44px;display:flex;flex-direction:column;align-items:center;background:var(--surface-canvas);padding:0 8px}
+.sh-button{display:flex;align-items:center;justify-content:center;width:var(--button-width);height:var(--size-button-height);border-radius:var(--radius-field);background:var(--action-fill);color:var(--action-label);font-family:var(--font-body);font-stretch:125%;font-weight:500;font-size:14px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background-color var(--motion-duration-fast) var(--motion-ease-out),transform 160ms var(--motion-ease-out)}
+.sh-button:hover{background:var(--action-hover)}
+.sh-button:active{transform:scale(.98)}
+.sh-micro{margin-top:14px;font-family:var(--font-body);font-stretch:125%;font-weight:300;font-size:10px;line-height:1.6;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)}
+.sh-micro a{color:inherit;text-decoration:none;font-weight:inherit}
+.sh-featured{position:absolute;left:0;right:0;bottom:30px;text-align:center;z-index:3;font-family:var(--font-body);font-stretch:125%;font-weight:400;font-size:11px;letter-spacing:var(--tracking-caps);text-transform:uppercase;color:var(--text-muted)}
+.sh-featured span{background:var(--surface-canvas);padding:4px 14px}
+
+/* focus-in for sub, CTA, micro, featured */
+.rv{opacity:0;transform:translateY(8px);filter:blur(3px)}
+.play .rv{animation:focusIn 900ms var(--motion-ease-out) both;animation-delay:calc(800ms + var(--d,0) * var(--motion-stagger))}
+@keyframes focusIn{to{opacity:1;transform:none;filter:blur(0)}}
+
+/* Variant: front door (photo) */
+.v-photo .sh-nav{background:var(--sh-neutral-0);border-bottom:0}
+.v-photo .sh-logo{filter:none}
+.v-photo .film{position:absolute;left:0;right:0;top:64px;bottom:0;overflow:hidden;z-index:1}
+.v-photo .film video{width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+.v-photo .film::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,9,8,.5) 0%,rgba(10,9,8,.42) 45%,rgba(10,9,8,.55) 100%)}
+.play.v-photo .film video{animation:settle 6s var(--motion-ease-out) both}
+@keyframes settle{from{transform:scale(1.05)}to{transform:scale(1)}}
+.v-photo .stack{justify-content:flex-start;padding-top:236px}
+.v-photo .sh-h,.v-photo .sh-sub,.v-photo .sh-cta,.v-photo .sh-featured span{background:none}
+.v-photo .sh-h.s{font-size:60px} .v-photo .sh-h.mid{font-size:48px} .v-photo .sh-h.l{font-size:42px}
+.v-photo .sh-sub{color:rgba(255,255,255,.88);margin-top:18px;font-size:14px}
+.v-photo .sh-cta{margin-top:40px}
+.v-photo .sh-button{width:300px;border-radius:0}
+.v-photo .sh-micro{color:rgba(255,255,255,.8)}
+.v-photo .sh-featured{color:rgba(255,255,255,.75)}
+
+@container ab (max-width:500px){
+  .sh-nav{height:56px}
+  .sh-logo{width:140px;height:26px}
+  .stack{top:56px;padding:0 28px 48px}
+  .sh-h.s{font-size:46px} .sh-h.mid{font-size:30px} .sh-h.l{font-size:27px}
+  .sh-sub{font-size:13px;margin-top:20px;line-height:1.6}
+  .sh-cta{margin-top:32px;width:100%}
+  .sh-button{width:100%;max-width:300px}
+  .sh-micro{font-size:9px;line-height:1.6;text-wrap:balance;margin-top:12px}
+  .sh-sub{text-wrap:balance}
+  .sh-featured{bottom:22px;padding:0 32px;line-height:1.8;font-size:10px}
+  .v-photo .film{top:56px}
+  .v-photo .film video{object-position:50% 50%}
+  .v-photo .stack{padding-top:226px}
+  .v-photo .sh-h.s{font-size:42px} .v-photo .sh-h.mid{font-size:30px} .v-photo .sh-h.l{font-size:27px}
+  .v-photo .sh-sub{font-size:12px}
+  .v-photo .sh-button{width:100%;max-width:300px}
+}
+
+
+/* ============ Variant 4 · Portal (scroll-driven zoom through an arch) ============ */
+.v-portal .layer{position:absolute;left:0;right:0;top:0;bottom:0;will-change:clip-path}
+.v-portal .room{z-index:1;overflow:hidden}
+.v-portal .room img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform,filter}
+.v-portal .room::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,9,8,.35),rgba(10,9,8,0) 30%,rgba(10,9,8,0) 55%,rgba(10,9,8,.7));opacity:var(--endshade,0)}
+.v-portal .rim{z-index:1;background:radial-gradient(ellipse at 50% 80%,#2a221a,#14110e 70%)}
+.v-portal .stack{top:0;justify-content:center;padding:0 160px;will-change:opacity,transform}
+.v-portal .sh-h.s{font-size:68px} .v-portal .sh-h.mid{font-size:50px} .v-portal .sh-h.l{font-size:44px}
+.v-portal .sh-cta{margin-top:36px}
+.v-portal .sh-nav{z-index:6}
+.v-portal .sh-featured{z-index:4}
+.v-portal .end{position:absolute;left:0;right:0;bottom:64px;z-index:4;display:flex;flex-direction:column;align-items:center;opacity:0;pointer-events:none}
+.v-portal .end .sh-button{width:300px;border-radius:0}
+.v-portal .end .sh-micro{color:rgba(255,255,255,.8)}
+.v-portal .end .sh-micro a{color:inherit}
+.v-portal .hint{position:absolute;left:0;right:0;z-index:4;text-align:center;font-family:var(--font-body);font-stretch:125%;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);pointer-events:none}
+.v-portal .scroller{position:absolute;inset:0;overflow-y:auto;scrollbar-width:none;overscroll-behavior:contain;z-index:7}
+.v-portal .scroller::-webkit-scrollbar{display:none}
+.v-portal .track{height:360%}
+.v-portal.scrolled .scroller{pointer-events:auto}
+@container ab (max-width:500px){
+  .v-portal .stack{padding:0 28px}
+  .v-portal .sh-h.s{font-size:42px} .v-portal .sh-h.mid{font-size:30px} .v-portal .sh-h.l{font-size:27px}
+  .v-portal .end{bottom:48px;padding:0 28px}
+  .v-portal .end .sh-button{width:100%;max-width:300px}
+}
+
+/* ============ Portal heroes: Our belief arrives over the room ============ */
+.inshade{position:absolute;inset:0;z-index:4;background:radial-gradient(ellipse at center,rgba(8,7,6,.5),rgba(8,7,6,.78));opacity:0;pointer-events:none}
+.inside{position:absolute;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;padding:64px 160px 0;pointer-events:none}
+.inside-in{max-width:760px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.inside .fx{opacity:0;will-change:opacity,transform}
+.inside .sec-eye{color:rgba(255,255,255,.72)}
+.inside .sec-h{color:#fff}
+.inside .sec-body p{color:rgba(255,255,255,.84)}
+.inside .sec-body .sec-strong{color:#fff}
+@container ab (max-width:500px){ .inside{padding:56px 28px 0} }
+
+/* ============ Variant 5 · Front Door Portal ============ */
+.v-doorportal .film{will-change:transform;overflow:visible}
+.v-doorportal .film::after{opacity:var(--wash,1)}
+.play.v-doorportal .film video{animation:none}
+.v-doorportal .dp{position:absolute;left:0;right:0;top:64px;bottom:0;overflow:hidden;will-change:clip-path,opacity;opacity:0}
+.v-doorportal .dp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform}
+.v-doorportal .black{z-index:2;background:#050404}
+.v-doorportal .room{z-index:3;opacity:1;clip-path:inset(50% 50% 50% 50%)}
+.v-doorportal .film{transform-origin:0 0}
+.v-doorportal .film .base,.v-doorportal .film .leaf{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.v-doorportal .pc{position:absolute;z-index:1;transform:translate(-50%,-50%);white-space:nowrap;font-family:var(--font-body);font-stretch:125%;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:#241c14;text-shadow:0 0 3px rgba(255,226,180,.55),0 0 10px rgba(255,214,160,.35)}
+.v-doorportal .hole{position:absolute;z-index:1;overflow:hidden;background:#030202;opacity:0}
+.v-doorportal .inroom{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform,filter}
+.v-doorportal .leafwrap{position:absolute;inset:0;z-index:1;pointer-events:none}
+.v-doorportal .leaf{position:absolute;left:0;top:0;will-change:transform;opacity:0}
+.v-doorportal .leafshade{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none}
+.v-doorportal .room::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,9,8,0) 50%,rgba(10,9,8,.7));opacity:var(--endshade,0)}
+.v-doorportal .stack{z-index:4}
+.v-doorportal .sh-featured{z-index:4}
+.v-doorportal .end{position:absolute;left:0;right:0;bottom:64px;z-index:5;display:flex;flex-direction:column;align-items:center;opacity:0;pointer-events:none}
+.v-doorportal .end .sh-button{width:300px;border-radius:0}
+.v-doorportal .end .sh-micro{color:rgba(255,255,255,.85)}
+.v-doorportal .end .sh-micro a{color:inherit}
+.v-doorportal .hint{position:absolute;left:0;right:0;z-index:5;text-align:center;font-family:var(--font-body);font-stretch:125%;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.6);pointer-events:none}
+.v-doorportal .scroller{position:absolute;inset:0;overflow-y:auto;scrollbar-width:none;overscroll-behavior:contain;z-index:7}
+.v-doorportal .scroller::-webkit-scrollbar{display:none}
+.v-doorportal .track{height:640%}
+@container ab (max-width:500px){
+  .v-doorportal .dp{top:56px}
+  .v-doorportal .end{bottom:48px;padding:0 28px}
+  .v-doorportal .end .sh-button{width:100%;max-width:300px}
+}
+
+.sh-hero .sh-h,.sh-hero .sh-sub,.sh-hero .sh-cta{background:none}
+/* ============ SH/Hero · In their words band ============ */
+.sh-hero{--band:0px}
+.sh-hero .stack{bottom:var(--band)}
+.sh-band{position:absolute;left:0;right:0;bottom:0;z-index:4;padding:0 128px 88px}
+.band-in{display:grid;grid-template-columns:repeat(4,1fr);gap:48px;align-items:start}
+.bi{display:flex;flex-direction:column;align-items:center;text-align:center}
+.bl{height:calc(var(--h) * .62);width:auto;display:block;opacity:.94}
+.sh-hero:not(.theme-dark) .bl{filter:invert(1)}
+.bq{margin-top:14px;font-family:var(--font-body);font-weight:300;font-size:13px;line-height:1.5;color:var(--text-secondary);max-width:25ch;text-wrap:balance}
+.v-photo .bq{color:rgba(255,255,255,.82)}
+.v-photo .film::after{background:linear-gradient(180deg,rgba(10,9,8,.5) 0%,rgba(10,9,8,.42) 45%,rgba(10,9,8,.62) 78%,rgba(10,9,8,.82) 100%)}
+@container ab (max-width:500px){
+  .sh-hero{--band:0px}
+  .sh-band{padding:0 24px 48px}
+  .band-in{grid-template-columns:1fr 1fr;gap:24px 18px}
+  .bl{height:calc(var(--h) * .46)}
+  .bq{margin-top:9px;font-size:11px;line-height:1.45;max-width:20ch}
+  .v-photo .stack{padding-top:236px}
+}
+
+/* ============ Section 2 · Our belief (SH/Statement) ============ */
+.belief-wrap{margin-top:56px;padding-top:40px;border-top:1px solid #e6e6e6}
+.belief-wrap .sub-n{font-size:14px;color:#595959;margin-bottom:18px}
+.belief-wrap .sub-n b{font-weight:500;color:#000}
+.artboard.bd{width:1440px;height:auto}
+.artboard.bm{width:390px;height:auto}
+.theme-warm{--surface-canvas:var(--sh-champagne-100,#F6F1E9);--text-primary:#1A1712;--text-secondary:#4A4238;--text-muted:#6F6455}
+.sh-belief{position:relative;overflow:hidden;background:var(--surface-canvas);color:var(--text-primary);text-align:center;display:flex;flex-direction:column;align-items:center;padding:168px 160px 176px}
+.sh-belief > *{position:relative;z-index:2}
+.bel-eye{font-family:var(--font-body);font-stretch:125%;font-weight:400;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted)}
+.bel-h{margin-top:26px;font-family:var(--font-display);font-weight:400;font-size:62px;line-height:1.05;letter-spacing:-.01em;color:var(--text-primary)}
+.bel-h .ln{display:block;overflow:hidden;padding-bottom:.06em}
+.bel-h .ln>span{display:block;transform:translateY(105%)}
+.bel-body{margin-top:38px;max-width:46ch}
+.bel-body p{font-family:var(--font-body);font-weight:300;font-size:18px;line-height:1.7;color:var(--text-secondary)}
+.bel-body p+p{margin-top:14px}
+.bel-close{margin-top:40px;font-family:var(--font-display);font-weight:400;font-size:28px;line-height:1.2;color:var(--text-primary)}
+.brv{opacity:0;transform:translateY(12px);filter:blur(3px)}
+.play .brv{animation:focusIn 900ms var(--motion-ease-out) both;animation-delay:calc(var(--d,0) * 140ms)}
+.play .bel-h .ln>span{animation:lineUp 1s var(--motion-ease-out) both;animation-delay:calc(200ms + var(--l,0) * 100ms)}
+/* image treatments */
+.bel-bg{position:absolute!important;inset:0;z-index:0!important}
+.bel-bg img{width:100%;height:100%;object-fit:cover;filter:brightness(.3) saturate(.9);transform:scale(1.08)}
+.bel-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(8,7,6,.15),rgba(8,7,6,.6))}
+.play .bel-bg img{animation:belSettle 2.4s var(--motion-ease-out) both}
+@keyframes belSettle{to{transform:scale(1)}}
+.bel-arch{width:176px;height:309px;border-radius:88px 88px 0 0;overflow:hidden;margin-bottom:56px;clip-path:inset(100% 0 0 0)}
+.bel-arch img{width:100%;height:100%;object-fit:cover;transform:scale(1.12)}
+.play .bel-arch{animation:clipUp 1.3s var(--motion-ease-reveal) both}
+.play .bel-arch img{animation:belSettle 2.2s var(--motion-ease-out) both}
+@keyframes clipUp{to{clip-path:inset(0 0 0 0)}}
+.bel-band{align-self:stretch;margin:104px -160px -176px;height:380px;overflow:hidden;clip-path:inset(100% 0 0 0)}
+.bel-band img{width:100%;height:100%;object-fit:cover;object-position:50% 55%;transform:scale(1.1)}
+.play .bel-band{animation:clipUp 1.4s 500ms var(--motion-ease-reveal) both}
+.play .bel-band img{animation:belSettle 2.6s 500ms var(--motion-ease-out) both}
+@container ab (max-width:500px){
+  .sh-belief{padding:104px 28px 112px}
+  .bel-h{font-size:35px;margin-top:20px}
+  .bel-body{margin-top:28px}
+  .bel-body p{font-size:15px;line-height:1.65}
+  .bel-close{font-size:22px;margin-top:30px}
+  .bel-arch{width:132px;height:232px;border-radius:66px 66px 0 0;margin-bottom:40px}
+  .bel-band{margin:72px -28px -112px;height:260px}
+}
+@media (prefers-reduced-motion:reduce){.brv,.bel-h .ln>span{opacity:1!important;transform:none!important;filter:none!important}.bel-arch,.bel-band{clip-path:none!important}}
+
+/* ============ One continuous page per option ============ */
+.page{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;overscroll-behavior:contain}
+.page::-webkit-scrollbar{display:none}
+.pg-hero{position:relative}
+.pg-pin{position:relative}
+.pg-sticky{position:sticky;top:0;overflow:hidden}
+.note .flow{display:block;margin-top:6px;color:#595959}
+/* Section 3 · Inside the club */
+.club{position:relative;background:var(--surface-canvas);color:var(--text-primary)}
+.club-stage{position:sticky;top:0;overflow:hidden}
+.club-intro{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.intro-media{position:absolute;inset:0;overflow:hidden}
+.is-inset .intro-media{inset:40px}
+.intro-media img{width:100%;height:100%;object-fit:cover;object-position:50% 55%;transform-origin:50% 52%;will-change:transform}
+.intro-media::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(10,9,8,0) 30%,rgba(10,9,8,.45) 100%)}
+.intro-eye{position:relative;z-index:2;font-family:var(--font-body);font-stretch:125%;font-weight:400;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#fff}
+.club-intro.play .brv{animation:focusIn 900ms var(--motion-ease-out) both}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.club-h{margin-top:24px;font-family:var(--font-display);font-weight:400;font-size:84px;line-height:1;letter-spacing:.005em;text-transform:uppercase;display:flex;gap:.28em;flex-wrap:wrap;justify-content:center}
+.club-h .ln{display:block;overflow:hidden;padding-bottom:.05em}
+.club-h .ln>span{display:block;transform:translateY(105%)}
+.club-intro.play .club-h .ln>span{animation:lineUp 1s var(--motion-ease-out) both;animation-delay:calc(150ms + var(--l,0) * 120ms)}
+.club-intro.play .brv{animation:focusIn 900ms var(--motion-ease-out) both}
+.scene{position:absolute;inset:0;z-index:2;opacity:0}
+.scene-media{position:absolute;inset:0;overflow:hidden}
+.is-inset .scene-media{inset:40px}
+.scene-media img{width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 50%);will-change:transform}
+.scene-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,9,8,.18) 0%,rgba(10,9,8,.28) 45%,rgba(10,9,8,.72) 100%)}
+.scene-copy{position:absolute;left:0;right:0;bottom:150px;z-index:3;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 200px;color:#fff;opacity:0}
+.scene-n{font-family:var(--font-body);font-stretch:125%;font-size:11px;letter-spacing:.16em;color:rgba(255,255,255,.72)}
+.scene-h{margin-top:14px;font-family:var(--font-display);font-weight:400;font-size:76px;line-height:1;text-transform:uppercase;letter-spacing:.01em}
+.scene-p{margin-top:20px;max-width:46ch;font-family:var(--font-body);font-weight:300;font-size:17px;line-height:1.65;color:rgba(255,255,255,.88);text-wrap:balance}
+.club-index{position:absolute;left:0;right:0;bottom:56px;z-index:4;display:flex;justify-content:center;gap:56px;opacity:0;pointer-events:none}
+.club-index span{font-family:var(--font-body);font-stretch:125%;font-weight:400;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.42);transition:color .4s var(--motion-ease-out)}
+.club-index span.on{color:#fff}
+.is-inset .club-index{bottom:72px}
+.is-inset .club-cta{bottom:60px}
+.club-cta{position:absolute;left:0;right:0;bottom:44px;z-index:5;display:flex;justify-content:center;opacity:0;pointer-events:none}
+.club-cta .sh-button{width:300px;border-radius:0;--action-fill:#fff;--action-label:#000;--action-hover:#F3EDE4}
+@container ab (max-width:500px){
+  .is-inset .intro-media{inset:14px}
+  .club-h{font-size:44px;flex-direction:column;gap:0}
+  .is-inset .scene-media{inset:14px}
+  .scene-copy{bottom:118px;padding:0 28px}
+  .scene-h{font-size:46px}
+  .scene-p{font-size:14px;line-height:1.6}
+  .club-index{bottom:44px;gap:22px}
+  .club-index span{font-size:9px}
+  .club-cta{bottom:30px;padding:0 28px}
+  .club-cta .sh-button{width:100%;max-width:300px}
+}
+
+/* ============ Section 4 · Personalised care ============ */
+.sh-care{position:relative;background:var(--surface-canvas);color:var(--text-primary);text-align:center;display:flex;flex-direction:column;align-items:center;padding:168px 160px 0}
+.care-h{margin-top:26px;font-family:var(--font-display);font-weight:400;font-size:62px;line-height:1.05;letter-spacing:-.01em}
+.care-h .ln{display:block;overflow:hidden;padding-bottom:.06em}
+.care-h .ln>span{display:block;transform:translateY(105%)}
+.sh-care.play .care-h .ln>span,.sh-concierge.play .cc-h .ln>span,.sh-concierge.play .cc-trio .ln>span{animation:lineUp 1s var(--motion-ease-out) both;animation-delay:calc(200ms + var(--l,0) * 140ms)}
+.sh-care.play .brv,.sh-concierge.play .brv{animation:focusIn 900ms var(--motion-ease-out) both;animation-delay:calc(var(--d,0) * 140ms)}
+.care-lead{margin-top:34px;max-width:30ch;text-wrap:balance;font-family:var(--font-display);font-weight:400;font-size:28px;line-height:1.3;color:var(--text-primary)}
+.care-body{margin-top:28px;max-width:48ch}
+.care-body p{font-family:var(--font-body);font-weight:300;font-size:17px;line-height:1.7;color:var(--text-secondary)}
+.care-body p+p{margin-top:12px}
+.care-band{align-self:stretch;margin:96px 0 0;height:460px;overflow:hidden;clip-path:inset(100% 0 0 0)}
+.care-band img{width:100%;height:100%;object-fit:cover;object-position:50% 45%;transform:scale(1.12)}
+.sh-care.play .care-band{animation:clipUp 1.4s 600ms var(--motion-ease-reveal) both}
+.sh-care.play .care-band img{animation:belSettle 2.6s 600ms var(--motion-ease-out) both}
+.sh-care.is-inset .care-band{margin:96px -120px 0}
+.sh-care:not(.is-inset) .care-band{margin:96px -160px 0}
+/* ============ Section 5 · Concierge ============ */
+.sh-concierge{position:relative;background:var(--surface-canvas);color:var(--text-primary);text-align:center;display:flex;flex-direction:column;align-items:center;padding:176px 160px 184px}
+.cc-h{margin-top:26px;font-family:var(--font-display);font-weight:400;font-size:56px;line-height:1.06;letter-spacing:-.01em}
+.cc-h .ln,.cc-trio .ln{display:block;overflow:hidden;padding-bottom:.06em}
+.cc-h .ln>span,.cc-trio .ln>span{display:block;transform:translateY(105%)}
+.cc-intro{margin-top:30px;max-width:40ch;font-family:var(--font-body);font-weight:300;font-size:17px;line-height:1.7;color:var(--text-secondary)}
+.cc-trio{margin:72px 0 64px;display:flex;gap:.6em;justify-content:center;white-space:nowrap;font-family:var(--font-display);font-weight:400;font-size:64px;line-height:1;letter-spacing:-.015em;text-transform:uppercase}
+.cc-close{max-width:44ch;font-family:var(--font-body);font-weight:300;font-size:17px;line-height:1.7;color:var(--text-secondary)}
+.sh-concierge.play .cc-trio .ln>span{animation-delay:calc(700ms + var(--l,0) * 260ms)}
+@container ab (max-width:500px){
+  .sh-care{padding:104px 28px 0}
+  .care-h{font-size:35px;margin-top:20px}
+  .care-lead{font-size:21px;margin-top:26px}
+  .care-body p{font-size:15px;line-height:1.65}
+  .care-band,.sh-care.is-inset .care-band,.sh-care:not(.is-inset) .care-band{margin:72px -28px 0;height:300px}
+  .sh-concierge{padding:112px 28px 120px}
+  .cc-h{font-size:34px;margin-top:20px}
+  .cc-intro{font-size:15px}
+  .cc-trio{font-size:46px;flex-direction:column;gap:2px;margin:48px 0 44px}
+  .cc-close{font-size:15px}
+}
+@media (prefers-reduced-motion:reduce){.care-h .ln>span,.cc-h .ln>span,.cc-trio .ln>span{transform:none!important}.care-band{clip-path:none!important}}
+
+/* ============ One system for everything below the hero ============ */
+.page{--sec-pad:168px;--sec-x:160px}
+.page .sh-hero,.page .sec,.page .club{font-stretch:118%}
+.sec{position:relative;overflow:hidden;background:var(--surface-canvas);color:var(--text-primary);padding:var(--sec-pad) var(--sec-x)}
+.sec-in{position:relative;z-index:2;max-width:760px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center}
+.sec-eye{font-family:var(--font-body);font-stretch:118%;font-weight:400;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted)}
+.sec-h{margin-top:24px;max-width:18ch;font-family:var(--font-display);font-weight:400;font-size:56px;line-height:1.06;letter-spacing:-.02em;color:var(--text-primary);text-wrap:balance}
+.sec-body{margin-top:32px;max-width:46ch}
+.sec-body p{font-family:var(--font-body);font-stretch:118%;font-weight:300;font-size:17px;line-height:1.7;color:var(--text-secondary);text-wrap:pretty}
+.sec-body p+p{margin-top:14px}
+.sec-body .sec-strong{color:var(--text-primary);font-weight:400}
+.sec-media{position:relative;z-index:1;margin:96px calc(var(--sec-x) * -1) calc(var(--sec-pad) * -1);height:480px;overflow:hidden}
+.sec-media.framed{margin-left:calc(var(--sec-x) * -1 + 40px);margin-right:calc(var(--sec-x) * -1 + 40px);margin-bottom:calc(var(--sec-pad) * -1 + 40px)}
+.sec-media img,.sec-bg img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);will-change:transform}
+.sec-bg{position:absolute;inset:0;z-index:0}
+.sec-bg img{filter:brightness(.3) saturate(.9)}
+.sec-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(8,7,6,.2),rgba(8,7,6,.65))}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .8s var(--motion-ease-out),transform .8s var(--motion-ease-out)}
+.reveal.in{opacity:1;transform:none}
+@container ab (max-width:500px){
+  /* mobile: no copy over the photo; the photo is wider than the screen, so it gets the top 54% and the words sit below on the page tone */
+  .scene{background:var(--surface-canvas)}
+  .scene-media,.is-inset .scene-media{inset:0 0 auto 0;height:54%}
+  .is-inset .scene-media{inset:14px 14px auto 14px}
+  .scene-media::after{background:linear-gradient(180deg,rgba(10,9,8,0) 70%,rgba(10,9,8,.18))}
+  .scene-copy{top:calc(54% + 36px);bottom:auto;color:var(--text-primary)}
+  .scene-copy .scene-p{color:var(--text-secondary)!important}
+  .club-index span{color:var(--text-muted)}
+  .club-index span.on{color:var(--text-primary)}
+  .club-cta .sh-button{--action-fill:var(--sh-neutral-950,#0d0d0d);--action-label:#fff}
+  .theme-dark .club-cta .sh-button{--action-fill:#fff;--action-label:#000}
+}
+/* pinned scenes follow the same type */
+.scene-h{font-size:56px!important;line-height:1.06!important;text-transform:none!important;letter-spacing:-.02em!important;margin-top:0!important}
+.scene-p{font-stretch:118%;font-size:17px!important;line-height:1.7!important;margin-top:20px!important}
+.intro-copy{opacity:1;bottom:auto;top:50%;transform:translateY(-50%)}
+.intro-copy .sec-eye{color:#fff}
+.club-index span{font-stretch:118%}
+@container ab (max-width:500px){
+  .page{--sec-pad:104px;--sec-x:28px}
+  .sec-h{font-size:34px;margin-top:18px}
+  .sec-body{margin-top:24px}
+  .sec-body p{font-size:15px;line-height:1.65}
+  .sec-media{height:320px;margin-top:64px}
+  .sec-media.framed{margin-left:calc(var(--sec-x) * -1 + 14px);margin-right:calc(var(--sec-x) * -1 + 14px);margin-bottom:calc(var(--sec-pad) * -1 + 14px)}
+  .scene-h{font-size:36px!important}
+  .scene-p{font-size:15px!important;line-height:1.65!important}
+}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+/* In their words: the hero band's logo-over-quote, as a full panel (4 + 3, centred) */
+.pr-grid{position:relative;z-index:2;margin:56px auto 0;max-width:1040px;display:flex;flex-wrap:wrap;justify-content:center;gap:64px 56px}
+.pr{flex:0 0 calc((100% - 3*56px)/4);display:flex;flex-direction:column;align-items:center;text-align:center}
+.pr-logo{height:34px;display:flex;align-items:flex-end;justify-content:center;text-decoration:none;color:var(--text-primary)}
+.pr-logo img{height:var(--h);width:auto;display:block;opacity:.94}
+.sec:not(.theme-dark) .pr-logo img{filter:invert(1)}
+.pr-name{font-family:var(--font-display);font-size:22px;line-height:1;letter-spacing:-.01em;color:var(--text-primary)}
+.pr-q{margin-top:16px;max-width:24ch;font-family:var(--font-body);font-stretch:118%;font-weight:300;font-size:15px;line-height:1.6;color:var(--text-secondary);text-wrap:balance}
+@container ab (max-width:500px){
+  .pr-grid{margin-top:40px;gap:44px 20px}
+  .pr{flex:0 0 calc((100% - 20px)/2)}
+  .pr:last-child{flex-basis:100%}
+  .pr-logo{height:26px}
+  .pr-logo img{height:calc(var(--h) * .8)}
+  .pr-name{font-size:18px}
+  .pr-q{font-size:13px;margin-top:12px;max-width:20ch}
+}
+
+/* Concierge: pinned, three beats. Your table. Your towel. Your usual. */
+.conc{position:relative;background:var(--sh-neutral-950,#0d0d0d)}
+.conc-stage{position:sticky;top:0;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);overflow:hidden}
+.conc-copy{display:flex;flex-direction:column;justify-content:center;padding:64px 64px 0 120px}
+.conc-copy .sec-eye{color:rgba(255,255,255,.7)}
+.conc-copy .sec-h{text-align:left;color:#fff;max-width:16ch}
+.conc-copy p.ci{margin-top:28px;font-family:var(--font-body);font-stretch:118%;font-weight:300;font-size:17px;line-height:1.7;color:rgba(255,255,255,.84);max-width:38ch}
+.conc-trio{list-style:none;margin:36px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
+.conc-trio li{font-family:var(--font-display);font-size:34px;line-height:1.15;letter-spacing:-.015em;color:rgba(255,255,255,.26);transition:color .6s var(--motion-ease-out)}
+.conc-trio li.on{color:#fff}
+.conc-copy p.cc{margin-top:28px;font-family:var(--font-body);font-stretch:118%;font-weight:300;font-size:17px;line-height:1.7;color:rgba(255,255,255,.84);max-width:38ch;opacity:0;will-change:opacity,transform}
+.conc-media{position:relative;overflow:hidden}
+.conc-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 50%);opacity:0;will-change:opacity,transform}
+@container ab (max-width:500px){
+  .conc-stage{display:block}
+  .conc-media{position:absolute;left:0;right:0;top:0;height:44%}
+  .conc-copy{position:absolute;left:0;right:0;top:44%;bottom:0;justify-content:flex-start;padding:36px 28px 0;z-index:2}
+  .conc-copy .sec-h{max-width:none}
+  .conc-copy p.ci,.conc-copy p.cc{font-size:15px;line-height:1.65;margin-top:16px}
+  .conc-trio{margin-top:18px;flex-direction:row;flex-wrap:wrap;gap:4px 12px}
+  .conc-trio li{font-size:22px}
+}
+
+/* Closing panel: back at the front door */
+.sec-close{display:flex;flex-direction:column;align-items:center;justify-content:center}
+.sec-close .sec-in{margin:auto}
+.film-bg video{width:100%;height:100%;object-fit:cover;transform:scale(1.06);filter:brightness(.42) saturate(.9);will-change:transform}
+.film-bg::after{background:linear-gradient(180deg,rgba(10,9,8,.35) 0%,rgba(10,9,8,.15) 40%,rgba(10,9,8,.55) 100%)!important}
+.sec-close .sec-h{color:#fff}
+.sec-close .sec-body p{color:rgba(255,255,255,.84)}
+.close-btn{margin-top:40px;width:300px;border-radius:0;--action-fill:#fff;--action-label:#000;--action-hover:#F3EDE4}
+.close-line{margin-top:16px;color:rgba(255,255,255,.72)}
+.close-logo{position:absolute;left:50%;bottom:44px;transform:translateX(-50%);z-index:2;width:120px;height:22px;opacity:.9}
+.sec-close .close-logo{filter:invert(1)}
+@container ab (max-width:500px){
+  .close-btn{width:100%;max-width:300px;height:var(--size-button-height-mobile,52px)}
+  .close-logo{bottom:32px;width:104px;height:19px}
+}
+
+/* ============ Rhythm below the hero: split, full-bleed, rolling press ============ */
+.sec-split{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:96px;align-items:center;padding:var(--sec-pad) var(--sec-x) var(--sec-pad) 0}
+.sec-split.rev{grid-template-columns:minmax(0,5fr) minmax(0,7fr);padding:var(--sec-pad) 0 var(--sec-pad) var(--sec-x)}
+.split-media{position:relative;height:720px;overflow:hidden}
+.split-media img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);will-change:transform}
+.split-media.arch-open{background:transparent}
+.split-media.arch-open img{will-change:transform,clip-path}
+.split-media.dolly img{object-position:50% 55%}
+.sec-split.rev .split-media{order:2}
+.split-copy{max-width:440px;justify-self:start}
+/* same-tone text sections share one interval instead of doubling it */
+.sec-press + .sec-split{padding-top:0}
+.split-copy .sec-h{text-align:left;max-width:15ch}
+.split-copy .sec-body{max-width:none}
+.split-copy .sec-body p{text-align:left}
+.sec-full{display:flex;align-items:center;justify-content:center}
+.sec-full .sec-bg img{filter:brightness(.34) saturate(.95);object-position:50% 60%}
+.sec-full .sec-h{color:#fff}
+.sec-full .sec-body p{color:rgba(255,255,255,.84)}
+.sec-full .sec-body .sec-strong{color:#fff}
+.sec-full .sec-eye{color:rgba(255,255,255,.7)}
+/* press marquee, styled like the ATF band */
+.sec-press{padding-left:0;padding-right:0}
+.mq-wrap{display:flex;flex-direction:column;gap:96px}
+.mq{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.mq-track{display:flex;width:max-content;gap:112px;padding:0 56px;align-items:flex-start}
+.mq-track.to-left{animation:mqLeft 90s linear infinite}
+.mq-track.to-right{animation:mqRight 90s linear infinite}
+@container ab (max-width:500px){ .mq-track.to-left,.mq-track.to-right{animation-duration:70s} }
+.mq:hover .mq-track{animation-play-state:paused}
+@keyframes mqLeft{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes mqRight{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+.mq-item{width:380px;flex:none;display:flex;flex-direction:column;align-items:center;text-align:center}
+.mq-item .bl{height:calc(var(--h) * 1.2);width:auto;opacity:.94}
+.sec:not(.theme-dark) .mq-item .bl{filter:invert(1)}
+.mq-item .bq{margin-top:26px;font-family:var(--font-display);font-weight:400;font-size:28px;line-height:1.25;letter-spacing:-.01em;color:var(--text-primary);max-width:20ch;text-wrap:balance}
+@container ab (max-width:500px){
+  .sec-split,.sec-split.rev{grid-template-columns:1fr;gap:44px;padding:var(--sec-pad) var(--sec-x)}
+  .sec-press + .sec-split{padding-top:0}
+  .sec-split.rev .split-media{order:0}
+  .split-media{height:400px;margin:0 calc(var(--sec-x) * -1)}
+  .split-media.arch-open{height:300px}
+  .split-media.dolly{height:500px}
+  .split-media.dolly img{object-position:50% 18%}
+  .split-copy{max-width:none}
+  .split-copy .sec-h{max-width:none}
+  .mq-wrap{gap:56px}
+  .mq-track{gap:40px;padding:0 20px}
+  .mq-item{width:220px}
+  .mq-item .bl{height:calc(var(--h) * .56)}
+  .mq-item .bq{margin-top:14px;font-size:18px;line-height:1.3}
+}
+@media (prefers-reduced-motion:reduce){.mq-track{animation:none!important}}
+/* ============ SH/Proof · In their words ============ */
+.artboard.pd{width:1440px;height:auto;position:absolute}
+.artboard.pm{width:390px;height:auto;position:absolute}
+.sh-proof{--proof-bg:var(--sh-neutral-800);--proof-fg:var(--sh-neutral-0);--proof-muted:rgba(255,255,255,.66);background:var(--proof-bg);color:var(--proof-fg);padding:88px 96px 104px;text-align:center}
+.sh-proof.black{--proof-bg:var(--sh-neutral-950)}
+.sh-proof.white{--proof-bg:var(--sh-neutral-0);--proof-fg:var(--sh-neutral-1000);--proof-muted:var(--sh-neutral-600);border-top:1px solid var(--sh-neutral-100)}
+.sh-proof .lbl{font-family:var(--font-body);font-stretch:125%;font-weight:400;font-size:12px;letter-spacing:var(--tracking-caps);text-transform:uppercase;color:var(--proof-muted)}
+.sh-proof .row{display:grid;grid-template-columns:repeat(4,1fr);gap:64px;margin-top:64px;align-items:start}
+.sh-proof .pi{display:flex;flex-direction:column;align-items:center}
+.sh-proof .logo{height:56px;display:flex;align-items:flex-end;justify-content:center;font-family:var(--font-display);font-weight:400;font-size:44px;line-height:1;letter-spacing:.01em;color:var(--proof-fg);white-space:nowrap}
+.sh-proof .logo-img{height:var(--h);width:auto;display:block}
+.sh-proof.white .logo-img{filter:invert(1)}
+.sh-proof .q{margin-top:28px;font-family:var(--font-body);font-weight:300;font-size:18px;line-height:1.5;color:var(--proof-fg);max-width:26ch;text-wrap:balance}
+.sh-proof .pi{opacity:0;transform:translateY(16px)}
+.play .sh-proof .pi,.sh-proof.play .pi{animation:proofIn 800ms var(--motion-ease-out) both;animation-delay:calc(var(--d,0) * var(--motion-stagger))}
+@keyframes proofIn{to{opacity:1;transform:none}}
+@container ab (max-width:500px){
+  .sh-proof{padding:64px 28px 72px}
+  .sh-proof .row{grid-template-columns:1fr;gap:52px;margin-top:44px}
+  .sh-proof .logo{height:44px;font-size:36px}
+  .sh-proof .logo-img{height:calc(var(--h) * .85)}
+  .sh-proof .q{font-size:17px;margin-top:18px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+
+<div class="bar"><div class="wrap">
+  <span class="lg" role="img" aria-label="Saint Haven"></span>
+  <nav>
+    <a href="index.html">← Directions</a><a href="#v1">1 Black</a><a href="#v2">2 White</a><a href="#v3">3 Front Door</a><a href="#v4">4 Portal</a><a href="#v5">5 Front Door Portal</a><a href="#proof">In their words</a><a href="#flags">Notes</a><a href="atf-v1-rejected.html">Round 1 (rejected)</a>
+  </nav>
+</div></div>
+
+<header class="intro"><div class="wrap">
+  <p class="k">Saint Haven · Above the fold · Round 2 · One Message</p>
+  <h1>One message, nothing else</h1>
+  <p class="lede">Rebuilt around One Message in the visual language of the application flow: a centred logo over a hairline, one serif headline in capitals, a tracked capitals subhead, one wide button and a quiet line beneath it. There are five close variants of the same hero: black, white, the front door, the portal and the front door portal. Below them is the In their words section. The copy is word for word, and the switches let you try every headline, subhead and microcopy.</p>
+  <div class="rules">
+    <div><h4>Taken from the application flow</h4><ul><li>Logo centred, 64px header, hairline rule</li><li>Headline in IvyPresto capitals, one block, centred</li><li>Subhead in GT America Extended capitals, tracked 12%, grey</li><li>One 496 × 56 button with a 5px radius, and a tracked line beneath it</li></ul></div>
+    <div><h4>Motion</h4><ul><li>Headline lines rise from behind a mask, then everything else comes into focus</li><li>Done in about 2 seconds, and nothing loops</li><li>No lines or decoration. The type does the work.</li></ul></div>
+    <div><h4>Removed</h4><ul><li>Nav buttons, side columns and split layouts</li><li>The Centre Line and the glow</li><li>Anything competing with the headline</li></ul></div>
+  </div>
+</div></header>
+
+<div id="options"></div>
+
+<section class="opt" id="proof"><div class="wrap">
+  <div class="opt-head"><div><p class="n">Social proof</p><h2>In their words</h2></div><p>Built from your reference: a charcoal band with the publication logo above each quote, everything centred, and nothing else. Four quotes sit in four even columns on desktop and stack on mobile. The logos are white versions of each publication’s own logo, on a transparent background.</p></div>
+  <div class="boards">
+    <div class="board-col"><div class="frame"><div class="artboard pd"></div></div><div class="cap">Desktop · 1440</div></div>
+    <div class="board-col mob"><div class="frame"><div class="artboard pm"></div></div><div class="cap">Mobile · 390</div></div>
+  </div>
+  <div class="controls">
+    <div class="grp" data-k="t"><span>Background</span><button data-v="0">Charcoal</button><button data-v="1">Black</button><button data-v="2">White</button></div>
+    <button class="replay">Replay motion</button>
+  </div>
+  <p class="note"><b>Charcoal (neutral/800, #333333) follows your reference</b> and separates the section from a black hero. Use White under the White hero, or Black if the page should stay one continuous dark surface.</p>
+</div></section>
+
+<section class="foot" id="flags"><div class="wrap">
+  <h2>Notes</h2>
+  <div class="grid">
+    <div class="card rec"><h4>Recommendation</h4><p><b>Variant 1, Black, with headline 1, subhead B and microcopy 2.</b> It matches the application flow exactly, so the ad, the page and the form feel like one experience. Variant 3, Front Door, is the one to test against it, because it shows the real club straight away.</p></div>
+    <div class="card"><h4>Copy fit</h4><ul><li>Headlines 1 and 3 sit on one or two lines in capitals. Headlines 2 and 4 drop to a smaller size, so they still fit above the fold on mobile.</li><li>"Apply For Membership" and the subheads are set in capitals by the style. The copy itself is unchanged.</li><li>The featured-in line is set as text until we have the publication logos.</li></ul></div>
+    <div class="card"><h4>Motion</h4><ul><li>Headline: each line rises 900ms from a mask, 90ms apart, starting at 350ms.</li><li>Subhead, CTA, microcopy and the featured line come into focus from 800ms, 120ms apart.</li><li>Front Door: the film settles from 105% over 6s. Its own light is the only other movement.</li><li>In their words: each column rises 16px and fades in once, 120ms apart, when the section is 30% in view.</li></ul></div>
+    <div class="card"><h4>Still needed</h4><ul><li>Publication logos</li><li>The licensed fonts. Instrument Serif and Archivo stand in here.</li><li>The source file and a still frame for the front-door film (variant 3)</li><li>Check the logo files with each publication's brand guidelines before launch, and confirm Esquire Australia uses the US wordmark.</li></ul></div>
+  </div>
+</div></section>
+
+<script>
+const VIDEO="https://cdn.prod.website-files.com/691a56a26182cc58941e9b93%2F693b67b5179c213cd4aa111e_Saint%20Haven%20-%20Front%20Door%20Loop%20-%2001_prob4_16x9_1920x1080-optim_mp4.mp4";
+const HEAD=["Live your ultimate life.","Come for an hour. Feel it for the other twenty-three.","The best part of your day now has an address.","Everyone in your life gets the version of you that walks out of here."];
+const SUB=["A private sanctuary. Membership by application.","A private world. A sanctuary for those who live with intention."];
+const MICRO=['Membership is limited. <a href="#">Join the waitlist</a>','Our clubs are currently at capacity. <a href="#">Join the waitlist</a>.'];
+const QUOTES=[
+ {pub:'Esquire',img:'esquire',h:30,caps:true,q:'\u201cIt is the ultimate sanctuary.\u201d',src:'Esquire Australia'},
+ {pub:'Forbes',img:'forbes',h:40,caps:false,q:'\u201cWhat promises to be Australia\u2019s most lux wellbeing experience.\u201d',src:'Forbes'},
+ {pub:'Robb Report',img:'robb-report',h:40,caps:true,q:'\u201cAncient bathhouse aesthetics meet high-tech wellness\u201d',src:'Robb Report'},
+ {pub:'Time Out',img:'timeout',h:54,caps:true,q:'\u201cSuper-luxe, Melbourne-born wellness space\u201d',src:'Time Out'},
+];
+const FEAT="As featured in Forbes, Robb Report, Esquire and The Australian Financial Review.";
+const PORTAL_IMG=['sy-portal.jpg','ns-bathhouse.jpg','sy-haven.jpg','sm-arrival.jpg'];
+const DOOR_ROOM=['sy-portal.jpg','sm-bathhouse.jpg','sy-haven.jpg','ns-bathhouse.jpg'];
+const vio=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target; const h=v.closest('.sh-hero'); if(e.isIntersecting){ if(!(h&&h._held)) v.play().catch(()=>{}); } else v.pause();}),{threshold:0});
+
+const LINES={
+  d:[["Live your ultimate life."],["Come for an hour.","Feel it for the other twenty-three."],["The best part of your day","now has an address."],["Everyone in your life gets the version","of you that walks out of here."]],
+  m:[["Live your","ultimate life."],["Come for an hour.","Feel it for the other","twenty-three."],["The best part of","your day now has","an address."],["Everyone in your life gets","the version of you that","walks out of here."]]
+};
+function headline(i,mobile,sentence){
+  const t=HEAD[i]; const size=t.length<=26?'s':t.length<=50?'mid':'l';
+  const parts=LINES[mobile?'m':'d'][i];
+  return `<h1 class="sh-h ${size} ${sentence?'sentence':''}">${parts.map((p,k)=>`<span class="ln"><span style="--l:${k}">${p}</span></span>`).join('')}</h1>`;
+}
+function hero(v,s,mobile){
+  const theme=v.theme==='dark'?'theme-dark':'';
+  return `<div class="sh-hero ${theme} ${v.cls||''}">
+    ${v.cls==='v-portal'?`<div class="layer rim"></div><div class="layer room"><img src="img/${PORTAL_IMG[s.img||0]}" alt="Inside Saint Haven"></div>`:''}
+    ${(v.cls||'').includes('v-photo')?`<div class="film"><video class="base" muted playsinline loop autoplay preload="auto" src="${VIDEO}"></video>${(v.cls||'').includes('v-doorportal')?`<div class="pc">Private Club</div><div class="hole"><img class="inroom" src="img/${DOOR_ROOM[s.img||0]}" alt="Inside Saint Haven"></div><div class="leafwrap"><canvas class="leaf l"></canvas><canvas class="leaf r"></canvas></div>`:''}</div>`:''}
+    <header class="sh-nav"><span class="sh-logo" role="img" aria-label="Saint Haven Private Club"></span></header>
+    <div class="stack">
+      ${headline(s.h,mobile,s.c)}
+      <p class="sh-sub rv" style="--d:0">${SUB[s.s]}</p>
+      <div class="sh-cta rv" style="--d:1"><a class="sh-button">Apply For Membership</a><p class="sh-micro">${MICRO[s.m]}</p></div>
+    </div>
+
+    ${(v.cls||'').match(/v-portal|v-doorportal/)?`<div class="inshade"></div><div class="inside"><div class="inside-in">
+      <p class="sec-eye fx">${BELIEF.eye}</p>
+      <h2 class="sec-h fx">${BELIEF.h}</h2>
+      <div class="sec-body">${BELIEF.p.map(t=>`<p class="fx">${t}</p>`).join('')}<p class="sec-strong fx">${BELIEF.close}</p></div>
+    </div></div>`:''}
+  </div>`;
+}
+const VARIANTS=[
+ {id:'v1',name:'Black',theme:'dark',def:{h:0,s:1,m:1,c:0},
+  desc:'The application flow’s welcome screen, turned into the hero. Near-black and centred, with a hairline under the logo and nothing else.',
+  note:'<b>Closest to the reference.</b> The ad, the page and the application flow look like one continuous experience.'},
+ {id:'v2',name:'White',theme:'light',def:{h:0,s:0,m:0,c:0},
+  desc:'The same hero in the light theme of the flow: white with a black button.',
+  note:'<b>Lightest and most editorial.</b> Use it if the rest of the page is mostly white, so the hero doesn’t become a black block.'},
+ {id:'v3',name:'Front Door',theme:'dark',cls:'v-photo',def:{h:0,s:1,m:1,c:0},
+  desc:'The photo version of the application flow: a white header bar with the black logo, then the real front-door film full bleed under a dark wash. The compact stack sits over the arch.',
+  note:'<b>Matches the flow\u2019s photo screens.</b> The film moves only with its own light, so it stays calm behind the type.'},
+ {id:'v4',name:'Portal',theme:'dark',cls:'v-portal',def:{h:0,s:1,m:1,c:0,img:0},
+  desc:'Inspired by the Twinbru arch. You land on the black stack, centred, with no arch in sight. Scrolling lifts the copy away while an arch is born in the centre of the wall and the camera walks straight through it in one unbroken move. Inside the room, the next scroll dims it and Our belief rises over it, still pinned, before the page carries on.',
+  note:'<b>Scroll inside the frame.</b> The headline and CTA are readable before any movement. There is no CTA over the room any more; the belief statement takes its place.'},
+ {id:'v5',name:'Front Door Portal',theme:'dark',cls:'v-photo v-doorportal',def:{h:0,s:1,m:1,c:0,img:0},
+  desc:'You land on the front door, exactly like Front Door. Scrolling starts one continuous camera move toward the door. As the door and its sign fill the frame, the pair parts at the centre seam and both leaves swing inward on their outer hinges while the camera keeps moving. Inside is dark at first, then the room comes up out of the darkness as you pass through.',
+  note:'<b>Scroll inside the frame.</b> Once you are inside the room, the next scroll dims it and Our belief rises over it, the same as Portal. The two leaves are painted from the exact frame of the film at that moment, then turned in 3D, so it\u2019s the real door that opens. There\u2019s no hold and no jump, just one eased move, like the reference. The \u201cPrivate Club\u201d lettering under the sign is added to match the logo lock-up. Check it against the signage plans.'},
+];
+
+// ===== Section 2 · Our belief, styled to continue each hero =====
+const BELIEF={eye:'Our belief',h:'How you feel shapes everything else.',
+  hd:['How you feel shapes','everything else.'], hm:['How you feel shapes','everything else.'],
+  p:['We built Saint Haven, our private longevity and social club, around that simple belief.','We don\u2019t simply speak about extending life. We speak about making more of the life you have.'],
+  close:'Here, the pace is yours.'};
+const BELIEF_STYLE={
+  v1:{theme:'theme-dark',note:'Continues the black hero as one long statement. No imagery, nothing to compete with the words.'},
+  v2:{theme:'',note:'Stays on white, so the page reads like an editorial spread.'},
+  v3:{theme:'theme-warm',note:'Steps off the street onto warm cream. A single arch, cut to the front door\u2019s ratio, frames the corridor inside, as if you\u2019ve just walked through.'},
+  v4:{theme:'theme-dark',bg:'sy-portal.jpg',note:'You stay in the room you arrived in. The Portal image carries on behind the words, dimmed, so the statement feels said inside the club.'},
+  v5:{theme:'theme-dark',band:'sm-bathhouse.jpg',note:'Black after the dark doorway, then the statement, then the bathhouse opens up beneath it as a full-width band, the first proper look inside.'}
+};
+function belief(v,mobile,st){
+  const b=BELIEF_STYLE[v.id];
+  const bgImg=v.id==='v4'?PORTAL_IMG[st.img||0]:null;
+  return `<section class="sec ${b.theme} ${bgImg?'has-bg':''}">
+    ${bgImg?`<div class="sec-bg"><img src="img/${bgImg}" alt=""></div>`:''}
+    <div class="sec-in reveal">
+      <p class="sec-eye">${BELIEF.eye}</p>
+      <h2 class="sec-h">${BELIEF.h}</h2>
+      <div class="sec-body">${BELIEF.p.map(t=>`<p>${t}</p>`).join('')}<p class="sec-strong">${BELIEF.close}</p></div>
+    </div>
+  </section>`;
+}
+
+// ===== Section 3 · Inside the club =====
+const CLUB={eye:'Inside the club',h:'Train. Bathe. Restore. Connect.'};
+const PILLARS=[
+ {name:'Train',pos:'50% 55%',img:'club-train.jpg',alt:'The movement studio at Saint Haven Toorak',text:'Pilates, cycle and strength, shaped around you. Strength is about more than today. It\u2019s the freedom to keep doing what you love, for longer.'},
+ {name:'Bathe',pos:'50% 55%',img:'club-bathe.jpg',alt:'The candlelit bathhouse at Saint Haven South Yarra',text:'A modern take on the ancient bath house. Move between the warmth of the sauna and the cold plunge, guided by breathwork and moments of stillness. Vitamin C showers. Mineral salts. Nowhere you need to be.'},
+ {name:'Restore',pos:'50% 50%',img:'sy-haven.jpg',alt:'The recovery lounge at Saint Haven South Yarra',text:'Hyperbaric, cryo and red light, under one roof. A meditation cave. Candlelit yoga. There is something powerful about making time to do nothing at all.'},
+ {name:'Connect',pos:'38% 50%',img:'connect-dining.jpg',alt:'The restaurant and bar at Saint Haven South Yarra',text:'Lunch at our organic restaurant, beside someone you\u2019d never normally meet. Good food. Familiar faces. Conversations that last longer than the meal.'},
+];
+const CLUB_THEME={v1:'theme-dark',v2:'',v3:'theme-warm',v4:'theme-dark',v5:'theme-dark'};
+function club(v,mobile){
+  const H=mobile?844:810, inset=(v.id==='v2'||v.id==='v3');
+  const words=CLUB.h.split(' ');
+  return `<section class="club ${CLUB_THEME[v.id]} ${inset?'is-inset':''}" style="height:${Math.round(H*4.6)}px">
+    <div class="club-stage" style="height:${H}px">
+      <h2 class="sr-only">${CLUB.eye}: ${CLUB.h}</h2>
+      ${PILLARS.map((p,i)=>`<div class="scene" data-i="${i}">
+        <div class="scene-media"><img src="img/${p.img}" alt="${p.alt}" style="--pos:${p.pos}"></div>
+        <div class="scene-copy"><h3 class="scene-h">${p.name}</h3><p class="scene-p">${p.text}</p></div>
+      </div>`).join('')}
+      <div class="club-index">${PILLARS.map((p,i)=>`<span data-i="${i}">${p.name}</span>`).join('')}</div>
+      <div class="club-cta"><a class="sh-button">Apply For Membership</a></div>
+    </div>
+  </section>`;
+}
+function initClub(sec,page,mobile){
+  const H=mobile?844:810;
+  const  scenes=[...sec.querySelectorAll('.scene')], idx=sec.querySelector('.club-index'), tabs=[...idx.children], cta=sec.querySelector('.club-cta');
+  const clamp=x=>Math.max(0,Math.min(1,x)), seg=(x,a,b)=>clamp((x-a)/(b-a)), out=t=>1-Math.pow(1-t,3);
+  const A=0, W=(1-.1)/4, reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function render(){
+    const q=clamp((page.scrollTop-sec.offsetTop)/(sec.offsetHeight-H));
+    let active=-1;
+    scenes.forEach((sc,i)=>{
+      const a=A+i*W, img=sc.firstElementChild.firstElementChild, copy=sc.lastElementChild;
+      const vin=i===0?1:seg(q,a-.04,a+.04);
+      sc.style.opacity=vin.toFixed(3);
+      if(!reduce) img.style.transform=`scale(${(1.06-.06*out(seg(q,a-.03,a+W*.8))).toFixed(4)})`;
+      const cin=i===0?1:seg(q,a+.03,a+.08), cout=i<3?seg(q,a+W-.05,a+W-.01):0;
+      copy.style.opacity=(cin*(1-cout)).toFixed(3);
+      copy.style.transform=`translateY(${(16*(1-cin)-8*cout).toFixed(1)}px)`;
+      if(q>=a-.005) active=i;
+    });
+    idx.style.opacity=(1-seg(q,.88,.93)).toFixed(3);
+    tabs.forEach((t,i)=>t.classList.toggle('on',i===active));
+    const c=seg(q,.9,.96); cta.style.opacity=c.toFixed(3); cta.style.transform=`translateY(${(12*(1-c)).toFixed(1)}px)`; cta.style.pointerEvents=c>.5?'auto':'none';
+  }
+  page.addEventListener('scroll',()=>requestAnimationFrame(render),{passive:true});
+  render();
+}
+
+// ===== Sections 4 and 5 · Personalised care, Concierge =====
+const CARE={eye:'Personalised care',h:['Longevity, shaped','around you.'],hm:['Longevity,','shaped around you.'],
+  lead:'Your biology is individual. Your ambitions are personal. Your approach to longevity should be too.',
+  p:['Our practitioners begin with a clear picture of your health today, then shape preventative care around where you want to be in the years ahead.','Evidence-informed and expert-led, for more energy, greater confidence and strength for life.'],
+  img:'care-cave.jpg', alt:'The candlelit meditation cave at Saint Haven Collingwood'};
+const CONC={eye:'Concierge',h:['Service you never','have to ask for.'],hm:['Service you','never have to ask for.'],
+  intro:'Our concierge greets you by name, and looks after the rest before you think to ask.',
+  trio:['Your table.','Your towel.','Your usual.'],
+  close:'A considered, intuitive service, so the hours you spend here are entirely your own.'};
+// section tones: care continues the option's tone, concierge flips it for rhythm
+const CARE_THEME={v1:'theme-dark',v2:'',v3:'theme-warm',v4:'theme-dark',v5:'theme-dark'};
+const CONC_THEME={v1:'theme-warm',v2:'theme-dark',v3:'theme-dark',v4:'theme-warm',v5:'theme-warm'};
+function care(v,mobile){
+  return `<section class="sec sec-split ${CARE_THEME[v.id]}">
+    <div class="split-media arch-open" data-fx><img src="img/${CARE.img}" alt="${CARE.alt}"></div>
+    <div class="split-copy reveal">
+      <p class="sec-eye">${CARE.eye}</p>
+      <h2 class="sec-h">${CARE.h.join(' ')}</h2>
+      <div class="sec-body"><p class="sec-strong">${CARE.lead}</p>${CARE.p.map(t=>`<p>${t}</p>`).join('')}</div>
+    </div>
+  </section>`;
+}
+
+const CONC_IMG=[{img:'conc-table.jpg',pos:'55% 62%',alt:'Lunch being served at Saint Haven'},{img:'conc-towel.jpg',pos:'42% 60%',alt:'The bathhouse lounge at Saint Haven Toorak, towels folded on the sauna benches'},{img:'conc-usual.jpg',pos:'50% 62%',alt:'The bar at Saint Haven North Sydney'}];
+function concierge(v,mobile){
+  const H=mobile?844:810;
+  return `<section class="conc theme-dark" style="height:${Math.round(H*3.2)}px">
+    <div class="conc-stage" style="height:${H}px">
+      <div class="conc-copy">
+        <p class="sec-eye">${CONC.eye}</p>
+        <h2 class="sec-h">${CONC.h.join(' ')}</h2>
+        <p class="ci">${CONC.intro}</p>
+        <ul class="conc-trio">${CONC.trio.map(t=>`<li>${t}</li>`).join('')}</ul>
+        <p class="cc">${CONC.close}</p>
+      </div>
+      <div class="conc-media">${CONC_IMG.map(x=>`<img src="img/${x.img}" alt="${x.alt}" style="--pos:${x.pos}">`).join('')}</div>
+    </div>
+  </section>`;
+}
+// each beat holds its image; the next crossfades in as you scroll, a slow push on each
+function initConc(sec,page,mobile){
+  const H=mobile?844:810, imgs=[...sec.querySelectorAll('.conc-media img')], li=[...sec.querySelectorAll('.conc-trio li')], cc=sec.querySelector('.cc');
+  const clamp=x=>Math.max(0,Math.min(1,x)), seg=(x,a,b)=>clamp((x-a)/(b-a));
+  const B=[0,.3,.6], reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function render(){
+    const q=clamp((page.scrollTop-sec.offsetTop)/(sec.offsetHeight-H));
+    imgs.forEach((im,i)=>{ const a=B[i]; const o=i===0?1:seg(q,a-.05,a+.03); im.style.opacity=o.toFixed(3);
+      if(!reduce) im.style.transform=`scale(${(1.08-.08*seg(q,a-.05,(B[i+1]||1)+.02)).toFixed(4)})`; });
+    let on=0; B.forEach((a,i)=>{ if(q>=a-.01) on=i; }); li.forEach((x,i)=>x.classList.toggle('on',i===on));
+    const c=seg(q,.74,.86); cc.style.opacity=c.toFixed(3); cc.style.transform=`translateY(${(14*(1-c)).toFixed(1)}px)`;
+  }
+  page.addEventListener('scroll',()=>requestAnimationFrame(render),{passive:true}); render();
+}
+
+// ===== In their words (reviews panel): same logo-over-quote treatment as the hero band =====
+const PRESS=[
+ {pub:'Women\u2019s Fitness',logo:'womens-fitness-white.png',h:30,q:'\u201cWhere ancient ritual meets cutting-edge science.\u201d',url:'https://womensfitnessmag.com.au/saint-haven-wellness-club/'},
+ {pub:'marie claire',logo:'marie-claire-white.svg',h:24,q:'\u201cAn ultra-sumptuous sanctuary that feels a little like a Puglian bath house.\u201d',url:'https://www.marieclaire.com.au/life/health-wellness/wellness-clubs-dating/'},
+ {pub:'Urban List',logo:'urban-list-white.svg',h:32,q:'\u201cIt\u2019s promising to be more sanctuary than gym.\u201d',url:'https://www.theurbanlist.com/melbourne/a-list/saint-haven-collingwood'},
+ {pub:'RUSSH',logo:'russh-white.png',h:24,q:'\u201cTakes luxury wellness to the next level.\u201d',url:'https://www.russh.com/most-aesthetic-gyms-and-fitness-clubs-australia/'},
+ {pub:'Forbes Australia',logo:'forbes-white.svg',h:26,q:'\u201cWhat promises to be Australia\u2019s most lux wellbeing experience.\u201d',url:'https://www.forbes.com.au/life/health-wellness/inside-saint-haven-tim-gurners-exclusive-wellness-club/'},
+ {pub:'Australian Design Review',logo:'adr-white.png',h:30,q:'\u201cBuilding on the runaway success of Saint Haven.\u201d',url:'https://www.australiandesignreview.com/interiors/luxury-meets-lifestyle-at-saint-private-social-club/'},
+ {pub:'DMARGE',logo:'dmarge-white.svg',h:20,q:'\u201cThe most luxurious and impressive gym Australia has ever seen.\u201d',url:'https://dmarge.com/health/saint-haven'},
+];
+const PRESS_HAVE={has:()=>true};
+function press(v,mobile){
+  const ALL=[
+    {img:'esquire-white.svg',h:30,src:'Esquire Australia',q:'\u201cIt is the ultimate sanctuary.\u201d'},
+    {img:'womens-fitness-white.png',h:30,src:'Women\u2019s Fitness',q:'\u201cWhere ancient ritual meets cutting-edge science.\u201d'},
+    {img:'marie-claire-white.svg',h:24,src:'marie claire',q:'\u201cAn ultra-sumptuous sanctuary that feels a little like a Puglian bath house.\u201d'},
+    {img:'robb-report-white.svg',h:40,src:'Robb Report',q:'\u201cAncient bathhouse aesthetics meet high-tech wellness\u201d'},
+    {img:'urban-list-white.svg',h:32,src:'Urban List',q:'\u201cIt\u2019s promising to be more sanctuary than gym.\u201d'},
+    {img:'russh-white.png',h:24,src:'RUSSH',q:'\u201cTakes luxury wellness to the next level.\u201d'},
+    {img:'forbes-white.svg',h:30,src:'Forbes Australia',q:'\u201cWhat promises to be Australia\u2019s most lux wellbeing experience.\u201d'},
+    {img:'timeout-white.svg',h:54,src:'Time Out',q:'\u201cSuper-luxe, Melbourne-born wellness space\u201d'},
+    {img:'adr-white.png',h:30,src:'Australian Design Review',q:'\u201cBuilding on the runaway success of Saint Haven.\u201d'},
+    {img:'dmarge-white.svg',h:20,src:'DMARGE',q:'\u201cThe most luxurious and impressive gym Australia has ever seen.\u201d'},
+  ];
+  const item=x=>`<figure class="mq-item"><img class="bl" src="img/press/${x.img}" alt="${x.src}" style="--h:${x.h}px"><blockquote class="bq">${x.q}</blockquote></figure>`;
+  const row=(list,dir)=>`<div class="mq"><div class="mq-track ${dir}">${list.map(item).join('')}${list.map(item).join('')}</div></div>`;
+  return `<section class="sec sec-press ${CARE_THEME[v.id]}">
+    <h2 class="sr-only">In their words</h2>
+    <div class="mq-wrap reveal">${row(ALL.slice(0,5),'to-right')}${row(ALL.slice(5),'to-left')}</div>
+  </section>`;
+}
+
+// ===== By application, and the closing panel (bookends the hero at the front door) =====
+const APPLY={h:'By application, and for good reason.',strong:'The feeling of the club comes from the people in it.',p:'Every application is considered by our committee, so the faces you see each morning feel familiar and the club always feels like your own.'};
+const CLOSE={h:'The rest is best experienced in person.',p:'Applications take a few minutes. We look forward to receiving yours.',btn:'Join the waitlist',line:'Membership is limited. Curiosity isn\u2019t.'};
+function apply(v,mobile){
+  return `<section class="sec sec-split rev ${CARE_THEME[v.id]}">
+    <div class="split-media dolly" data-fx><img src="img/apply-arches.jpg" alt="The arched corridor at Saint Haven South Yarra"></div>
+    <div class="split-copy reveal">
+      <h2 class="sec-h">${APPLY.h}</h2>
+      <div class="sec-body"><p class="sec-strong">${APPLY.strong}</p><p>${APPLY.p}</p></div>
+    </div>
+  </section>`;
+}
+
+function closing(v,mobile){
+  const H=mobile?844:810;
+  return `<section class="sec sec-close theme-dark" style="min-height:${H}px">
+    <div class="sec-bg film-bg"><video muted playsinline loop autoplay preload="metadata" src="${VIDEO}"></video></div>
+    <div class="sec-in reveal">
+      <h2 class="sec-h">${CLOSE.h}</h2>
+      <div class="sec-body"><p>${CLOSE.p}</p></div>
+      <a class="sh-button close-btn">${CLOSE.btn}</a>
+      <p class="sh-micro close-line">${CLOSE.line}</p>
+    </div>
+    <span class="sh-logo close-logo" role="img" aria-label="Saint Haven Private Club"></span>
+  </section>`;
+}
+// every photo outside the pinned scenes settles from 106% to 100% as it crosses the screen
+function settle(page){
+  const imgs=[...page.querySelectorAll('.sec-media img, .sec-bg img, .sec-bg video, .split-media:not([data-fx]) img')];
+  // Personalised care: the photo is first seen through an arch, which opens to the full frame as it reaches the middle of the screen
+  // By application: one slow camera push down the corridor while the section is on screen
+  const arch=page.querySelector('.arch-open'), dolly=page.querySelector('.dolly');
+  const yOf=el=>{let y=0,n=el;while(n&&n!==page){y+=n.offsetTop;n=n.offsetParent;}return y;};
+  const ease=t=>1-Math.pow(1-t,3), reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){ imgs.forEach(im=>im.style.transform='none'); if(dolly) dolly.firstElementChild.style.transform='none'; if(arch) arch.firstElementChild.style.transform='none'; return; }
+  const fx=()=>{ const H=page.clientHeight, top=page.scrollTop;
+    if(arch){ const im=arch.firstElementChild, w=arch.offsetWidth, h=arch.offsetHeight, y=yOf(arch);
+      const t=ease(Math.max(0,Math.min(1,(top+H-y-h*.1)/(H*.62))));
+      const aw=Math.min(w*.42,h*.5)+(w-Math.min(w*.42,h*.5))*t, side=(w-aw)/2, topIn=h*.12*(1-t), r=(aw/2)*(1-t);
+      im.style.clipPath=`inset(${topIn.toFixed(1)}px ${side.toFixed(1)}px 0px ${side.toFixed(1)}px round ${r.toFixed(1)}px ${r.toFixed(1)}px 0 0)`;
+      im.style.transform=`scale(${(1.14-.14*t).toFixed(4)})`; }
+    if(dolly){ const im=dolly.firstElementChild, h=dolly.offsetHeight, y=yOf(dolly);
+      const t=Math.max(0,Math.min(1,(top+H-y)/(H+h)));
+      im.style.transform=`scale(${(1+.22*t*t).toFixed(4)})`; im.style.transformOrigin='50% 52%'; } };
+  page.addEventListener('scroll',()=>requestAnimationFrame(fx),{passive:true}); fx();
+  const run=()=>{ const H=page.clientHeight, top=page.scrollTop;
+    imgs.forEach(im=>{ const box=im.parentElement; let y=0,n=box; while(n&&n!==page){y+=n.offsetTop;n=n.offsetParent;}
+      const t=Math.max(0,Math.min(1,(top+H-y)/(H+box.offsetHeight))); im.style.transform=`scale(${(1.06-.06*t).toFixed(4)})`; }); };
+  page.addEventListener('scroll',()=>requestAnimationFrame(run),{passive:true}); run();
+}
+function pageHTML(v,s,mobile){
+  const H=mobile?844:810, D1=v.id==='v5'?Math.round(H*3.2):v.id==='v4'?Math.round(H*2.2):0, D2=D1?Math.round(H*1.5):0, D=D1+D2;
+  const top=D?`<section class="pg-pin" style="height:${H+D}px"><div class="pg-sticky" style="height:${H}px">${hero(v,s,mobile)}</div></section>`
+             :`<section class="pg-hero" style="height:${H}px">${hero(v,s,mobile)}</section>`;
+  return `<div class="page" data-d="${D}" data-d1="${D1}">${top}${D?'':belief(v,mobile,s)}${club(v,mobile)}${care(v,mobile)}${concierge(v,mobile)}${press(v,mobile)}${apply(v,mobile)}${closing(v,mobile)}</div>`;
+}
+const root=document.getElementById('options');
+VARIANTS.forEach((v,idx)=>{
+  const sec=document.createElement('section'); sec.className='opt'; sec.id=v.id;
+  sec.innerHTML=`<div class="wrap">
+   <div class="opt-head"><div><p class="n">Variant ${idx+1}</p><h2>${v.name}</h2></div><p>${v.desc}</p></div>
+   <div class="boards">
+     <div class="board-col"><div class="frame"><div class="artboard d"></div></div><div class="cap">Desktop · 1440 × 810 · scroll inside the screen</div></div>
+     <div class="board-col mob"><div class="frame"><div class="artboard m"></div></div><div class="cap">Mobile · 390 × 844</div></div>
+   </div>
+   <div class="controls">
+     <div class="grp" data-k="h"><span>Headline</span>${HEAD.map((_,i)=>`<button data-v="${i}">${i+1}</button>`).join('')}</div>
+     <div class="grp" data-k="s"><span>Subhead</span>${SUB.map((_,i)=>`<button data-v="${i}">${'AB'[i]}</button>`).join('')}</div>
+     <div class="grp" data-k="m"><span>Microcopy</span>${MICRO.map((_,i)=>`<button data-v="${i}">${i+1}</button>`).join('')}</div>
+     <div class="grp" data-k="c"><span>Headline case</span><button data-v="0">Capitals</button><button data-v="1">Sentence</button></div>
+     ${(v.cls||'').includes('v-doorportal')?`<div class="grp" data-k="img"><span>Room</span><button data-v="0">South Yarra Portal</button><button data-v="1">South Melbourne Bathhouse</button><button data-v="2">South Yarra Haven</button><button data-v="3">North Sydney Bathhouse</button></div>`:''}
+     ${v.cls==='v-portal'?`<div class="grp" data-k="img"><span>Room</span><button data-v="0">South Yarra Portal</button><button data-v="1">North Sydney Bathhouse</button><button data-v="2">South Yarra Haven</button><button data-v="3">South Melbourne Arrival</button></div>`:''}
+     <button class="playpage">Play the page</button>
+     <button class="replay">Back to top</button>
+   </div>
+   <p class="note">${v.note} <span class="flow">Scroll inside the screen to move through the page: hero, then Our belief (${BELIEF_STYLE[v.id].note.charAt(0).toLowerCase()+BELIEF_STYLE[v.id].note.slice(1)}), then the Train, Bathe, Restore, Connect scenes, Personalised care, Concierge, In their words, By application and the closing invitation back at the front door.</span></p></div>`;
+  root.appendChild(sec);
+  const state={...v.def};
+  const boards=[...sec.querySelectorAll('.artboard.d, .artboard.m')];
+  function draw(play){
+    boards.forEach((b,i)=>{
+      const mobile=i===1; b.innerHTML=pageHTML(v,state,mobile);
+      const page=b.firstElementChild, hero=page.querySelector('.sh-hero'), D=+page.dataset.d;
+      hero.classList.toggle('play',!!play);
+      if(v.cls==='v-portal') initPortal(hero,mobile,page,+page.dataset.d1,D);
+      if((v.cls||'').includes('v-doorportal')) initDoorPortal(hero,mobile,page,+page.dataset.d1,D);
+      const sio=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); }),{root:page,threshold:.25});
+      initClub(page.querySelector('.club'),page,mobile);
+      initConc(page.querySelector('.conc'),page,mobile);
+      page.querySelectorAll('.reveal').forEach(el=>sio.observe(el));
+      settle(page);
+    });
+    sec.querySelectorAll('.grp').forEach(g=>g.querySelectorAll('button').forEach(b=>b.classList.toggle('on',+b.dataset.v===state[g.dataset.k])));
+    sec.querySelectorAll('video').forEach(x=>vio.observe(x));
+  }
+  sec._replay=()=>boards.forEach(b=>{const page=b.firstElementChild; page.scrollTop=0; const h=page.querySelector('.sh-hero'); h.classList.remove('play'); void h.offsetWidth; h.classList.add('play');});
+  sec.querySelectorAll('.grp').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('button'); if(!b)return; state[g.dataset.k]=+b.dataset.v; draw(true);}));
+  sec.querySelector('.replay').addEventListener('click',sec._replay);
+  sec.querySelector('.playpage').addEventListener('click',()=>boards.forEach(b=>{
+    const page=b.firstElementChild, max=page.scrollHeight-page.clientHeight, D=Math.max(9000,max*2.4), t0=performance.now(); page.scrollTop=0;
+    const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+    const f=n=>{const t=Math.min(1,(n-t0)/D); page.scrollTop=max*ease(t); if(t<1) requestAnimationFrame(f);}; requestAnimationFrame(f);
+  }));
+  draw(false);
+});
+
+// ===== Portal heroes: once inside, the room dims and Our belief rises line by line, still pinned =====
+function beliefFX(hero){
+  const shade=hero.querySelector('.inshade'), fx=[...hero.querySelectorAll('.inside .fx')];
+  const clamp=x=>Math.max(0,Math.min(1,x)), seg=(x,a,b)=>clamp((x-a)/(b-a)), out=t=>1-Math.pow(1-t,3);
+  return q=>{ shade.style.opacity=out(seg(q,0,.3)).toFixed(3);
+    fx.forEach((el,i)=>{ const t=out(seg(q,.06+i*.06,.3+i*.06)); el.style.opacity=t.toFixed(3); el.style.transform=`translateY(${(18*(1-t)).toFixed(1)}px)`; }); };
+}
+// one smoothed scroll value drives both phases: p = the camera move, q = the belief reveal
+function pinDriver(page,D1,D,render){
+  let ty=0,y=0,run=false; const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches, D2=D-D1;
+  const go=()=>render(Math.max(0,Math.min(1,y/D1)),Math.max(0,Math.min(1,(y-D1)/D2)));
+  function tick(){ y+=(ty-y)*.09; if(Math.abs(ty-y)<.5)y=ty; go(); if(y!==ty)requestAnimationFrame(tick); else run=false; }
+  page.addEventListener('scroll',()=>{ ty=Math.min(D,page.scrollTop); if(reduce){y=ty;go();return;} if(!run){run=true;requestAnimationFrame(tick);} },{passive:true});
+  go();
+}
+
+// ===== Portal: scroll-driven zoom through the arch =====
+function initPortal(hero,mobile,page,D1,D){
+  const W=mobile?390:1440, H=mobile?844:810;
+  const room=hero.querySelector('.room'), img=room.querySelector('img'), rim=hero.querySelector('.rim'), stack=hero.querySelector('.stack');
+  const w0=mobile?150:200, h0=Math.round(w0/0.57), cx=W/2, cy=H/2+h0*.08;
+  const clamp=x=>Math.max(0,Math.min(1,x)), seg=(x,a,b)=>clamp((x-a)/(b-a)), out=t=>1-Math.pow(1-t,3), sine=t=>-(Math.cos(Math.PI*t)-1)/2;
+  const SMAX=mobile?18:14;
+  function arch(scale){ const w=w0*scale,h=h0*scale; const L=cx-w/2, T=cy-h/2, r=w/2;
+    return `inset(${T.toFixed(1)}px ${(W-L-w).toFixed(1)}px ${(H-T-h).toFixed(1)}px ${L.toFixed(1)}px round ${r.toFixed(1)}px ${r.toFixed(1)}px 0 0)`; }
+  const bel=beliefFX(hero);
+  function render(p,q){
+    // one unbroken push: the arch is born as a point and the camera walks straight through it, no hold between
+    const u=sine(seg(p,.03,.95)), sc1=SMAX*Math.pow(u,2.4);
+    room.style.clipPath=arch(sc1);
+    rim.style.clipPath=arch(sc1*1.07+0.06*Math.min(1,sc1));
+    img.style.transformOrigin=`${cx}px ${cy}px`;
+    img.style.transform=`scale(${(1.6-0.6*out(seg(p,.03,1))-0.04*q).toFixed(4)})`;
+    img.style.filter=`brightness(${(0.72+0.28*seg(p,.2,.8)).toFixed(3)})`;
+    room.style.setProperty('--endshade',seg(p,.75,1).toFixed(3));
+    const fo=1-seg(p,.01,.14);
+    stack.style.opacity=fo.toFixed(3); stack.style.transform=`translateY(${(-30*(1-fo)).toFixed(1)}px)`; stack.style.pointerEvents=fo>.5?'auto':'none';
+    bel(q);
+  }
+  pinDriver(page,D1,D,render);
+}
+
+// ===== In their words =====
+
+(function(){
+  const sec=document.getElementById('proof'); const [d,m]=sec.querySelectorAll('.artboard'); const st={t:0};
+  const tone=['','black','white'];
+  const render=()=>`<div class="sh-proof ${tone[st.t]}"><p class="lbl">In their words</p><div class="row">${QUOTES.map((x,i)=>`<figure class="pi" style="--d:${i}"><div class="logo"><img class="logo-img" src="img/press/${x.img}-white.svg" alt="${x.src}" style="--h:${x.h}px"></div><blockquote class="q">${x.q}</blockquote></figure>`).join('')}</div></div>`;
+  function draw(play){ d.innerHTML=render(); m.innerHTML=render(); [d,m].forEach(b=>b.firstElementChild.classList.toggle('play',!!play)); sec.querySelectorAll('.grp button').forEach(b=>b.classList.toggle('on',+b.dataset.v===st.t)); fit(); }
+  sec._replay=()=>[d,m].forEach(b=>{const h=b.firstElementChild; h.classList.remove('play'); void h.offsetWidth; h.classList.add('play');});
+  sec.querySelector('.grp').addEventListener('click',e=>{const b=e.target.closest('button'); if(!b)return; st.t=+b.dataset.v; draw(true);});
+  sec.querySelector('.replay').addEventListener('click',sec._replay);
+  draw(false);
+})();
+
+// ===== Front Door Portal: one continuous dolly; the double doors part from the centre seam and swing inward as the camera passes through =====
+function initDoorPortal(hero,mobile,page,PD1,D){
+  const W=mobile?390:1440, H=mobile?844:810, HD=mobile?56:64, LW=W, LH=H-HD, DPR=1.5;
+  const film=hero.querySelector('.film'), base=film.querySelector('.base'), wrap=film.querySelector('.leafwrap');
+  const leafL=film.querySelector('.leaf.l'), leafR=film.querySelector('.leaf.r'), pc=film.querySelector('.pc'), hole=film.querySelector('.hole'), inroom=hole.querySelector('img');
+  const stack=hero.querySelector('.stack'), band=hero.querySelector('.sh-band'), bel=beliefFX(hero);
+  const clamp=x=>Math.max(0,Math.min(1,x)), seg=(x,a,b)=>clamp((x-a)/(b-a)), lerp=(a,b,t)=>a+(b-a)*t;
+  const inout=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2, out=t=>1-Math.pow(1-t,3), sine=t=>-(Math.cos(Math.PI*t)-1)/2;
+  const k=Math.max(LW/1280,LH/716), dw=1280*k, dh=716*k, ox=(LW-dw)/2, oy=(LH-dh)/2;
+  const P=(x,y)=>({x:ox+x*dw,y:oy+y*dh});
+  // doorway inside the frame, below the transom: x .426-.5725, y .438-.794; the pair splits at the centre seam
+  const D0=P(.426,.438), D1=P(.5725,.794), SEAM=(D0.x+D1.x)/2;
+  hole.style.cssText+=`left:${D0.x}px;top:${D0.y}px;width:${D1.x-D0.x}px;height:${D1.y-D0.y}px`;
+  [leafL,leafR].forEach(c=>{c.width=Math.round(LW*DPR);c.height=Math.round(LH*DPR);c.style.width=LW+'px';c.style.height=LH+'px';});
+  const ins=(l,r)=>`inset(${D0.y.toFixed(1)}px ${(LW-r).toFixed(1)}px ${(LH-D1.y).toFixed(1)}px ${l.toFixed(1)}px)`;
+  leafL.style.clipPath=ins(D0.x,SEAM); leafL.style.transformOrigin=`${D0.x}px ${(D0.y+D1.y)/2}px`;
+  leafR.style.clipPath=ins(SEAM,D1.x); leafR.style.transformOrigin=`${D1.x}px ${(D0.y+D1.y)/2}px`;
+  wrap.style.perspective=`${((D1.y-D0.y)*2.4).toFixed(0)}px`;
+  wrap.style.perspectiveOrigin=`${SEAM}px ${(D0.y+D1.y)/2}px`;
+  const pcp=P(.5,.2545); pc.style.left=pcp.x+'px'; pc.style.top=pcp.y+'px'; pc.style.fontSize=(dh*.0105).toFixed(2)+'px';
+  const C={x:LW/2,y:LH/2}, F1=P(.5,.508), HOLE={x:SEAM,y:(D0.y+D1.y)/2};
+  const sEnd=Math.max(LW/(D1.x-D0.x),LH/(D1.y-D0.y))*1.35;
+  function cam(f,s){film.style.transform=`translate(${(C.x-f.x*s).toFixed(2)}px,${(C.y-f.y*s).toFixed(2)}px) scale(${s.toFixed(4)})`;}
+  // the room is sized so it exactly fills the screen when the camera arrives, so the whole room is seen, not a crop of it
+  { const rw=LW/sEnd*1.04, rh=LH/sEnd*1.04; inroom.style.cssText+=`inset:auto;left:${(HOLE.x-D0.x-rw/2).toFixed(2)}px;top:${(HOLE.y-D0.y-rh/2).toFixed(2)}px;width:${rw.toFixed(2)}px;height:${rh.toFixed(2)}px`; }
+  // freeze the film and paint the exact frame onto both door leaves, so the doors are the real door
+  let held=false;
+  function snapshot(){ [leafL,leafR].forEach(c=>{const g=c.getContext('2d'); g.setTransform(DPR,0,0,DPR,0,0); g.drawImage(base,ox,oy,dw,dh);}); }
+  function hold(on){ if(on===held) return; held=on; hero._held=on;
+    if(on){ base.pause(); snapshot(); leafL.style.opacity=leafR.style.opacity=1; hole.style.opacity=1; }
+    else { leafL.style.opacity=leafR.style.opacity=0; hole.style.opacity=0; base.play().catch(()=>{}); } }
+  function render(p,q){
+    hold(p>.004);
+    // the copy and the press band lift away, the evening wash clears
+    const fo=1-seg(p,.01,.12);
+    stack.style.opacity=fo.toFixed(3); stack.style.transform=`translateY(${(-30*(1-fo)).toFixed(1)}px)`;
+    if(band) band.firstElementChild.style.opacity=fo.toFixed(3); stack.style.pointerEvents=fo>.5?'auto':'none';
+    film.style.setProperty('--wash',(1-seg(p,.03,.3)).toFixed(3));
+    pc.style.opacity=seg(p,.1,.26).toFixed(3);
+    // one continuous dolly: slow to start, gathering pace through the doorway, easing out inside
+    const t=inout(seg(p,.02,.96));
+    const s=Math.exp(Math.log(sEnd)*t);
+    const aim=sine(seg(p,.02,.34)), into=sine(seg(p,.34,.8));
+    const f={x:lerp(lerp(C.x,F1.x,aim),HOLE.x,into),y:lerp(lerp(C.y,F1.y,aim),HOLE.y,into)};
+    cam(f,s);
+    // the pair parts at the seam and swings inward on outer hinges while the camera keeps moving
+    const o=inout(seg(p,.3,.74));
+    leafL.style.transform=`rotateY(${(84*o).toFixed(2)}deg)`;
+    leafR.style.transform=`rotateY(${(-84*o).toFixed(2)}deg)`;
+    const shade=(1-.62*o).toFixed(3); leafL.style.filter=leafR.style.filter=`brightness(${shade})`;
+    // inside is dark at first, then the room comes up out of the darkness
+    const lit=sine(seg(p,.5,.93));
+    inroom.style.filter=`brightness(${(.05+.95*lit).toFixed(3)})`;
+    inroom.style.transform=`scale(${(1.3-.3*out(seg(p,.3,1))).toFixed(4)})`;
+    bel(q);
+  }
+  pinDriver(page,PD1,D,render);
+}
+function fit(){ document.querySelectorAll('.frame').forEach(f=>{const a=f.querySelector('.artboard'); const s=f.clientWidth/a.offsetWidth; a.style.transform=`scale(${s})`; f.style.height=(a.offsetHeight*s)+'px';}); }
+addEventListener('resize',fit); fit(); document.fonts&&document.fonts.ready.then(fit);
+const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting&&!e.target.dataset.seen){e.target.dataset.seen=1; e.target._replay();} }),{threshold:.15});
+document.querySelectorAll('.opt').forEach(s=>io.observe(s));
+</script>
+</body>
+</html>

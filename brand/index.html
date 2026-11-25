@@ -1,0 +1,879 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Saint Haven Directions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,200..600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#000;--paper:#fff;--grey:#595959;--line:#e6e6e6;--soft:#f5f5f5;
+  --serif:"Instrument Serif","IvyPresto Display",Georgia,serif;
+  --sans:"Archivo","GT America",system-ui,sans-serif;
+  --logo:url("img/logo.svg");
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{font-family:var(--sans);font-stretch:112%;font-weight:300;font-size:16px;line-height:1.55;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+h1,h2,h3{text-wrap:balance}
+a{color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+
+/* top bar */
+.bar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:28px;height:60px}
+.bar .lg{width:120px;height:22px;background:var(--logo) left center/contain no-repeat;flex:none}
+.bar nav{display:flex;gap:22px;overflow-x:auto;scrollbar-width:none;font-size:14px;font-weight:400}
+.bar nav a{text-decoration:none;color:var(--grey);white-space:nowrap}
+.bar nav a:hover{color:var(--ink)}
+
+.parked{background:#000;color:#fff;font-size:15px}
+.parked .wrap{padding-top:14px;padding-bottom:14px}
+.parked a{color:#fff}
+.pk{font-weight:500;color:#000}
+/* intro */
+.intro{padding:88px 0 56px;border-bottom:1px solid var(--line)}
+.intro .k{font-size:14px;color:var(--grey);margin-bottom:20px}
+.intro h1{font-family:var(--serif);font-weight:400;font-size:clamp(44px,6vw,76px);line-height:1;letter-spacing:-.01em;max-width:14ch}
+.intro .lede{font-size:19px;max-width:60ch;margin-top:24px}
+.cols{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
+.card{border:1px solid var(--line);padding:24px;background:#fff}
+.card h4{font-size:15px;font-weight:500;margin-bottom:8px}
+.card p,.card li{font-size:15px;color:#333}
+.card ul{padding-left:18px}
+.card li+li{margin-top:6px}
+
+/* option */
+.opt{padding:96px 0 40px;border-bottom:1px solid var(--line)}
+.opt-head{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;margin-bottom:36px}
+.opt-head .n{font-size:14px;color:var(--grey);margin-bottom:10px}
+.opt-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(40px,5vw,64px);line-height:1;letter-spacing:-.01em}
+.opt-head p{font-size:18px}
+.opt-head .pos{display:block;font-size:14px;color:var(--grey);margin-top:12px}
+
+.stage{position:relative;aspect-ratio:16/9;overflow:hidden;background:#000;color:#fff;isolation:isolate}
+.stage-foot{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 0 0;font-size:14px;color:var(--grey)}
+.replay{font:inherit;font-weight:400;color:var(--ink);background:none;border:1px solid var(--ink);padding:8px 16px;cursor:pointer}
+.replay:hover{background:var(--ink);color:#fff}
+
+.specs{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+.specs .wide{grid-column:span 2}
+.specs .full{grid-column:1/-1}
+.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:12px;margin-top:6px}
+.sw div{font-size:13px;line-height:1.35;color:#333}
+.sw i{display:block;height:56px;border:1px solid var(--line);margin-bottom:8px}
+.sw b{display:block;font-weight:500;color:#000}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;vertical-align:top;padding:9px 12px 9px 0;border-top:1px solid var(--line)}
+th{font-weight:500;width:28%}
+tr:first-child th,tr:first-child td{border-top:0}
+code{font-family:ui-monospace,Menlo,monospace;font-size:13px}
+details summary{cursor:pointer;font-size:15px;font-weight:500}
+details pre{margin-top:14px;font-size:13px;line-height:1.6;background:var(--soft);padding:16px;overflow-x:auto}
+.sig{background:var(--soft);border-color:var(--soft)}
+.sig h4{font-size:15px}
+.sig .nm{font-family:var(--serif);font-size:30px;line-height:1.1;margin:4px 0 10px;font-weight:400}
+
+/* comparison */
+.cmp{padding:96px 0}
+.cmp h2,.rec h2{font-family:var(--serif);font-weight:400;font-size:clamp(36px,4.4vw,56px);line-height:1;margin-bottom:28px}
+.cmp table{font-size:15px}
+.cmp th{width:auto}
+.cmp td,.cmp th{padding:14px 16px 14px 0}
+.cmp thead th{font-weight:500;border-top:0;border-bottom:1px solid #000}
+.scroll-x{overflow-x:auto}
+.rec{padding:0 0 120px}
+.rec .card{border-color:#000;padding:32px}
+.rec p{font-size:18px;color:#000;max-width:70ch}
+.rec p+p{margin-top:14px}
+
+/* ===== shared demo bits ===== */
+.d-nav{position:absolute;inset:0 0 auto;display:flex;justify-content:space-between;align-items:center;padding:3.2% 4%;z-index:5}
+.d-logo{display:block;width:15%;aspect-ratio:5/1;background:var(--logo) center/contain no-repeat;filter:invert(1)}
+.d-logo.dark{filter:none}
+.d-link{font-family:var(--sans);font-stretch:125%;font-weight:400;font-size:clamp(9px,.9vw,12px);letter-spacing:.14em;text-transform:uppercase}
+.d-cta{display:inline-block;font-family:var(--sans);font-stretch:125%;font-weight:400;font-size:clamp(10px,1vw,13px);letter-spacing:.14em;text-transform:uppercase;padding:1.1em 2.2em;text-decoration:none;cursor:pointer;transition:background-color .2s cubic-bezier(.22,1,.36,1),color .2s cubic-bezier(.22,1,.36,1)}
+.d-eye{font-family:var(--sans);font-stretch:125%;font-weight:400;font-size:clamp(9px,.9vw,12px);letter-spacing:.16em;text-transform:uppercase}
+
+/* ===== 1 Threshold ===== */
+.s1 .arch{position:absolute;inset:0;overflow:hidden;clip-path:inset(0 0 0 0 round 0)}
+.s1 .arch img{width:100%;height:100%;object-fit:cover}
+.s1 .arch::after{content:"";position:absolute;inset:0;background:#000;opacity:.5}
+.s1 .copy{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:2.2vw;padding:0 10%;z-index:4}
+.s1 h3{font-family:var(--serif);font-weight:400;text-transform:uppercase;font-size:clamp(26px,4.4vw,60px);line-height:1;letter-spacing:.01em;max-width:13ch}
+.s1 .d-cta{background:#fff;color:#000}
+.s1 .d-cta:hover{background:#000;color:#fff;box-shadow:inset 0 0 0 1px #fff}
+.s1 .rise{opacity:1;transform:none}
+.s1.play .arch{animation:archOpen 1.6s cubic-bezier(.65,0,.35,1) both}
+.s1.play .arch img{animation:archScale 2.4s cubic-bezier(.22,1,.36,1) both}
+.s1.play .arch::after{animation:fadeTo50 1.2s .9s cubic-bezier(.22,1,.36,1) both}
+.s1.play .rise{animation:rise .8s cubic-bezier(.22,1,.36,1) both;animation-delay:calc(1.25s + var(--i)*.12s)}
+.s1.play .d-nav{animation:fade .8s 1.6s both}
+@keyframes archOpen{from{clip-path:inset(26% 41% 0 41% round 999px 999px 0 0)}to{clip-path:inset(0 0 0 0 round 0 0 0 0)}}
+@keyframes archScale{from{transform:scale(1.12)}to{transform:scale(1)}}
+@keyframes fadeTo50{from{opacity:0}to{opacity:.5}}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+
+/* ===== 2 Champagne Silk ===== */
+.s2{background:#F6F1E9;color:#1A1712}
+.s2 .copy{position:absolute;inset:0 0 auto;padding:12% 10% 0;text-align:center;z-index:3}
+.s2 .d-eye{color:#5E5548}
+.s2 h3{font-family:var(--serif);font-weight:400;font-size:clamp(28px,4.6vw,64px);line-height:1.02;letter-spacing:-.01em;margin:1.4vw auto 2vw;max-width:20ch}
+.s2 .frame{position:absolute;left:22%;right:22%;top:56%;bottom:-6%;overflow:hidden}
+.s2 .frame img{width:100%;height:118%;object-fit:cover;object-position:center 60%;filter:sepia(.18) saturate(.9) brightness(1.04)}
+.s2 .beam{position:absolute;inset:-20% -60%;background:linear-gradient(100deg,transparent 38%,rgba(255,246,228,.0) 42%,rgba(255,240,215,.42) 50%,rgba(255,246,228,0) 58%,transparent 62%);mix-blend-mode:screen;transform:translateX(-60%);pointer-events:none}
+.s2 .d-cta{background:#000;color:#F6F1E9;position:relative;overflow:hidden}
+.s2 .d-cta::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(233,220,198,.35) 50%,transparent 70%);transform:translateX(-110%);transition:transform .9s cubic-bezier(.37,0,.63,1)}
+.s2 .d-cta:hover::after{transform:translateX(110%)}
+.s2.play .frame{animation:silkRise 1.6s cubic-bezier(.37,0,.63,1) both}
+.s2.play .frame img{animation:silkDrift 14s linear both}
+.s2.play .beam{animation:beam 2.8s .9s cubic-bezier(.37,0,.63,1) both}
+.s2.play .soft{animation:softIn 1.2s cubic-bezier(.37,0,.63,1) both;animation-delay:calc(.2s + var(--i)*.18s)}
+@keyframes silkRise{from{opacity:0;transform:translateY(8%)}to{opacity:1;transform:none}}
+@keyframes silkDrift{from{transform:translateY(-6%)}to{transform:translateY(0)}}
+@keyframes beam{from{transform:translateX(-60%)}to{transform:translateX(60%)}}
+@keyframes softIn{from{opacity:0;filter:blur(6px)}to{opacity:1;filter:blur(0)}}
+
+/* ===== 3 One Message ===== */
+.s3{background:#000}
+.s3 .scroller{position:absolute;inset:0;overflow-y:auto;scroll-snap-type:y mandatory;scrollbar-width:none;overscroll-behavior:contain}
+.s3 .scroller::-webkit-scrollbar{display:none}
+.s3 .panel{height:100%;scroll-snap-align:start;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 12%;gap:2vw;position:relative}
+.s3 h3{font-family:var(--serif);font-weight:400;font-size:clamp(28px,4.8vw,66px);line-height:1.04;letter-spacing:-.01em}
+.s3 .ln{display:block;overflow:hidden;padding-bottom:.06em;white-space:nowrap}
+.s3 .ln>span{display:block;transform:translateY(105%);transition:transform .9s cubic-bezier(.22,1,.36,1);transition-delay:calc(var(--i)*.08s)}
+.s3 .panel.in .ln>span{transform:none}
+.s3 .sub{color:#A6A6A6;font-size:clamp(12px,1.2vw,16px);max-width:46ch;opacity:0;transition:opacity .8s .4s}
+.s3 .panel.in .sub{opacity:1}
+.s3 .d-cta{background:#fff;color:#000;opacity:0;transition:opacity .8s .5s,background-color .2s,color .2s}
+.s3 .panel.in .d-cta{opacity:1}
+.s3 .d-cta:hover{background:#000;color:#fff;box-shadow:inset 0 0 0 1px #fff}
+.s3 .cline{position:absolute;left:50%;top:0;bottom:0;width:1px;background:rgba(255,255,255,.14);z-index:2;pointer-events:none}
+.s3 .cline i{position:absolute;inset:0;background:#B08A5B;transform-origin:top;transform:scaleY(var(--p,0))}
+.s3 .panel>*{position:relative;z-index:3}
+.s3 .panel h3,.s3 .panel .sub,.s3 .panel .d-eye,.s3 .lgw{background:#000;padding:.3em .5em}
+.s3 .lgw{display:block;width:26%;padding:1em 1.2em}
+.s3 .lgw .d-logo{width:100%}
+.s3 .hint{position:absolute;bottom:4%;left:0;right:0;text-align:center;z-index:4;pointer-events:none;color:#A6A6A6;transition:opacity .4s}
+.s3 .hint.gone{opacity:0}
+.s3 .pnum{position:absolute;right:4%;bottom:4%;z-index:4;color:#A6A6A6}
+
+/* ===== 4 Pillar Index ===== */
+.s4{background:#fff;color:#000;display:grid;grid-template-rows:1fr auto}
+.s4 .pics{position:relative;overflow:hidden}
+.s4 .pics img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.04);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform 6s linear}
+.s4 .pics img.on{opacity:1;transform:scale(1)}
+.s4 .pics::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.35),rgba(0,0,0,0) 30%,rgba(0,0,0,0) 60%,rgba(0,0,0,.45))}
+.s4 .cap{position:absolute;left:0;right:0;bottom:7%;text-align:center;color:#fff;z-index:3;padding:0 10%}
+.s4 .cap .d-eye{opacity:.85}
+.s4 .cap h3{font-family:var(--serif);font-weight:400;font-size:clamp(24px,3.6vw,50px);line-height:1.04;margin-top:.5vw}
+.s4 .cap h3 span{display:inline-block;transition:opacity .24s,transform .24s cubic-bezier(.22,1,.36,1)}
+.s4 .cap.swap h3 span{opacity:0;transform:translateY(8px)}
+.s4 .idx{display:flex;justify-content:center;gap:0;border-top:1px solid #e6e6e6}
+.s4 .idx button{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;flex:1;max-width:220px;font:inherit;font-stretch:112%;font-size:clamp(10px,1.05vw,14px);font-weight:400;background:none;border:0;color:#595959;padding:1.3vw .6vw 1.5vw;cursor:pointer;position:relative;text-align:center;transition:color .24s}
+.s4 .idx button small{display:block;font-size:.78em;letter-spacing:.14em;margin-bottom:.3em}
+.s4 .idx button:hover,.s4 .idx button.on{color:#000}
+.s4 .idx button::before{content:"";position:absolute;left:12%;right:12%;top:-1px;height:2px;background:#000;transform:scaleX(0);transform-origin:left}
+.s4 .idx button.on::before{animation:prog var(--dur,5s) linear forwards}
+.s4.paused .idx button.on::before{animation-play-state:paused}
+.s4 .d-nav{z-index:6}
+.s4 .d-cta{background:#fff;color:#000;padding:.9em 1.6em}
+.s4 .d-cta:hover{background:#000;color:#fff}
+@keyframes prog{to{transform:scaleX(1)}}
+
+/* ===== 5 After Hours ===== */
+.s5{background:#0D0C0B;color:#F3EDE4;cursor:none}
+.s5 .base,.s5 .lit{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.s5 .base{filter:brightness(.22) saturate(.7)}
+.s5 .lit{filter:brightness(.95) saturate(1.05);-webkit-mask-image:radial-gradient(circle var(--r,26vw) at var(--x,50%) var(--y,50%),#000 0%,rgba(0,0,0,.55) 38%,transparent 72%);mask-image:radial-gradient(circle var(--r,26vw) at var(--x,50%) var(--y,50%),#000 0%,rgba(0,0,0,.55) 38%,transparent 72%)}
+.s5 .copy{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;padding:0 10% 7%;gap:1.6vw;z-index:4;pointer-events:none}
+.s5 .copy::before{content:"";position:absolute;inset:auto 0 0;height:55%;background:linear-gradient(to top,rgba(13,12,11,.92),rgba(13,12,11,0));z-index:-1}
+.s5 h3{font-family:var(--serif);font-weight:400;font-size:clamp(28px,4.6vw,64px);line-height:1.02;letter-spacing:-.01em;max-width:16ch}
+.s5 .d-eye{color:#B08A5B}
+.s5 .d-cta{background:#F3EDE4;color:#0D0C0B;pointer-events:auto;cursor:pointer}
+.s5 .d-cta:hover{background:#B08A5B;color:#0D0C0B}
+.s5.play .copy>*{animation:rise 1s cubic-bezier(.22,1,.36,1) both;animation-delay:calc(.5s + var(--i)*.15s)}
+.s5.play .lit{animation:lampOn 1.4s cubic-bezier(.22,1,.36,1) both}
+@keyframes lampOn{from{opacity:0}to{opacity:1}}
+
+/* responsive */
+@media (max-width:900px){
+  .cols,.specs{grid-template-columns:1fr}
+  .specs .wide,.specs .full{grid-column:auto}
+  .opt-head{grid-template-columns:1fr;gap:16px}
+  .stage{aspect-ratio:auto;height:600px}
+  .s1 h3,.s2 h3,.s5 h3{font-size:34px}
+  .s3 h3{font-size:28px}
+  .s3 .panel{padding:0 5%}
+  .s4 .cap h3{font-size:28px}
+  .d-logo{width:120px}
+  .s3 .lgw{width:200px}
+  .s2 .frame{left:8%;right:8%;top:46%}
+  .s2 .copy{padding-top:24%}
+  .s2 h3{margin:12px auto 24px}
+  .s4 .idx{overflow-x:auto;justify-content:flex-start}
+  .s4 .idx button{flex:0 0 30%;font-size:12px;padding:14px 6px}
+  .d-cta{font-size:11px}
+  .d-link,.d-eye{font-size:10px}
+  .s5 .lit{--r:180px}
+}
+@media (max-width:560px){.wrap{padding:0 16px}.intro{padding-top:56px}.opt{padding-top:64px}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+
+<div class="bar"><div class="wrap">
+  <span class="lg" role="img" aria-label="Saint Haven"></span>
+  <nav>
+    <a href="#o1">1 The Threshold</a><a href="#o2">2 Champagne Silk</a><a href="#o3">3 One Message</a><a href="#o4">4 Pillar Index</a><a href="#o5">5 After Hours</a><a href="#compare">Compare</a><a href="doors.html" style="color:#000">Behind One Door →</a><a href="atf.html" style="color:#000">ATF options →</a>
+  </nav>
+</div></div>
+
+<div class="parked"><div class="wrap"><b>Parked for the shortlist:</b> <a href="#o1">1 The Threshold</a> and the motion from <a href="#o3">3 One Message</a>. New entrance variants are on <a href="doors.html">Behind One Door</a>.</div></div>
+<header class="intro"><div class="wrap">
+  <p class="k">Saint Haven · Brand direction options · Draft for review · 25 Nov 2026</p>
+  <h1>Five ways to move through Saint Haven</h1>
+  <p class="lede">Saint Haven already has a brand, so these aren't five new brands. The logo, IvyPresto and GT America, and the black, white, champagne and bronze anchors stay fixed in all five. What changes is how the brand moves, how people get around it, how imagery is treated, and how warm or dense it feels. Each option has a live demo. Click Replay to see the entrance again.</p>
+
+  <div class="cols">
+    <div class="card">
+      <h4>Audience and temperature</h4>
+      <p>Time-poor, high-earning people weighing a big, considered membership. Most arrive problem aware and slow to decide. The motion should feel like a good host: unhurried, never pushy, always one clear next step.</p>
+    </div>
+    <div class="card">
+      <h4>Where the category is crowded</h4>
+      <p>Luxury wellness and members' club sites tend to go one of two ways: dark full-bleed video with gold, or beige spa minimalism with a serif. Most of their motion is generic fade-ups and autoplay carousels.</p>
+    </div>
+    <div class="card">
+      <h4>The gap Saint Haven can own</h4>
+      <p>The guideline's own rule: one centred focal point, always. Motion that does one thing at a time, from the centre out, is rare in the category. It will feel like hospitality, not a tech site.</p>
+    </div>
+  </div>
+
+  <div class="cols" style="margin-top:24px">
+    <div class="card">
+      <h4>Fixed in every option</h4>
+      <ul>
+        <li>Primary lock-up, never altered or shadowed</li>
+        <li>IvyPresto Display for headlines, GT America Extended for headings and body</li>
+        <li>Centred composition, one message per view</li>
+        <li>0px radius, 1px rules, no shadows (as in the built pages)</li>
+        <li>Living green stays in the clubs, never on screen</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Guideline flags to check with Saint Haven</h4>
+      <ul>
+        <li>Digital body at 11pt is too small for the web. Every option uses 16px minimum.</li>
+        <li>IvyPresto Thin breaks up below about 35px on screen, so keep it for large statements only.</li>
+        <li>The guideline text gives no hex values for champagne or bronze. The values here are sampled and need confirming.</li>
+        <li>Fonts in this file are free stand-ins: Instrument Serif and Archivo. Production needs IvyPresto (Adobe Fonts) and GT America (Grilli Type licence).</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Motion rules shared by all five</h4>
+      <ul>
+        <li>One element moves at a time. Nothing bounces, spins or loops for attention.</li>
+        <li>Motion only animates transform, opacity and clip-path, so it stays smooth on phones.</li>
+        <li>The CTA never animates in late enough to hide. It's visible by 1.6s at most.</li>
+        <li>Reduced-motion users get the end state with no movement. Try it in system settings.</li>
+      </ul>
+    </div>
+  </div>
+</div></header>
+
+<!-- ================= OPTION 1 ================= -->
+<section class="opt" id="o1"><div class="wrap">
+  <div class="opt-head">
+    <div><p class="n">Option 1 · <b class="pk">Parked</b></p><h2>The Threshold</h2></div>
+    <p>Every page opens like a door. Club imagery is shown through the arch shape from the clubs' own architecture, which widens to full-bleed as the visitor steps in.<span class="pos">The safe choice. Closest to what's already built, black and white, 0 radius.</span></p>
+  </div>
+
+  <div class="stage s1" data-demo>
+    <div class="arch"><img src="img/corridor.jpg" alt="Arched corridor at a Saint Haven club"></div>
+    <div class="d-nav"><span class="d-logo"></span><span class="d-link">Apply</span></div>
+    <div class="copy">
+      <p class="d-eye rise" style="--i:0">Private club · [Club], [City]</p>
+      <h3 class="rise" style="--i:1">Membership is by application</h3>
+      <a class="d-cta rise" style="--i:2">Begin your application</a>
+    </div>
+  </div>
+  <div class="stage-foot"><span>Entrance: arch opens (1.6s), then eyebrow, headline and CTA rise in turn.</span><button class="replay">Replay</button></div>
+
+  <div class="specs">
+    <div class="card sig wide">
+      <h4>Signature move</h4>
+      <p class="nm">The Arch Reveal</p>
+      <p>A clip-path arch that opens to full-bleed. On the hero it runs once on load. Between application steps it runs in reverse, closing on one question and opening on the next, so the funnel feels like walking down the corridor. In sections, portrait images sit in a fixed arch crop. One clip-path token, reused in every place.</p>
+    </div>
+    <div class="card">
+      <h4>Visual voice</h4>
+      <p><b>Composed, architectural, certain.</b> It should feel like the door has been held open for you.</p>
+    </div>
+
+    <div class="card">
+      <h4>Type</h4>
+      <table>
+        <tr><th>Headline</th><td>IvyPresto Display Light, capitals, 44 to 72px, line height 1.0</td></tr>
+        <tr><th>Heading</th><td>GT America Extended Regular, capitals, 13px, tracking 0.14em</td></tr>
+        <tr><th>Body</th><td>GT America Extended Light, sentence case, 16 to 18px</td></tr>
+        <tr><th>Fallback</th><td>Georgia / Helvetica Neue</td></tr>
+      </table>
+    </div>
+    <div class="card wide">
+      <h4>Palette and contrast</h4>
+      <div class="sw">
+        <div><i style="background:#000"></i><b>#000000</b>Background dark, CTA on light. 21:1 on white</div>
+        <div><i style="background:#fff"></i><b>#FFFFFF</b>Canvas, CTA on dark</div>
+        <div><i style="background:#F5F5F5"></i><b>#F5F5F5</b>Subtle surface, quote bands</div>
+        <div><i style="background:#595959"></i><b>#595959</b>Muted text. 7.0:1 on white</div>
+        <div><i style="background:#CCCCCC"></i><b>#CCCCCC</b>Rules and borders</div>
+      </div>
+      <p style="margin-top:12px;font-size:14px;color:#595959">Rhythm comes from alternating black image bands with white content bands. The CTA always takes the opposite of its section: white on black, black on white.</p>
+    </div>
+
+    <div class="card full">
+      <h4>Motion system</h4>
+      <table>
+        <tr><th>Easing</th><td>Reveals use ease-in-out <code>cubic-bezier(.65,0,.35,1)</code>. Content uses ease-out <code>cubic-bezier(.22,1,.36,1)</code>.</td></tr>
+        <tr><th>Durations</th><td>Hover 200ms · content rise 800ms · arch 1600ms · stagger 120ms</td></tr>
+        <tr><th>Scroll</th><td>Sections fade up 16px once when 20% visible. No parallax, no scroll-jacking.</td></tr>
+        <tr><th>Hover</th><td>CTA inverts fill in 200ms. Image cards scale the photo to 1.03 inside a fixed arch crop over 800ms.</td></tr>
+        <tr><th>Page and step change</th><td>The arch closes to the centre (600ms), then the next step opens from it (800ms). The progress bars fill at the same time.</td></tr>
+        <tr><th>Reduced motion</th><td>The arch starts full-bleed and content appears with no movement.</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h4>UX patterns</h4>
+      <ul>
+        <li>Minimal top nav: logo centred on mobile, one Apply link</li>
+        <li>Sticky Apply bar appears on mobile after the hero scrolls away</li>
+        <li>Application keeps the existing centred white card on black</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Imagery and shape</h4>
+      <p>Symmetrical architecture first: corridors, arches, centred rooms. Darken by 50% under type. Arch crop for portraits, square crop for treatments. 0 radius everywhere except the arch. 1px rules, no shadows, thin line icons only.</p>
+    </div>
+    <div class="card">
+      <h4>Rationale</h4>
+      <p>It turns the clubs' strongest architectural feature into the interaction itself, so the motion is on-brand rather than added on. It's also the cheapest to build because it extends the pages and application flow that already exist.</p>
+    </div>
+
+    <div class="card full"><details><summary>Variable mapping (SH Semantic + proposed motion collection)</summary><pre>surface/canvas        #FFFFFF        surface/subtle   #F5F5F5
+text/primary          #000000        text/secondary   #333333
+text/muted            #595959        border/subtle    #CCCCCC
+border/default        #595959        action/fill      #000000 (light) / #FFFFFF (dark)
+action/label          #FFFFFF (light) / #000000 (dark)
+radius/field          0              radius/arch      999 (top corners only)
+motion/ease/reveal    cubic-bezier(.65,0,.35,1)
+motion/ease/out       cubic-bezier(.22,1,.36,1)
+motion/duration/fast  200   motion/duration/base 800   motion/duration/reveal 1600
+motion/stagger        120   motion/rise 16</pre></details></div>
+  </div>
+</div></section>
+
+<!-- ================= OPTION 2 ================= -->
+<section class="opt" id="o2"><div class="wrap">
+  <div class="opt-head">
+    <div><p class="n">Option 2</p><h2>Champagne Silk</h2></div>
+    <p>The guideline's hero motif comes to the web. Warm cream grounds, slow fluid motion and one pass of soft light across the imagery, like light moving over fabric.<span class="pos">Warmer and softer. Leans on the marketing palette rather than black and white.</span></p>
+  </div>
+
+  <div class="stage s2" data-demo>
+    <div class="d-nav" style="color:#1A1712"><span class="d-logo dark"></span><span class="d-link">Apply</span></div>
+    <div class="copy">
+      <p class="d-eye soft" style="--i:0">Private club · [Club], [City]</p>
+      <h3 class="soft" style="--i:1">Set the outside world aside</h3>
+      <a class="d-cta soft" style="--i:2">Begin your application</a>
+    </div>
+    <div class="frame"><img src="img/bath.jpg" alt="Treatment space with a lit stone basin"><div class="beam"></div></div>
+  </div>
+  <div class="stage-foot"><span>Entrance: type softens into focus, image rises, one beam of light passes across it. Hover the CTA to see the light pass again.</span><button class="replay">Replay</button></div>
+
+  <div class="specs">
+    <div class="card sig wide">
+      <h4>Signature move</h4>
+      <p class="nm">The Light Pass</p>
+      <p>One soft band of warm light moves across the hero image on entry, and across the CTA on hover. It's a single gradient overlay with one duration and one easing, reused on the hero, feature images and the button. It never loops. Built for real champagne silk footage when the brand team supplies it.</p>
+    </div>
+    <div class="card">
+      <h4>Visual voice</h4>
+      <p><b>Warm, tender, unhurried.</b> It should feel like a deep breath at the end of a long day.</p>
+    </div>
+
+    <div class="card">
+      <h4>Type</h4>
+      <table>
+        <tr><th>Headline</th><td>IvyPresto Display Thin, sentence case, 48 to 80px (guideline's impact statement style)</td></tr>
+        <tr><th>Heading</th><td>GT America Extended Regular, capitals, 13px</td></tr>
+        <tr><th>Body</th><td>GT America Extended Light, 17px, line height 1.6</td></tr>
+        <tr><th>Fallback</th><td>Georgia / Helvetica Neue</td></tr>
+      </table>
+    </div>
+    <div class="card wide">
+      <h4>Palette and contrast</h4>
+      <div class="sw">
+        <div><i style="background:#F6F1E9"></i><b>#F6F1E9</b>Cream canvas</div>
+        <div><i style="background:#E9DCC6"></i><b>#E9DCC6</b>Champagne tint, alternate bands</div>
+        <div><i style="background:#1A1712"></i><b>#1A1712</b>Text and dark band. 15.9:1 on cream</div>
+        <div><i style="background:#5E5548"></i><b>#5E5548</b>Muted text. 6.5:1 on cream</div>
+        <div><i style="background:#8C6B46"></i><b>#8C6B46</b>Bronze. Rules and large type only (4.3:1)</div>
+        <div><i style="background:#000"></i><b>#000000</b>CTA fill. Cream label 18.7:1</div>
+      </div>
+      <p style="margin-top:12px;font-size:14px;color:#595959">Sections step cream, champagne, cream, then one dark band for the final CTA. The black CTA stays the darkest thing on every light section.</p>
+    </div>
+
+    <div class="card full">
+      <h4>Motion system</h4>
+      <table>
+        <tr><th>Easing</th><td>Ease-in-out sine <code>cubic-bezier(.37,0,.63,1)</code> for everything. Soft, with no snap.</td></tr>
+        <tr><th>Durations</th><td>Hover 300ms · content 1200ms · light pass 2800ms · stagger 180ms</td></tr>
+        <tr><th>Scroll</th><td>Gentle image drift: photos move 6% slower than the page inside their frames. Section backgrounds cross-fade between cream and champagne as they meet.</td></tr>
+        <tr><th>Hover</th><td>Light pass across the CTA in 900ms. Image frames brighten 4%.</td></tr>
+        <tr><th>Page and step change</th><td>Cross-dissolve through cream over 600ms. The card stays still while its contents fade.</td></tr>
+        <tr><th>Reduced motion</th><td>No drift, no light pass. Content fades in only.</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h4>UX patterns</h4>
+      <ul>
+        <li>Long-form storytelling, one centred pillar per section</li>
+        <li>Inline "reserve a tour" alongside Apply for slower deciders</li>
+        <li>Application on cream with white card and black CTA</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Imagery and shape</h4>
+      <p>Warm grade (+18% sepia, slightly lifted). Inset frames with cream margins instead of full-bleed. Needs the champagne silk photography or video from the brand team. Until then, use the warm treatment and bath imagery. 0 radius, bronze 1px rules.</p>
+    </div>
+    <div class="card">
+      <h4>Rationale</h4>
+      <p>It's the most faithful to the guideline's hero motif and the warmest of the five, which suits the Sanctuary and Host with Heart messages. It stands apart from the dark gold category, but it's closest to the beige spa look, so the light pass must carry it.</p>
+    </div>
+
+    <div class="card full"><details><summary>Variable mapping</summary><pre>surface/canvas        #F6F1E9        surface/subtle   #E9DCC6
+surface/dark          #1A1712        text/primary     #1A1712
+text/secondary        #3A342C        text/muted       #5E5548
+border/subtle         #DCCFB8        border/accent    #8C6B46
+action/fill           #000000        action/label     #F6F1E9
+radius/field          0
+motion/ease/base      cubic-bezier(.37,0,.63,1)
+motion/duration/fast  300   motion/duration/base 1200   motion/duration/light 2800
+motion/stagger        180   motion/drift 0.06</pre></details></div>
+  </div>
+</div></section>
+
+<!-- ================= OPTION 3 ================= -->
+<section class="opt" id="o3"><div class="wrap">
+  <div class="opt-head">
+    <div><p class="n">Option 3 · <b class="pk">Parked (motion)</b></p><h2>One Message</h2></div>
+    <p>The guideline's own presentation rule, applied to scrolling: one statement per screen, centred, joined by a single line that draws down the middle as you read.<span class="pos">Editorial and type-led. Mostly black, very low density.</span></p>
+  </div>
+
+  <div class="stage s3" data-demo>
+    <div class="cline"><i></i></div>
+    <div class="scroller">
+      <div class="panel">
+        <span class="lgw"><span class="d-logo"></span></span>
+        <h3><span class="ln"><span style="--i:0">Live your</span></span><span class="ln"><span style="--i:1">ultimate life</span></span></h3>
+      </div>
+      <div class="panel">
+        <p class="d-eye" style="color:#A6A6A6">Pillar three · Longevity</p>
+        <h3><span class="ln"><span style="--i:0">Living well for longer,</span></span><span class="ln"><span style="--i:1">with the strength to keep</span></span><span class="ln"><span style="--i:2">doing what matters.</span></span></h3>
+        <p class="sub">Expert guidance, considered routines and a supportive environment, all behind one door.</p>
+      </div>
+      <div class="panel">
+        <h3><span class="ln"><span style="--i:0">Membership is</span></span><span class="ln"><span style="--i:1">by application</span></span></h3>
+        <a class="d-cta">Begin your application</a>
+      </div>
+    </div>
+    <span class="d-eye hint">Scroll inside the frame</span>
+    <span class="d-eye pnum">1 / 3</span>
+  </div>
+  <div class="stage-foot"><span>Scroll inside the frame. Each statement snaps to centre, lines rise from behind a mask, and the bronze line fills with progress.</span><button class="replay">Replay</button></div>
+
+  <div class="specs">
+    <div class="card sig wide">
+      <h4>Signature move</h4>
+      <p class="nm">The Centre Line</p>
+      <p>A 1px vertical line on the page's centre axis that fills in bronze as you scroll. It links every centred statement, acts as a quiet progress bar, and becomes the step indicator in the application. It's one fixed element bound to scroll progress, so it costs almost nothing to build.</p>
+    </div>
+    <div class="card">
+      <h4>Visual voice</h4>
+      <p><b>Quiet, assured, deliberate.</b> It should feel like being spoken to by one person, not sold to.</p>
+    </div>
+
+    <div class="card">
+      <h4>Type</h4>
+      <table>
+        <tr><th>Headline</th><td>IvyPresto Display Thin, sentence case, 56 to 96px, up to 3 lines</td></tr>
+        <tr><th>Heading</th><td>GT America Extended Regular, capitals, 12px</td></tr>
+        <tr><th>Body</th><td>GT America Extended Light, 17px, #A6A6A6 on black</td></tr>
+        <tr><th>Fallback</th><td>Georgia / Helvetica Neue</td></tr>
+      </table>
+    </div>
+    <div class="card wide">
+      <h4>Palette and contrast</h4>
+      <div class="sw">
+        <div><i style="background:#000"></i><b>#000000</b>Canvas</div>
+        <div><i style="background:#fff"></i><b>#FFFFFF</b>Statements, CTA fill. 21:1</div>
+        <div><i style="background:#A6A6A6"></i><b>#A6A6A6</b>Supporting text. 8.6:1 on black</div>
+        <div><i style="background:#1A1A1A"></i><b>#1A1A1A</b>Raised surface, form cards</div>
+        <div><i style="background:#B08A5B"></i><b>#B08A5B</b>Bronze. Centre line only</div>
+      </div>
+      <p style="margin-top:12px;font-size:14px;color:#595959">To stop the page being one flat black, every third screen is a full-bleed photograph and the proof section flips to white.</p>
+    </div>
+
+    <div class="card full">
+      <h4>Motion system</h4>
+      <table>
+        <tr><th>Easing</th><td>Ease-out quint <code>cubic-bezier(.22,1,.36,1)</code></td></tr>
+        <tr><th>Durations</th><td>Line rise 900ms · line stagger 80ms · supporting copy 800ms after 400ms · centre line tied 1:1 to scroll</td></tr>
+        <tr><th>Scroll</th><td>Proximity snapping on desktop only, so statements settle in the centre. Free scroll on mobile. Never mandatory snapping on long sections.</td></tr>
+        <tr><th>Hover</th><td>CTA inverts. Text links underline from the centre outward over 300ms.</td></tr>
+        <tr><th>Page and step change</th><td>The question's lines drop behind their mask, the next question's lines rise, and the centre line extends one step.</td></tr>
+        <tr><th>Reduced motion</th><td>Text is visible straight away, the line is static and snapping is off.</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h4>UX patterns</h4>
+      <ul>
+        <li>Short pages: 6 to 8 screens, each with one idea</li>
+        <li>CTA repeats every third screen so it's never far away</li>
+        <li>Application asks one question per screen, matching the page</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Imagery and shape</h4>
+      <p>Imagery is rare and full-bleed, so each photo lands as an event. Pick the most symmetrical shots. No inset frames. 0 radius, no icons, no cards. Hierarchy comes from type size alone.</p>
+    </div>
+    <div class="card">
+      <h4>Rationale</h4>
+      <p>It's the most direct translation of the guideline's "one distilled voice" rule and the most distinctive in the category. The risk is that long-form proof is hard to fit, so it suits short and medium pages best.</p>
+    </div>
+
+    <div class="card full"><details><summary>Variable mapping</summary><pre>surface/canvas        #000000        surface/subtle   #1A1A1A
+surface/invert        #FFFFFF        text/primary     #FFFFFF
+text/muted            #A6A6A6        border/subtle    #333333
+accent/line           #B08A5B        action/fill      #FFFFFF
+action/label          #000000        radius/field     0
+motion/ease/out       cubic-bezier(.22,1,.36,1)
+motion/duration/line  900   motion/stagger 80   motion/duration/support 800
+motion/snap           proximity (desktop) / none (mobile)</pre></details></div>
+  </div>
+</div></section>
+
+<!-- ================= OPTION 4 ================= -->
+<section class="opt" id="o4"><div class="wrap">
+  <div class="opt-head">
+    <div><p class="n">Option 4</p><h2>Pillar Index</h2></div>
+    <p>UX-led. The eight pillars become the way into the brand: a centred index the visitor can browse or watch, with the club image changing behind it.<span class="pos">The most functional. White, higher density, built for comparison and personalisation.</span></p>
+  </div>
+
+  <div class="stage s4" data-demo>
+    <div class="pics">
+      <img class="on" src="img/corridor.jpg" alt="Arched corridor">
+      <img src="img/pool.jpg" alt="Pool under a lit moon">
+      <img src="img/lounge.jpg" alt="Recovery lounge with daybeds">
+      <img src="img/bar.jpg" alt="Club bar and lounge">
+      <img src="img/bath.jpg" alt="Treatment space with a stone basin">
+      <div class="d-nav" style="color:#fff"><span class="d-logo"></span><a class="d-cta">Apply</a></div>
+      <div class="cap"><p class="d-eye">Pillar <span class="pn">one</span></p><h3><span class="pt">One door to everything you need</span></h3></div>
+    </div>
+    <div class="idx" role="tablist">
+      <button class="on" role="tab"><small>01</small>Private club</button>
+      <button role="tab"><small>02</small>Your sanctuary</button>
+      <button role="tab"><small>05</small>Training and recovery</button>
+      <button role="tab"><small>06</small>Community</button>
+      <button role="tab"><small>03</small>Longevity</button>
+    </div>
+  </div>
+  <div class="stage-foot"><span>Click a pillar, or let it advance every 5s. Hover pauses it. Shown with the 5 pillars we have photography for.</span><button class="replay">Replay</button></div>
+
+  <div class="specs">
+    <div class="card sig wide">
+      <h4>Signature move</h4>
+      <p class="nm">The Pillar Index</p>
+      <p>A centred row of the eight pillars with a thin progress rule above the active one. Click or tap to jump. Left alone, it advances slowly. The same component powers the hero, a "what's inside" section, and the application question "What excites you?", so answers can carry through to the club tour.</p>
+    </div>
+    <div class="card">
+      <h4>Visual voice</h4>
+      <p><b>Clear, generous, personal.</b> It should feel like a member of staff walking you through the club.</p>
+    </div>
+
+    <div class="card">
+      <h4>Type</h4>
+      <table>
+        <tr><th>Headline</th><td>IvyPresto Display Light, sentence case, 40 to 64px</td></tr>
+        <tr><th>Heading</th><td>GT America Extended Regular, sentence case, 15px (index labels)</td></tr>
+        <tr><th>Body</th><td>GT America Extended Light, 16px</td></tr>
+        <tr><th>Fallback</th><td>Georgia / Helvetica Neue</td></tr>
+      </table>
+    </div>
+    <div class="card wide">
+      <h4>Palette and contrast</h4>
+      <div class="sw">
+        <div><i style="background:#fff"></i><b>#FFFFFF</b>Canvas</div>
+        <div><i style="background:#F5F5F5"></i><b>#F5F5F5</b>Index and card surface</div>
+        <div><i style="background:#000"></i><b>#000000</b>Text, active rule, CTA. 21:1</div>
+        <div><i style="background:#595959"></i><b>#595959</b>Inactive labels. 7.0:1</div>
+        <div><i style="background:#8C6B46"></i><b>#8C6B46</b>Bronze. Selected states in the form (4.9:1 on white)</div>
+      </div>
+      <p style="margin-top:12px;font-size:14px;color:#595959">White product-style UI with full-bleed photography doing the colour work. One black band for the final CTA.</p>
+    </div>
+
+    <div class="card full">
+      <h4>Motion system</h4>
+      <table>
+        <tr><th>Easing</th><td>Ease-out quint <code>cubic-bezier(.22,1,.36,1)</code> for UI, linear for progress</td></tr>
+        <tr><th>Durations</th><td>UI response 240ms · image cross-fade 600ms · slow zoom 6s · auto-advance 5s</td></tr>
+        <tr><th>Scroll</th><td>Standard scroll. The index sticks to the top while its section is in view.</td></tr>
+        <tr><th>Hover</th><td>Labels darken in 240ms. Hovering the stage pauses auto-advance.</td></tr>
+        <tr><th>Page and step change</th><td>The selected option fills black and the card slides 24px left as the next one arrives from the right. Responsive enough for 10-plus questions.</td></tr>
+        <tr><th>Reduced motion</th><td>No auto-advance, no zoom. Images switch on tap only.</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h4>UX patterns</h4>
+      <ul>
+        <li>Swipeable index on mobile with the active pillar centred</li>
+        <li>Pillar choices pre-fill the "What excites you?" question</li>
+        <li>Fully keyboard operable, as an ARIA tab list</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Imagery and shape</h4>
+      <p>One hero image per pillar, centred subject, full-bleed with a light top and bottom scrim. Needs photography for Preventative medical, Luxury service and Life integration. Treatment shots can keep their red or blue modality glow. 0 radius, 1px rules.</p>
+    </div>
+    <div class="card">
+      <h4>Rationale</h4>
+      <p>The eight pillars are the offer, and this lets people find their reason to join fast, which suits a considered purchase. It's the least atmospheric option, so it relies on strong photography.</p>
+    </div>
+
+    <div class="card full"><details><summary>Variable mapping</summary><pre>surface/canvas        #FFFFFF        surface/subtle   #F5F5F5
+text/primary          #000000        text/muted       #595959
+border/subtle         #E6E6E6        accent/selected  #8C6B46
+action/fill           #000000        action/label     #FFFFFF
+radius/field          0
+motion/ease/out       cubic-bezier(.22,1,.36,1)
+motion/duration/ui    240   motion/duration/crossfade 600   motion/advance 5000</pre></details></div>
+  </div>
+</div></section>
+
+<!-- ================= OPTION 5 ================= -->
+<section class="opt" id="o5"><div class="wrap">
+  <div class="opt-head">
+    <div><p class="n">Option 5</p><h2>After Hours</h2></div>
+    <p>The club at night. Photography sits in deep shadow, and a warm pool of light follows the visitor, revealing the room wherever they look.<span class="pos">The most distinctive. Dark, cinematic, interactive. Needs Saint Haven's appetite for it.</span></p>
+  </div>
+
+  <div class="stage s5" data-demo>
+    <img class="base" src="img/lounge.jpg" alt="">
+    <img class="lit" src="img/lounge.jpg" alt="Recovery lounge with candles and sheer curtains">
+    <div class="d-nav"><span class="d-logo"></span><span class="d-link">Apply</span></div>
+    <div class="copy">
+      <p class="d-eye" style="--i:0">Private club · [Club], [City]</p>
+      <h3 style="--i:1">A place to pause and regain perspective</h3>
+      <a class="d-cta" style="--i:2">Begin your application</a>
+    </div>
+  </div>
+  <div class="stage-foot"><span>Move your cursor over the frame. When idle, the light drifts slowly on its own. On phones it follows scroll.</span><button class="replay">Replay</button></div>
+
+  <div class="specs">
+    <div class="card sig wide">
+      <h4>Signature move</h4>
+      <p class="nm">Lamplight</p>
+      <p>A soft radial mask that lights the photograph around the cursor, following with a heavy, calm lag. Taken from the guideline's "warm pools of light and layered shadows". It's used on the hero and one feature image per page only. All content stays fully lit, so nothing depends on finding it.</p>
+    </div>
+    <div class="card">
+      <h4>Visual voice</h4>
+      <p><b>Intimate, private, cinematic.</b> It should feel like stepping in from the street at night.</p>
+    </div>
+
+    <div class="card">
+      <h4>Type</h4>
+      <table>
+        <tr><th>Headline</th><td>IvyPresto Display Light, sentence case, 48 to 80px, warm white</td></tr>
+        <tr><th>Heading</th><td>GT America Extended Regular, capitals, 12px, bronze</td></tr>
+        <tr><th>Body</th><td>GT America Extended Light, 17px</td></tr>
+        <tr><th>Fallback</th><td>Georgia / Helvetica Neue</td></tr>
+      </table>
+    </div>
+    <div class="card wide">
+      <h4>Palette and contrast</h4>
+      <div class="sw">
+        <div><i style="background:#0D0C0B"></i><b>#0D0C0B</b>Warm black canvas</div>
+        <div><i style="background:#1A1816"></i><b>#1A1816</b>Raised surface</div>
+        <div><i style="background:#F3EDE4"></i><b>#F3EDE4</b>Text and CTA fill. 16.8:1</div>
+        <div><i style="background:#A39A8E"></i><b>#A39A8E</b>Muted text. 7.0:1</div>
+        <div><i style="background:#B08A5B"></i><b>#B08A5B</b>Bronze eyebrows, CTA hover. 6.2:1</div>
+      </div>
+      <p style="margin-top:12px;font-size:14px;color:#595959">The light warm-white CTA is the brightest thing on every dark section. One cream section for proof breaks up the dark.</p>
+    </div>
+
+    <div class="card full">
+      <h4>Motion system</h4>
+      <table>
+        <tr><th>Easing</th><td>Ease-out quint for content. The light follows with a lerp of 0.08 per frame (heavy and calm, never twitchy).</td></tr>
+        <tr><th>Durations</th><td>Lamp on 1400ms · content rise 1000ms · stagger 150ms · hover 200ms</td></tr>
+        <tr><th>Scroll</th><td>On touch devices the light tracks the vertical scroll position. Sections fade up 16px.</td></tr>
+        <tr><th>Hover</th><td>CTA warms from white to bronze. Links glow 10% brighter, with no shadow.</td></tr>
+        <tr><th>Page and step change</th><td>Lights dim to warm black (400ms) and come up on the next step (700ms).</td></tr>
+        <tr><th>Reduced motion</th><td>The image is shown at 60% brightness with no light effect.</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h4>UX patterns</h4>
+      <ul>
+        <li>Video-first hero where footage exists</li>
+        <li>Content always lit. The effect is decoration only</li>
+        <li>Application on warm black with an ivory card</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>Imagery and shape</h4>
+      <p>Evening photography with practical light sources: candles, coves, lamps. Base layer at 22% brightness. Treatment modality glows suit this best. 0 radius, bronze hairlines, no shadows or neon.</p>
+    </div>
+    <div class="card">
+      <h4>Rationale</h4>
+      <p>It's the boldest position and the most memorable, and it's interactive in a way that rewards attention. It's furthest from "white evokes purity", so it would need Saint Haven to sign off on a night-time expression of the brand.</p>
+    </div>
+
+    <div class="card full"><details><summary>Variable mapping</summary><pre>surface/canvas        #0D0C0B        surface/subtle   #1A1816
+surface/invert        #F3EDE4        text/primary     #F3EDE4
+text/muted            #A39A8E        accent/bronze    #B08A5B
+border/subtle         #2E2A25        action/fill      #F3EDE4
+action/label          #0D0C0B        action/hover     #B08A5B
+radius/field          0
+motion/ease/out       cubic-bezier(.22,1,.36,1)
+motion/lamp/lerp      0.08   motion/lamp/radius 26vw (desktop) / 180px (mobile)
+motion/duration/lamp  1400   motion/duration/base 1000   motion/stagger 150</pre></details></div>
+  </div>
+</div></section>
+
+<!-- ================= COMPARE ================= -->
+<section class="cmp" id="compare"><div class="wrap">
+  <h2>Side by side</h2>
+  <div class="scroll-x"><table>
+    <thead><tr><th></th><th>1 Threshold</th><th>2 Champagne Silk</th><th>3 One Message</th><th>4 Pillar Index</th><th>5 After Hours</th></tr></thead>
+    <tbody>
+      <tr><th>Temperature</th><td>Neutral, black and white</td><td>Warm cream</td><td>Cool black</td><td>Neutral white</td><td>Warm black</td></tr>
+      <tr><th>Density</th><td>Medium</td><td>Low to medium</td><td>Very low</td><td>High</td><td>Low</td></tr>
+      <tr><th>Motion pace</th><td>Measured</td><td>Slowest</td><td>Measured, scroll-led</td><td>Quick and responsive</td><td>Slow, interactive</td></tr>
+      <tr><th>Signature</th><td>Arch Reveal</td><td>Light Pass</td><td>Centre Line</td><td>Pillar Index</td><td>Lamplight</td></tr>
+      <tr><th>Best for</th><td>All page lengths</td><td>Long-form stories</td><td>Short and medium pages</td><td>Comparison, personalisation</td><td>Hero moments, launches</td></tr>
+      <tr><th>Build effort</th><td>Low</td><td>Medium (needs silk footage)</td><td>Low</td><td>Medium (needs 3 more pillar shoots)</td><td>Medium</td></tr>
+      <tr><th>Main risk</th><td>Too close to the category</td><td>Drifts into beige spa</td><td>Hard to fit long proof</td><td>Least atmospheric</td><td>Off the "white, purity" story</td></tr>
+    </tbody>
+  </table></div>
+</div></section>
+
+<section class="rec"><div class="wrap">
+  <div class="card">
+    <h2>Recommendation</h2>
+    <p><b>Option 1, The Threshold.</b> It turns the clubs' own arches into the interaction, keeps the centred black-and-white system that's already built into the landing pages and application flow, and the Arch Reveal is one reusable token rather than a new component.</p>
+    <p>If Saint Haven wants more warmth, the Centre Line from Option 3 can run as the application step indicator without changing the direction. The strategist makes the final call, and one round of adjustments is included.</p>
+  </div>
+</div></section>
+
+<script>
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // replay + autoplay when visible
+  function play(st){
+    st.classList.remove('play'); void st.offsetWidth; st.classList.add('play');
+    if (st.classList.contains('s3')) resetS3(st);
+    if (st.classList.contains('s4')) s4go(st, 0);
+  }
+  document.querySelectorAll('[data-demo]').forEach(st=>{
+    st.closest('.wrap').querySelector('.replay').addEventListener('click',()=>play(st));
+  });
+  const io = new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting && !e.target.dataset.seen){e.target.dataset.seen=1;play(e.target);}
+  }),{threshold:.45});
+  document.querySelectorAll('[data-demo]').forEach(s=>io.observe(s));
+
+  // ===== 3 One Message =====
+  const s3 = document.querySelector('.s3');
+  const sc = s3.querySelector('.scroller'), panels=[...sc.querySelectorAll('.panel')];
+  const line = s3.querySelector('.cline i'), hint=s3.querySelector('.hint'), pnum=s3.querySelector('.pnum');
+  const pio = new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('in');pnum.textContent=(panels.indexOf(e.target)+1)+' / '+panels.length;}
+  }),{root:sc,threshold:.6});
+  panels.forEach(p=>pio.observe(p));
+  sc.addEventListener('scroll',()=>{
+    const p = sc.scrollTop/(sc.scrollHeight-sc.clientHeight||1);
+    line.style.setProperty('--p',p.toFixed(4));
+    if(sc.scrollTop>10) hint.classList.add('gone');
+  },{passive:true});
+  function resetS3(){
+    panels.forEach(p=>p.classList.remove('in'));
+    sc.scrollTo({top:0,behavior:'auto'}); line.style.setProperty('--p',0); hint.classList.remove('gone');
+    requestAnimationFrame(()=>requestAnimationFrame(()=>panels[0].classList.add('in')));
+  }
+
+  // ===== 4 Pillar Index =====
+  const s4 = document.querySelector('.s4');
+  const imgs=[...s4.querySelectorAll('.pics img')], btns=[...s4.querySelectorAll('.idx button')];
+  const cap=s4.querySelector('.cap'), pt=s4.querySelector('.pt'), pn=s4.querySelector('.pn');
+  const lines=['One door to everything you need','A place to pause and reconnect','Strength and recovery, guided by experts','The pleasure of coming together','Living well for longer'];
+  const nums=['one','two','five','six','three'];
+  let cur=0, timer;
+  function s4go(st,i){
+    cur=i;
+    imgs.forEach((im,k)=>im.classList.toggle('on',k===i));
+    btns.forEach((b,k)=>{b.classList.remove('on');b.setAttribute('aria-selected',k===i);});
+    void btns[i].offsetWidth; btns[i].classList.add('on');
+    cap.classList.add('swap');
+    setTimeout(()=>{pt.textContent=lines[i];pn.textContent=nums[i];cap.classList.remove('swap');},240);
+  }
+  btns.forEach((b,i)=>b.addEventListener('click',()=>s4go(s4,i)));
+  btns.forEach(b=>b.addEventListener('animationend',e=>{
+    if(!reduce && e.animationName==='prog' && b.classList.contains('on')) s4go(s4,(cur+1)%btns.length);
+  }));
+  if(reduce) s4.style.setProperty('--dur','0s');
+  s4.addEventListener('mouseenter',()=>s4.classList.add('paused'));
+  s4.addEventListener('mouseleave',()=>s4.classList.remove('paused'));
+
+  // ===== 5 After Hours =====
+  const s5=document.querySelector('.s5');
+  let tx=.5,ty=.45,x=.5,y=.45,hover=false,t0=performance.now();
+  s5.addEventListener('pointermove',e=>{
+    const r=s5.getBoundingClientRect(); tx=(e.clientX-r.left)/r.width; ty=(e.clientY-r.top)/r.height; hover=true;
+  });
+  s5.addEventListener('pointerleave',()=>hover=false);
+  const touch = matchMedia('(hover: none)').matches;
+  if(touch){
+    addEventListener('scroll',()=>{
+      const r=s5.getBoundingClientRect(); const p=1-(r.top+r.height)/(innerHeight+r.height);
+      tx=.25+.5*Math.max(0,Math.min(1,p)); ty=.3+.3*Math.sin(p*Math.PI); hover=true;
+    },{passive:true});
+  }
+  function tick(now){
+    if(!hover){const t=(now-t0)/1000; tx=.5+.28*Math.sin(t*.25); ty=.42+.14*Math.sin(t*.37);}
+    x+=(tx-x)*.08; y+=(ty-y)*.08;
+    s5.style.setProperty('--x',(x*100).toFixed(2)+'%'); s5.style.setProperty('--y',(y*100).toFixed(2)+'%');
+    requestAnimationFrame(tick);
+  }
+  if(reduce){
+    s5.querySelector('.lit').style.cssText='-webkit-mask-image:none;mask-image:none;filter:brightness(.6)';
+  } else requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>

@@ -7,7 +7,13 @@
 <title>Saint Haven ATF · One Message</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,200..600&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+/* Brand typefaces (guideline p.10): IvyPresto Display for headlines, GT America Extended for headings, labels and body */
+@font-face{font-family:"SH IvyPresto Display";src:local("IvyPresto Display Light"),url(fonts/IvyPrestoDisplay-Regular.ttf) format("truetype");font-weight:100 900;font-display:swap}
+@font-face{font-family:"SH GT America Extended";src:url(fonts/GT-America-Extended-Light.otf) format("opentype");font-weight:300;font-display:swap}
+@font-face{font-family:"SH GT America Extended";src:url(fonts/GT-America-Extended-Regular.otf) format("opentype");font-weight:400;font-display:swap}
+@font-face{font-family:"SH GT America Extended";src:url(fonts/GT-America-Extended-Medium.otf) format("opentype");font-weight:500 700;font-display:swap}
+</style>
 <style>
 /* ============ Tokens (names mirror the Saint Haven Figma variables) ============ */
 :root{
@@ -17,8 +23,8 @@
   --surface-canvas:var(--sh-neutral-0); --text-primary:var(--sh-neutral-1000); --text-secondary:var(--sh-neutral-600); --text-muted:var(--sh-neutral-600);
   --border-subtle:var(--sh-neutral-100); --action-fill:var(--sh-neutral-1000); --action-hover:var(--sh-neutral-900); --action-label:var(--sh-neutral-0);
   --accent-line:var(--sh-champagne-600);
-  --font-display:"IvyPresto Display","Instrument Serif",Georgia,serif;
-  --font-body:"GT America Extended","Archivo",system-ui,sans-serif;
+  --font-display:"SH IvyPresto Display",Georgia,serif;
+  --font-body:"SH GT America Extended",system-ui,sans-serif;
   --radius-field:5px; --size-button-height:56px; --button-width:496px;
   --tracking-caps:.12em;
   --motion-ease-reveal:cubic-bezier(.65,0,.35,1); --motion-ease-out:cubic-bezier(.22,1,.36,1);
@@ -32,7 +38,7 @@
 
 /* ============ Presentation chrome ============ */
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--font-body);font-stretch:112%;font-weight:300;color:#000;background:#fff;-webkit-font-smoothing:antialiased}
+body{font-family:var(--font-body);font-weight:300;color:#000;background:#fff;-webkit-font-smoothing:antialiased}
 img,video{display:block}
 a{color:inherit}
 .wrap{max-width:1480px;margin:0 auto;padding:0 32px}
@@ -96,14 +102,14 @@ a{color:inherit}
 .ln>span{display:block;transform:translateY(105%)}
 .play .ln>span{animation:lineUp var(--motion-duration-line) var(--motion-ease-out) both;animation-delay:calc(350ms + var(--l,0) * 90ms)}
 @keyframes lineUp{to{transform:none}}
-.sh-sub{margin-top:26px;font-family:var(--font-body);font-stretch:125%;font-weight:400;font-size:15px;line-height:1.65;letter-spacing:var(--tracking-caps);text-transform:uppercase;color:var(--text-secondary);max-width:760px;text-wrap:balance;background:var(--surface-canvas);padding:0 .6em}
+.sh-sub{margin-top:26px;font-family:var(--font-body);font-weight:400;font-size:15px;line-height:1.65;letter-spacing:var(--tracking-caps);text-transform:uppercase;color:var(--text-secondary);max-width:760px;text-wrap:balance;background:var(--surface-canvas);padding:0 .6em}
 .sh-cta{margin-top:44px;display:flex;flex-direction:column;align-items:center;background:var(--surface-canvas);padding:0 8px}
-.sh-button{display:flex;align-items:center;justify-content:center;width:var(--button-width);height:var(--size-button-height);border-radius:var(--radius-field);background:var(--action-fill);color:var(--action-label);font-family:var(--font-body);font-stretch:125%;font-weight:500;font-size:14px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background-color var(--motion-duration-fast) var(--motion-ease-out),transform 160ms var(--motion-ease-out)}
+.sh-button{display:flex;align-items:center;justify-content:center;width:var(--button-width);height:var(--size-button-height);border-radius:var(--radius-field);background:var(--action-fill);color:var(--action-label);font-family:var(--font-body);font-weight:400;font-size:14px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background-color var(--motion-duration-fast) var(--motion-ease-out),transform 160ms var(--motion-ease-out)}
 .sh-button:hover{background:var(--action-hover)}
 .sh-button:active{transform:scale(.98)}
-.sh-micro{margin-top:14px;font-family:var(--font-body);font-stretch:125%;font-weight:300;font-size:10px;line-height:1.6;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)}
+.sh-micro{margin-top:14px;font-family:var(--font-body);font-weight:300;font-size:10px;line-height:1.6;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)}
 .sh-micro a{color:inherit;text-decoration:none;font-weight:inherit}
-.sh-featured{position:absolute;left:0;right:0;bottom:30px;text-align:center;z-index:3;font-family:var(--font-body);font-stretch:125%;font-weight:400;font-size:11px;letter-spacing:var(--tracking-caps);text-transform:uppercase;color:var(--text-muted)}
+.sh-featured{position:absolute;left:0;right:0;bottom:30px;text-align:center;z-index:3;font-family:var(--font-body);font-weight:400;font-size:11px;letter-spacing:var(--tracking-caps);text-transform:uppercase;color:var(--text-muted)}
 .sh-featured span{background:var(--surface-canvas);padding:4px 14px}
 
 /* focus-in for sub, CTA, micro, featured */
@@ -163,7 +169,7 @@ a{color:inherit}
 .v-portal .end .sh-button{width:300px;border-radius:0}
 .v-portal .end .sh-micro{color:rgba(255,255,255,.8)}
 .v-portal .end .sh-micro a{color:inherit}
-.v-portal .hint{position:absolute;left:0;right:0;z-index:4;text-align:center;font-family:var(--font-body);font-stretch:125%;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);pointer-events:none}
+.v-portal .hint{position:absolute;left:0;right:0;z-index:4;text-align:center;font-family:var(--font-body);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);pointer-events:none}
 .v-portal .scroller{position:absolute;inset:0;overflow-y:auto;scrollbar-width:none;overscroll-behavior:contain;z-index:7}
 .v-portal .scroller::-webkit-scrollbar{display:none}
 .v-portal .track{height:360%}
@@ -196,7 +202,7 @@ a{color:inherit}
 .v-doorportal .room{z-index:3;opacity:1;clip-path:inset(50% 50% 50% 50%)}
 .v-doorportal .film{transform-origin:0 0}
 .v-doorportal .film .base,.v-doorportal .film .leaf{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.v-doorportal .pc{position:absolute;z-index:1;transform:translate(-50%,-50%);white-space:nowrap;font-family:var(--font-body);font-stretch:125%;font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:#241c14;text-shadow:0 0 3px rgba(255,226,180,.55),0 0 10px rgba(255,214,160,.35)}
+.v-doorportal .pc{position:absolute;z-index:1;transform:translate(-50%,-50%);white-space:nowrap;font-family:var(--font-body);font-weight:500;letter-spacing:.32em;text-transform:uppercase;color:#241c14;text-shadow:0 0 3px rgba(255,226,180,.55),0 0 10px rgba(255,214,160,.35)}
 .v-doorportal .hole{position:absolute;z-index:1;overflow:hidden;background:#030202;opacity:0}
 .v-doorportal .inroom{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform,filter}
 .v-doorportal .leafwrap{position:absolute;inset:0;z-index:1;pointer-events:none}
@@ -209,7 +215,7 @@ a{color:inherit}
 .v-doorportal .end .sh-button{width:300px;border-radius:0}
 .v-doorportal .end .sh-micro{color:rgba(255,255,255,.85)}
 .v-doorportal .end .sh-micro a{color:inherit}
-.v-doorportal .hint{position:absolute;left:0;right:0;z-index:5;text-align:center;font-family:var(--font-body);font-stretch:125%;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.6);pointer-events:none}
+.v-doorportal .hint{position:absolute;left:0;right:0;z-index:5;text-align:center;font-family:var(--font-body);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.6);pointer-events:none}
 .v-doorportal .scroller{position:absolute;inset:0;overflow-y:auto;scrollbar-width:none;overscroll-behavior:contain;z-index:7}
 .v-doorportal .scroller::-webkit-scrollbar{display:none}
 .v-doorportal .track{height:640%}
@@ -249,7 +255,7 @@ a{color:inherit}
 .theme-warm{--surface-canvas:var(--sh-champagne-100,#F6F1E9);--text-primary:#1A1712;--text-secondary:#4A4238;--text-muted:#6F6455}
 .sh-belief{position:relative;overflow:hidden;background:var(--surface-canvas);color:var(--text-primary);text-align:center;display:flex;flex-direction:column;align-items:center;padding:168px 160px 176px}
 .sh-belief > *{position:relative;z-index:2}
-.bel-eye{font-family:var(--font-body);font-stretch:125%;font-weight:400;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted)}
+.bel-eye{font-family:var(--font-body);font-weight:400;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted)}
 .bel-h{margin-top:26px;font-family:var(--font-display);font-weight:400;font-size:62px;line-height:1.05;letter-spacing:-.01em;color:var(--text-primary)}
 .bel-h .ln{display:block;overflow:hidden;padding-bottom:.06em}
 .bel-h .ln>span{display:block;transform:translateY(105%)}
@@ -287,7 +293,9 @@ a{color:inherit}
 @media (prefers-reduced-motion:reduce){.brv,.bel-h .ln>span{opacity:1!important;transform:none!important;filter:none!important}.bel-arch,.bel-band{clip-path:none!important}}
 
 /* ============ One continuous page per option ============ */
-.page{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;overscroll-behavior:contain}
+.page{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;overscroll-behavior:contain;background:var(--surface-canvas)}
+/* sections overlap by 1px so the scaled artboard never shows a hairline seam between them */
+.page>*+*{margin-top:-1px}
 .page::-webkit-scrollbar{display:none}
 .pg-hero{position:relative}
 .pg-pin{position:relative}
@@ -301,7 +309,7 @@ a{color:inherit}
 .is-inset .intro-media{inset:40px}
 .intro-media img{width:100%;height:100%;object-fit:cover;object-position:50% 55%;transform-origin:50% 52%;will-change:transform}
 .intro-media::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(10,9,8,0) 30%,rgba(10,9,8,.45) 100%)}
-.intro-eye{position:relative;z-index:2;font-family:var(--font-body);font-stretch:125%;font-weight:400;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#fff}
+.intro-eye{position:relative;z-index:2;font-family:var(--font-body);font-weight:400;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#fff}
 .club-intro.play .brv{animation:focusIn 900ms var(--motion-ease-out) both}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .club-h{margin-top:24px;font-family:var(--font-display);font-weight:400;font-size:84px;line-height:1;letter-spacing:.005em;text-transform:uppercase;display:flex;gap:.28em;flex-wrap:wrap;justify-content:center}
@@ -315,11 +323,11 @@ a{color:inherit}
 .scene-media img{width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 50%);will-change:transform}
 .scene-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,9,8,.18) 0%,rgba(10,9,8,.28) 45%,rgba(10,9,8,.72) 100%)}
 .scene-copy{position:absolute;left:0;right:0;bottom:150px;z-index:3;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 200px;color:#fff;opacity:0}
-.scene-n{font-family:var(--font-body);font-stretch:125%;font-size:11px;letter-spacing:.16em;color:rgba(255,255,255,.72)}
+.scene-n{font-family:var(--font-body);font-size:11px;letter-spacing:.16em;color:rgba(255,255,255,.72)}
 .scene-h{margin-top:14px;font-family:var(--font-display);font-weight:400;font-size:76px;line-height:1;text-transform:uppercase;letter-spacing:.01em}
 .scene-p{margin-top:20px;max-width:46ch;font-family:var(--font-body);font-weight:300;font-size:17px;line-height:1.65;color:rgba(255,255,255,.88);text-wrap:balance}
 .club-index{position:absolute;left:0;right:0;bottom:56px;z-index:4;display:flex;justify-content:center;gap:56px;opacity:0;pointer-events:none}
-.club-index span{font-family:var(--font-body);font-stretch:125%;font-weight:400;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.42);transition:color .4s var(--motion-ease-out)}
+.club-index span{font-family:var(--font-body);font-weight:400;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.42);transition:color .4s var(--motion-ease-out)}
 .club-index span.on{color:#fff}
 .is-inset .club-index{bottom:72px}
 .is-inset .club-cta{bottom:60px}
@@ -380,13 +388,15 @@ a{color:inherit}
 
 /* ============ One system for everything below the hero ============ */
 .page{--sec-pad:168px;--sec-x:160px}
-.page .sh-hero,.page .sec,.page .club{font-stretch:118%}
+.page .sh-hero,.page .sec,.page .club{}
 .sec{position:relative;overflow:hidden;background:var(--surface-canvas);color:var(--text-primary);padding:var(--sec-pad) var(--sec-x)}
 .sec-in{position:relative;z-index:2;max-width:760px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center}
-.sec-eye{font-family:var(--font-body);font-stretch:118%;font-weight:400;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted)}
+.sec-eye{font-family:var(--font-body);font-weight:400;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted)}
+.sec-belief{padding-top:96px}
+@container ab (max-width:500px){ .sec-belief{padding-top:64px} }
 .sec-h{margin-top:24px;max-width:18ch;font-family:var(--font-display);font-weight:400;font-size:56px;line-height:1.06;letter-spacing:-.02em;color:var(--text-primary);text-wrap:balance}
 .sec-body{margin-top:32px;max-width:46ch}
-.sec-body p{font-family:var(--font-body);font-stretch:118%;font-weight:300;font-size:17px;line-height:1.7;color:var(--text-secondary);text-wrap:pretty}
+.sec-body p{font-family:var(--font-body);font-weight:300;font-size:17px;line-height:1.7;color:var(--text-secondary);text-wrap:pretty}
 .sec-body p+p{margin-top:14px}
 .sec-body .sec-strong{color:var(--text-primary);font-weight:400}
 .sec-media{position:relative;z-index:1;margin:96px calc(var(--sec-x) * -1) calc(var(--sec-pad) * -1);height:480px;overflow:hidden}
@@ -412,10 +422,10 @@ a{color:inherit}
 }
 /* pinned scenes follow the same type */
 .scene-h{font-size:56px!important;line-height:1.06!important;text-transform:none!important;letter-spacing:-.02em!important;margin-top:0!important}
-.scene-p{font-stretch:118%;font-size:17px!important;line-height:1.7!important;margin-top:20px!important}
+.scene-p{font-size:17px!important;line-height:1.7!important;margin-top:20px!important}
 .intro-copy{opacity:1;bottom:auto;top:50%;transform:translateY(-50%)}
 .intro-copy .sec-eye{color:#fff}
-.club-index span{font-stretch:118%}
+.club-index span{}
 @container ab (max-width:500px){
   .page{--sec-pad:104px;--sec-x:28px}
   .sec-h{font-size:34px;margin-top:18px}
@@ -435,7 +445,7 @@ a{color:inherit}
 .pr-logo img{height:var(--h);width:auto;display:block;opacity:.94}
 .sec:not(.theme-dark) .pr-logo img{filter:invert(1)}
 .pr-name{font-family:var(--font-display);font-size:22px;line-height:1;letter-spacing:-.01em;color:var(--text-primary)}
-.pr-q{margin-top:16px;max-width:24ch;font-family:var(--font-body);font-stretch:118%;font-weight:300;font-size:15px;line-height:1.6;color:var(--text-secondary);text-wrap:balance}
+.pr-q{margin-top:16px;max-width:24ch;font-family:var(--font-body);font-weight:300;font-size:15px;line-height:1.6;color:var(--text-secondary);text-wrap:balance}
 @container ab (max-width:500px){
   .pr-grid{margin-top:40px;gap:44px 20px}
   .pr{flex:0 0 calc((100% - 20px)/2)}
@@ -447,16 +457,16 @@ a{color:inherit}
 }
 
 /* Concierge: pinned, three beats. Your table. Your towel. Your usual. */
-.conc{position:relative;background:var(--sh-neutral-950,#0d0d0d)}
+.conc{position:relative;background:#fff}
 .conc-stage{position:sticky;top:0;display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);overflow:hidden}
 .conc-copy{display:flex;flex-direction:column;justify-content:center;padding:64px 64px 0 120px}
 .conc-copy .sec-eye{color:rgba(255,255,255,.7)}
-.conc-copy .sec-h{text-align:left;color:#fff;max-width:16ch}
-.conc-copy p.ci{margin-top:28px;font-family:var(--font-body);font-stretch:118%;font-weight:300;font-size:17px;line-height:1.7;color:rgba(255,255,255,.84);max-width:38ch}
+.conc-copy .sec-h{text-align:left;color:#000;max-width:16ch;margin-top:0}
+.conc-copy p.ci{margin-top:28px;font-family:var(--font-body);font-weight:300;font-size:17px;line-height:1.7;color:rgba(0,0,0,.62);max-width:38ch}
 .conc-trio{list-style:none;margin:36px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
-.conc-trio li{font-family:var(--font-display);font-size:34px;line-height:1.15;letter-spacing:-.015em;color:rgba(255,255,255,.26);transition:color .6s var(--motion-ease-out)}
-.conc-trio li.on{color:#fff}
-.conc-copy p.cc{margin-top:28px;font-family:var(--font-body);font-stretch:118%;font-weight:300;font-size:17px;line-height:1.7;color:rgba(255,255,255,.84);max-width:38ch;opacity:0;will-change:opacity,transform}
+.conc-trio li{font-family:var(--font-display);font-size:34px;line-height:1.15;letter-spacing:-.015em;color:rgba(0,0,0,.2);transition:color .6s var(--motion-ease-out)}
+.conc-trio li.on{color:#000}
+.conc-copy p.cc{margin-top:28px;font-family:var(--font-body);font-weight:300;font-size:17px;line-height:1.7;color:rgba(0,0,0,.62);max-width:38ch;opacity:0;will-change:opacity,transform}
 .conc-media{position:relative;overflow:hidden}
 .conc-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 50%);opacity:0;will-change:opacity,transform}
 @container ab (max-width:500px){
@@ -544,7 +554,7 @@ a{color:inherit}
 .sh-proof{--proof-bg:var(--sh-neutral-800);--proof-fg:var(--sh-neutral-0);--proof-muted:rgba(255,255,255,.66);background:var(--proof-bg);color:var(--proof-fg);padding:88px 96px 104px;text-align:center}
 .sh-proof.black{--proof-bg:var(--sh-neutral-950)}
 .sh-proof.white{--proof-bg:var(--sh-neutral-0);--proof-fg:var(--sh-neutral-1000);--proof-muted:var(--sh-neutral-600);border-top:1px solid var(--sh-neutral-100)}
-.sh-proof .lbl{font-family:var(--font-body);font-stretch:125%;font-weight:400;font-size:12px;letter-spacing:var(--tracking-caps);text-transform:uppercase;color:var(--proof-muted)}
+.sh-proof .lbl{font-family:var(--font-body);font-weight:400;font-size:12px;letter-spacing:var(--tracking-caps);text-transform:uppercase;color:var(--proof-muted)}
 .sh-proof .row{display:grid;grid-template-columns:repeat(4,1fr);gap:64px;margin-top:64px;align-items:start}
 .sh-proof .pi{display:flex;flex-direction:column;align-items:center}
 .sh-proof .logo{height:56px;display:flex;align-items:flex-end;justify-content:center;font-family:var(--font-display);font-weight:400;font-size:44px;line-height:1;letter-spacing:.01em;color:var(--proof-fg);white-space:nowrap}
@@ -571,14 +581,14 @@ a{color:inherit}
 <div class="bar"><div class="wrap">
   <span class="lg" role="img" aria-label="Saint Haven"></span>
   <nav>
-    <a href="index.html">← Directions</a><a href="#v1">1 Black</a><a href="#v2">2 White</a><a href="#v3">3 Front Door</a><a href="#v4">4 Portal</a><a href="#v5">5 Front Door Portal</a><a href="#proof">In their words</a><a href="#flags">Notes</a><a href="atf-v1-rejected.html">Round 1 (rejected)</a>
+    <a href="index.html">← Directions</a><a href="#v1">1 Black</a><a href="#v2">2 White</a><a href="#v4">3 Portal</a><a href="#v5">4 Front Door Portal</a><a href="#proof">In their words</a><a href="#flags">Notes</a><a href="atf-v1-rejected.html">Round 1 (rejected)</a>
   </nav>
 </div></div>
 
 <header class="intro"><div class="wrap">
   <p class="k">Saint Haven · Above the fold · Round 2 · One Message</p>
   <h1>One message, nothing else</h1>
-  <p class="lede">Rebuilt around One Message in the visual language of the application flow: a centred logo over a hairline, one serif headline in capitals, a tracked capitals subhead, one wide button and a quiet line beneath it. There are five close variants of the same hero: black, white, the front door, the portal and the front door portal. Below them is the In their words section. The copy is word for word, and the switches let you try every headline, subhead and microcopy.</p>
+  <p class="lede">Rebuilt around One Message in the visual language of the application flow: a centred logo over a hairline, one serif headline in capitals, a tracked capitals subhead, one wide button and a quiet line beneath it. There are four close variants of the same hero: black, white, the portal and the front door portal. Below them is the In their words section. The copy is word for word, and the switches let you try every headline, subhead and microcopy.</p>
   <div class="rules">
     <div><h4>Taken from the application flow</h4><ul><li>Logo centred, 64px header, hairline rule</li><li>Headline in IvyPresto capitals, one block, centred</li><li>Subhead in GT America Extended capitals, tracked 12%, grey</li><li>One 496 × 56 button with a 5px radius, and a tracked line beneath it</li></ul></div>
     <div><h4>Motion</h4><ul><li>Headline lines rise from behind a mask, then everything else comes into focus</li><li>Done in about 2 seconds, and nothing loops</li><li>No lines or decoration. The type does the work.</li></ul></div>
@@ -607,7 +617,7 @@ a{color:inherit}
     <div class="card rec"><h4>Recommendation</h4><p><b>Variant 1, Black, with headline 1, subhead B and microcopy 2.</b> It matches the application flow exactly, so the ad, the page and the form feel like one experience. Variant 3, Front Door, is the one to test against it, because it shows the real club straight away.</p></div>
     <div class="card"><h4>Copy fit</h4><ul><li>Headlines 1 and 3 sit on one or two lines in capitals. Headlines 2 and 4 drop to a smaller size, so they still fit above the fold on mobile.</li><li>"Apply For Membership" and the subheads are set in capitals by the style. The copy itself is unchanged.</li><li>The featured-in line is set as text until we have the publication logos.</li></ul></div>
     <div class="card"><h4>Motion</h4><ul><li>Headline: each line rises 900ms from a mask, 90ms apart, starting at 350ms.</li><li>Subhead, CTA, microcopy and the featured line come into focus from 800ms, 120ms apart.</li><li>Front Door: the film settles from 105% over 6s. Its own light is the only other movement.</li><li>In their words: each column rises 16px and fades in once, 120ms apart, when the section is 30% in view.</li></ul></div>
-    <div class="card"><h4>Still needed</h4><ul><li>Publication logos</li><li>The licensed fonts. Instrument Serif and Archivo stand in here.</li><li>The source file and a still frame for the front-door film (variant 3)</li><li>Check the logo files with each publication's brand guidelines before launch, and confirm Esquire Australia uses the US wordmark.</li></ul></div>
+    <div class="card"><h4>Still needed</h4><ul><li>Publication logos</li><li>IvyPresto Display Light and Thin. The page uses the brand fonts, but only IvyPresto Display Regular is installed, so headlines are one weight heavier than the guideline.</li><li>The source file and a still frame for the front-door film (variant 3)</li><li>Check the logo files with each publication's brand guidelines before launch, and confirm Esquire Australia uses the US wordmark.</li></ul></div>
   </div>
 </div></section>
 
@@ -640,7 +650,7 @@ function hero(v,s,mobile){
   const theme=v.theme==='dark'?'theme-dark':'';
   return `<div class="sh-hero ${theme} ${v.cls||''}">
     ${v.cls==='v-portal'?`<div class="layer rim"></div><div class="layer room"><img src="img/${PORTAL_IMG[s.img||0]}" alt="Inside Saint Haven"></div>`:''}
-    ${(v.cls||'').includes('v-photo')?`<div class="film"><video class="base" muted playsinline loop autoplay preload="auto" src="${VIDEO}"></video>${(v.cls||'').includes('v-doorportal')?`<div class="pc">Private Club</div><div class="hole"><img class="inroom" src="img/${DOOR_ROOM[s.img||0]}" alt="Inside Saint Haven"></div><div class="leafwrap"><canvas class="leaf l"></canvas><canvas class="leaf r"></canvas></div>`:''}</div>`:''}
+    ${(v.cls||'').includes('v-photo')?`<div class="film"><video class="base" muted playsinline loop autoplay preload="auto" src="${VIDEO}"></video>${(v.cls||'').includes('v-doorportal')?`<div class="hole"><img class="inroom" src="img/${DOOR_ROOM[s.img||0]}" alt="Inside Saint Haven"></div><div class="leafwrap"><canvas class="leaf l"></canvas><canvas class="leaf r"></canvas></div>`:''}</div>`:''}
     <header class="sh-nav"><span class="sh-logo" role="img" aria-label="Saint Haven Private Club"></span></header>
     <div class="stack">
       ${headline(s.h,mobile,s.c)}
@@ -649,8 +659,7 @@ function hero(v,s,mobile){
     </div>
 
     ${(v.cls||'').match(/v-portal|v-doorportal/)?`<div class="inshade"></div><div class="inside"><div class="inside-in">
-      <p class="sec-eye fx">${BELIEF.eye}</p>
-      <h2 class="sec-h fx">${BELIEF.h}</h2>
+      <h2 class="sec-h fx" style="margin-top:0">${BELIEF.h}</h2>
       <div class="sec-body">${BELIEF.p.map(t=>`<p class="fx">${t}</p>`).join('')}<p class="sec-strong fx">${BELIEF.close}</p></div>
     </div></div>`:''}
   </div>`;
@@ -662,15 +671,12 @@ const VARIANTS=[
  {id:'v2',name:'White',theme:'light',def:{h:0,s:0,m:0,c:0},
   desc:'The same hero in the light theme of the flow: white with a black button.',
   note:'<b>Lightest and most editorial.</b> Use it if the rest of the page is mostly white, so the hero doesn’t become a black block.'},
- {id:'v3',name:'Front Door',theme:'dark',cls:'v-photo',def:{h:0,s:1,m:1,c:0},
-  desc:'The photo version of the application flow: a white header bar with the black logo, then the real front-door film full bleed under a dark wash. The compact stack sits over the arch.',
-  note:'<b>Matches the flow\u2019s photo screens.</b> The film moves only with its own light, so it stays calm behind the type.'},
  {id:'v4',name:'Portal',theme:'dark',cls:'v-portal',def:{h:0,s:1,m:1,c:0,img:0},
   desc:'Inspired by the Twinbru arch. You land on the black stack, centred, with no arch in sight. Scrolling lifts the copy away while an arch is born in the centre of the wall and the camera walks straight through it in one unbroken move. Inside the room, the next scroll dims it and Our belief rises over it, still pinned, before the page carries on.',
   note:'<b>Scroll inside the frame.</b> The headline and CTA are readable before any movement. There is no CTA over the room any more; the belief statement takes its place.'},
  {id:'v5',name:'Front Door Portal',theme:'dark',cls:'v-photo v-doorportal',def:{h:0,s:1,m:1,c:0,img:0},
   desc:'You land on the front door, exactly like Front Door. Scrolling starts one continuous camera move toward the door. As the door and its sign fill the frame, the pair parts at the centre seam and both leaves swing inward on their outer hinges while the camera keeps moving. Inside is dark at first, then the room comes up out of the darkness as you pass through.',
-  note:'<b>Scroll inside the frame.</b> Once you are inside the room, the next scroll dims it and Our belief rises over it, the same as Portal. The two leaves are painted from the exact frame of the film at that moment, then turned in 3D, so it\u2019s the real door that opens. There\u2019s no hold and no jump, just one eased move, like the reference. The \u201cPrivate Club\u201d lettering under the sign is added to match the logo lock-up. Check it against the signage plans.'},
+  note:'<b>Scroll inside the frame.</b> Once you are inside the room, the next scroll dims it and Our belief rises over it, the same as Portal. The two leaves are painted from the exact frame of the film at that moment, then turned in 3D, so it\u2019s the real door that opens. There\u2019s no hold and no jump, just one eased move, like the reference.'},
 ];
 
 // ===== Section 2 · Our belief, styled to continue each hero =====
@@ -688,10 +694,9 @@ const BELIEF_STYLE={
 function belief(v,mobile,st){
   const b=BELIEF_STYLE[v.id];
   const bgImg=v.id==='v4'?PORTAL_IMG[st.img||0]:null;
-  return `<section class="sec ${b.theme} ${bgImg?'has-bg':''}">
+  return `<section class="sec sec-belief ${b.theme} ${bgImg?'has-bg':''}">
     ${bgImg?`<div class="sec-bg"><img src="img/${bgImg}" alt=""></div>`:''}
     <div class="sec-in reveal">
-      <p class="sec-eye">${BELIEF.eye}</p>
       <h2 class="sec-h">${BELIEF.h}</h2>
       <div class="sec-body">${BELIEF.p.map(t=>`<p>${t}</p>`).join('')}<p class="sec-strong">${BELIEF.close}</p></div>
     </div>
@@ -718,13 +723,12 @@ function club(v,mobile){
         <div class="scene-copy"><h3 class="scene-h">${p.name}</h3><p class="scene-p">${p.text}</p></div>
       </div>`).join('')}
       <div class="club-index">${PILLARS.map((p,i)=>`<span data-i="${i}">${p.name}</span>`).join('')}</div>
-      <div class="club-cta"><a class="sh-button">Apply For Membership</a></div>
     </div>
   </section>`;
 }
 function initClub(sec,page,mobile){
   const H=mobile?844:810;
-  const  scenes=[...sec.querySelectorAll('.scene')], idx=sec.querySelector('.club-index'), tabs=[...idx.children], cta=sec.querySelector('.club-cta');
+  const  scenes=[...sec.querySelectorAll('.scene')], idx=sec.querySelector('.club-index'), tabs=[...idx.children];
   const clamp=x=>Math.max(0,Math.min(1,x)), seg=(x,a,b)=>clamp((x-a)/(b-a)), out=t=>1-Math.pow(1-t,3);
   const A=0, W=(1-.1)/4, reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   function render(){
@@ -742,7 +746,6 @@ function initClub(sec,page,mobile){
     });
     idx.style.opacity=(1-seg(q,.88,.93)).toFixed(3);
     tabs.forEach((t,i)=>t.classList.toggle('on',i===active));
-    const c=seg(q,.9,.96); cta.style.opacity=c.toFixed(3); cta.style.transform=`translateY(${(12*(1-c)).toFixed(1)}px)`; cta.style.pointerEvents=c>.5?'auto':'none';
   }
   page.addEventListener('scroll',()=>requestAnimationFrame(render),{passive:true});
   render();
@@ -764,7 +767,6 @@ function care(v,mobile){
   return `<section class="sec sec-split ${CARE_THEME[v.id]}">
     <div class="split-media arch-open" data-fx><img src="img/${CARE.img}" alt="${CARE.alt}"></div>
     <div class="split-copy reveal">
-      <p class="sec-eye">${CARE.eye}</p>
       <h2 class="sec-h">${CARE.h.join(' ')}</h2>
       <div class="sec-body"><p class="sec-strong">${CARE.lead}</p>${CARE.p.map(t=>`<p>${t}</p>`).join('')}</div>
     </div>
@@ -774,10 +776,9 @@ function care(v,mobile){
 const CONC_IMG=[{img:'conc-table.jpg',pos:'55% 62%',alt:'Lunch being served at Saint Haven'},{img:'conc-towel.jpg',pos:'42% 60%',alt:'The bathhouse lounge at Saint Haven Toorak, towels folded on the sauna benches'},{img:'conc-usual.jpg',pos:'50% 62%',alt:'The bar at Saint Haven North Sydney'}];
 function concierge(v,mobile){
   const H=mobile?844:810;
-  return `<section class="conc theme-dark" style="height:${Math.round(H*3.2)}px">
+  return `<section class="conc" style="height:${Math.round(H*3.2)}px">
     <div class="conc-stage" style="height:${H}px">
       <div class="conc-copy">
-        <p class="sec-eye">${CONC.eye}</p>
         <h2 class="sec-h">${CONC.h.join(' ')}</h2>
         <p class="ci">${CONC.intro}</p>
         <ul class="conc-trio">${CONC.trio.map(t=>`<li>${t}</li>`).join('')}</ul>
@@ -999,7 +1000,7 @@ function initPortal(hero,mobile,page,D1,D){
 function initDoorPortal(hero,mobile,page,PD1,D){
   const W=mobile?390:1440, H=mobile?844:810, HD=mobile?56:64, LW=W, LH=H-HD, DPR=1.5;
   const film=hero.querySelector('.film'), base=film.querySelector('.base'), wrap=film.querySelector('.leafwrap');
-  const leafL=film.querySelector('.leaf.l'), leafR=film.querySelector('.leaf.r'), pc=film.querySelector('.pc'), hole=film.querySelector('.hole'), inroom=hole.querySelector('img');
+  const leafL=film.querySelector('.leaf.l'), leafR=film.querySelector('.leaf.r'), hole=film.querySelector('.hole'), inroom=hole.querySelector('img');
   const stack=hero.querySelector('.stack'), band=hero.querySelector('.sh-band'), bel=beliefFX(hero);
   const clamp=x=>Math.max(0,Math.min(1,x)), seg=(x,a,b)=>clamp((x-a)/(b-a)), lerp=(a,b,t)=>a+(b-a)*t;
   const inout=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2, out=t=>1-Math.pow(1-t,3), sine=t=>-(Math.cos(Math.PI*t)-1)/2;
@@ -1014,7 +1015,6 @@ function initDoorPortal(hero,mobile,page,PD1,D){
   leafR.style.clipPath=ins(SEAM,D1.x); leafR.style.transformOrigin=`${D1.x}px ${(D0.y+D1.y)/2}px`;
   wrap.style.perspective=`${((D1.y-D0.y)*2.4).toFixed(0)}px`;
   wrap.style.perspectiveOrigin=`${SEAM}px ${(D0.y+D1.y)/2}px`;
-  const pcp=P(.5,.2545); pc.style.left=pcp.x+'px'; pc.style.top=pcp.y+'px'; pc.style.fontSize=(dh*.0105).toFixed(2)+'px';
   const C={x:LW/2,y:LH/2}, F1=P(.5,.508), HOLE={x:SEAM,y:(D0.y+D1.y)/2};
   const sEnd=Math.max(LW/(D1.x-D0.x),LH/(D1.y-D0.y))*1.35;
   function cam(f,s){film.style.transform=`translate(${(C.x-f.x*s).toFixed(2)}px,${(C.y-f.y*s).toFixed(2)}px) scale(${s.toFixed(4)})`;}
@@ -1033,7 +1033,6 @@ function initDoorPortal(hero,mobile,page,PD1,D){
     stack.style.opacity=fo.toFixed(3); stack.style.transform=`translateY(${(-30*(1-fo)).toFixed(1)}px)`;
     if(band) band.firstElementChild.style.opacity=fo.toFixed(3); stack.style.pointerEvents=fo>.5?'auto':'none';
     film.style.setProperty('--wash',(1-seg(p,.03,.3)).toFixed(3));
-    pc.style.opacity=seg(p,.1,.26).toFixed(3);
     // one continuous dolly: slow to start, gathering pace through the doorway, easing out inside
     const t=inout(seg(p,.02,.96));
     const s=Math.exp(Math.log(sEnd)*t);

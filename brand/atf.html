@@ -1073,13 +1073,13 @@ function settle(page){
       const t=Math.max(0,Math.min(1,(top+H-y)/(H+box.offsetHeight))); im.style.transform=`scale(${(1.06-.06*t).toFixed(4)})`; }); };
   page.addEventListener('scroll',()=>requestAnimationFrame(run),{passive:true}); run();
 }
-// on the Black and White options the press logos sit straight under Our belief
+// on the Black and White options the press logos sit straight after the Train / Bathe / Restore / Connect scenes
 const logosUnderBelief=v=>v.id==='v1'||v.id==='v2';
 function pageHTML(v,s,mobile){
   const H=mobile?844:810, D1=K(v)==='v5'?Math.round(H*3.2):K(v)==='v4'?Math.round(H*2.2):0, D2=D1?Math.round(H*1.5):0, D=D1+D2;
   const top=D?`<section class="pg-pin" style="height:${H+D}px"><div class="pg-sticky" style="height:${H}px">${hero(v,s,mobile)}</div></section>`
              :`<section class="pg-hero" style="height:${H}px">${hero(v,s,mobile)}</section>`;
-  return `<div class="page pv-${v.id} ${v.theme==='dark'?'pg-dark':''} ${logosUnderBelief(v)?'lfx':''}" data-d="${D}" data-d1="${D1}">${top}${D?'':belief(v,mobile,s)}${logosUnderBelief(v)?press(v,mobile):''}${club(v,mobile)}${care(v,mobile)}${concierge(v,mobile)}${founder(v,mobile)}${logosUnderBelief(v)?'':press(v,mobile)}${apply(v,mobile)}${closing(v,mobile)}</div>`;
+  return `<div class="page pv-${v.id} ${v.theme==='dark'?'pg-dark':''} ${logosUnderBelief(v)?'lfx':''}" data-d="${D}" data-d1="${D1}">${top}${D?'':belief(v,mobile,s)}${club(v,mobile)}${logosUnderBelief(v)?press(v,mobile):''}${care(v,mobile)}${concierge(v,mobile)}${founder(v,mobile)}${logosUnderBelief(v)?'':press(v,mobile)}${apply(v,mobile)}${closing(v,mobile)}</div>`;
 }
 const root=document.getElementById('options');
 VARIANTS.forEach((v,idx)=>{

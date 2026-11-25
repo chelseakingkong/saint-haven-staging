@@ -561,6 +561,7 @@ a{color:inherit}
 .sec-founder + .sec-split{padding-top:0}
 .sec-founder + .sec-seen{padding-top:0}
 /* stronger than .sec-split.rev's own padding shorthand */
+.lfx .sec-belief + .sec-seen{padding-bottom:calc(var(--sec-pad) * 1.5)}
 .page .sec-seen + .sec-split,.page .sec-founder + .sec-split,.page .sec-founder + .sec-seen,.page .sec-belief + .sec-seen{padding-top:0}
 @container ab (max-width:500px){
   .seen-h{font-size:11px}
@@ -624,12 +625,7 @@ img.lq-in{transition:opacity .7s ease-out}
 
 /* ===== As seen in → Inside the club, on Black and White (three treatments, switchable) ===== */
 /* shared: more air under the logos, and the image's top edge dissolves in as it scrolls up */
-.club-fade{position:absolute;left:0;right:0;top:0;height:62%;z-index:6;pointer-events:none;opacity:0;background:linear-gradient(180deg,var(--fade-c) 0%,var(--fade-c) 18%,rgba(13,13,13,.55) 52%,rgba(13,13,13,0) 100%)}
-.club.theme-dark .club-fade{--fade-c:#0d0d0d}
-.club:not(.theme-dark) .club-fade{--fade-c:#fff;background:linear-gradient(180deg,#fff 0%,#fff 18%,rgba(255,255,255,.55) 52%,rgba(255,255,255,0) 100%)}
 /* image top edge: blurred and veiled as it enters, sharp and clear by the top of the screen */
-.club-fade{-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 30%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,#000 30%,transparent 100%)}
-@media (prefers-reduced-transparency:reduce){ .club-fade{backdrop-filter:none;-webkit-backdrop-filter:none} }
 
 /* Closing panel: back at the front door */
 .sec-close{display:flex;flex-direction:column;align-items:center;justify-content:center}
@@ -886,7 +882,6 @@ function club(v,mobile){
         <div class="scene-copy"><h3 class="scene-h">${p.name}</h3><p class="scene-p">${p.text}</p></div>
       </div>`).join('')}
       <div class="club-index">${PILLARS.map((p,i)=>`<span data-i="${i}">${p.name}</span>`).join('')}</div>
-      ${logosUnderBelief(v)?'<div class="club-fade" aria-hidden="true"></div>':''}
     </div>
   </section>`;
 }
@@ -1242,10 +1237,11 @@ function initDoorPortal(hero,mobile,page,PD1,D){
 const APPLY_URL=location.hostname.endsWith('github.io')?'../index.html':'https://chelseakingkong.github.io/saint-haven-staging/';
 function premium(board,page,v,mobile){
 
-  // image top edge: fully veiled as the club enters the screen, clear by the time it reaches the top
-  const fade=page.querySelector('.club-fade');
-  if(fade){ const club=fade.closest('.club'), Hh=page.clientHeight;
-    const run=()=>{ const y=club.offsetTop-page.scrollTop; const t=Math.max(0,Math.min(1,y/Hh)); fade.style.opacity=(t*t*(3-2*t)).toFixed(3); };
+  // Black and White: the first club photo fades in and sharpens as it rises into view (reverses on the way back)
+  const first=page.classList.contains('lfx') && page.querySelector('.club .scene[data-i="0"] .scene-media');
+  if(first){ const club=first.closest('.club'), Hh=page.clientHeight, reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const run=()=>{ const y=club.offsetTop-page.scrollTop; const t=Math.max(0,Math.min(1,(y-Hh*.15)/(Hh*.75))); const e=t*t*(3-2*t);
+      first.style.opacity=(1-e).toFixed(3); first.style.filter=reduce?'none':`blur(${(e*10).toFixed(2)}px)`; };
     page.addEventListener('scroll',()=>requestAnimationFrame(run),{passive:true}); run(); }
   // 2. blurred previews
   page.querySelectorAll('img').forEach(im=>{

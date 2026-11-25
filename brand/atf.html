@@ -466,6 +466,11 @@ a{color:inherit}
 .conc-trio{list-style:none;margin:36px 0 0;padding:0;display:flex;flex-direction:column;gap:6px}
 .conc-trio li{font-family:var(--font-display);font-size:34px;line-height:1.15;letter-spacing:-.015em;color:rgba(0,0,0,.2);transition:color .6s var(--motion-ease-out)}
 .conc-trio li.on{color:#000}
+.conc-dark{background:var(--sh-neutral-950,#0d0d0d)}
+.conc-dark .conc-copy .sec-h{color:#fff}
+.conc-dark .conc-copy p.ci,.conc-dark .conc-copy p.cc{color:rgba(255,255,255,.84)}
+.conc-dark .conc-trio li{color:rgba(255,255,255,.26)}
+.conc-dark .conc-trio li.on{color:#fff}
 .conc-copy p.cc{margin-top:28px;font-family:var(--font-body);font-weight:300;font-size:17px;line-height:1.7;color:rgba(0,0,0,.62);max-width:38ch;opacity:0;will-change:opacity,transform}
 .conc-media{position:relative;overflow:hidden}
 .conc-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 50%);opacity:0;will-change:opacity,transform}
@@ -486,6 +491,8 @@ a{color:inherit}
 .film-bg::after{background:linear-gradient(180deg,rgba(10,9,8,.35) 0%,rgba(10,9,8,.15) 40%,rgba(10,9,8,.55) 100%)!important}
 .sec-close .sec-h{color:#fff}
 .sec-close .sec-body p{color:rgba(255,255,255,.84)}
+.sec-close .sec-body{max-width:none}
+@container ab (max-width:500px){ .sec-close .d-br{display:none} }
 .close-btn{margin-top:40px;width:300px;border-radius:0;--action-fill:#fff;--action-label:#000;--action-hover:#F3EDE4}
 .close-line{margin-top:16px;color:rgba(255,255,255,.72)}
 .close-logo{position:absolute;left:50%;bottom:44px;transform:translateX(-50%);z-index:2;width:120px;height:22px;opacity:.9}
@@ -528,7 +535,7 @@ a{color:inherit}
 @keyframes mqLeft{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes mqRight{from{transform:translateX(-50%)}to{transform:translateX(0)}}
 .mq-item{width:380px;flex:none;display:flex;flex-direction:column;align-items:center;text-align:center}
-.mq-item .bl{height:calc(var(--h) * 1.2);width:auto;opacity:.94}
+.mq-item .bl{height:calc(var(--h) * .72);width:auto;opacity:.5}
 .sec:not(.theme-dark) .mq-item .bl{filter:invert(1)}
 .mq-item .bq{margin-top:26px;font-family:var(--font-display);font-weight:400;font-size:28px;line-height:1.25;letter-spacing:-.01em;color:var(--text-primary);max-width:20ch;text-wrap:balance}
 @container ab (max-width:500px){
@@ -544,7 +551,7 @@ a{color:inherit}
   .mq-wrap{gap:56px}
   .mq-track{gap:40px;padding:0 20px}
   .mq-item{width:220px}
-  .mq-item .bl{height:calc(var(--h) * .56)}
+  .mq-item .bl{height:calc(var(--h) * .5)}
   .mq-item .bq{margin-top:14px;font-size:18px;line-height:1.3}
 }
 @media (prefers-reduced-motion:reduce){.mq-track{animation:none!important}}
@@ -581,7 +588,7 @@ a{color:inherit}
 <div class="bar"><div class="wrap">
   <span class="lg" role="img" aria-label="Saint Haven"></span>
   <nav>
-    <a href="index.html">← Directions</a><a href="#v1">1 Black</a><a href="#v2">2 White</a><a href="#v4">3 Portal</a><a href="#v5">4 Front Door Portal</a><a href="#proof">In their words</a><a href="#flags">Notes</a><a href="atf-v1-rejected.html">Round 1 (rejected)</a>
+    <a href="#v1">1 Black</a><a href="#v2">2 White</a><a href="#v4">3 Portal</a><a href="#v5">4 Front Door Portal</a><a href="#flags">Notes</a>
   </nav>
 </div></div>
 
@@ -598,18 +605,7 @@ a{color:inherit}
 
 <div id="options"></div>
 
-<section class="opt" id="proof"><div class="wrap">
-  <div class="opt-head"><div><p class="n">Social proof</p><h2>In their words</h2></div><p>Built from your reference: a charcoal band with the publication logo above each quote, everything centred, and nothing else. Four quotes sit in four even columns on desktop and stack on mobile. The logos are white versions of each publication’s own logo, on a transparent background.</p></div>
-  <div class="boards">
-    <div class="board-col"><div class="frame"><div class="artboard pd"></div></div><div class="cap">Desktop · 1440</div></div>
-    <div class="board-col mob"><div class="frame"><div class="artboard pm"></div></div><div class="cap">Mobile · 390</div></div>
-  </div>
-  <div class="controls">
-    <div class="grp" data-k="t"><span>Background</span><button data-v="0">Charcoal</button><button data-v="1">Black</button><button data-v="2">White</button></div>
-    <button class="replay">Replay motion</button>
-  </div>
-  <p class="note"><b>Charcoal (neutral/800, #333333) follows your reference</b> and separates the section from a black hero. Use White under the White hero, or Black if the page should stay one continuous dark surface.</p>
-</div></section>
+
 
 <section class="foot" id="flags"><div class="wrap">
   <h2>Notes</h2>
@@ -776,7 +772,7 @@ function care(v,mobile){
 const CONC_IMG=[{img:'conc-table.jpg',pos:'55% 62%',alt:'Lunch being served at Saint Haven'},{img:'conc-towel.jpg',pos:'42% 60%',alt:'The bathhouse lounge at Saint Haven Toorak, towels folded on the sauna benches'},{img:'conc-usual.jpg',pos:'50% 62%',alt:'The bar at Saint Haven North Sydney'}];
 function concierge(v,mobile){
   const H=mobile?844:810;
-  return `<section class="conc" style="height:${Math.round(H*3.2)}px">
+  return `<section class="conc ${v.id==='v1'?'conc-dark':''}" style="height:${Math.round(H*3.2)}px">
     <div class="conc-stage" style="height:${H}px">
       <div class="conc-copy">
         <h2 class="sec-h">${CONC.h.join(' ')}</h2>
@@ -854,7 +850,7 @@ function closing(v,mobile){
     <div class="sec-bg film-bg"><video muted playsinline loop autoplay preload="metadata" src="${VIDEO}"></video></div>
     <div class="sec-in reveal">
       <h2 class="sec-h">${CLOSE.h}</h2>
-      <div class="sec-body"><p>${CLOSE.p}</p></div>
+      <div class="sec-body"><p>${CLOSE.p.replace('. ','.<br class="d-br"> ')}</p></div>
       <a class="sh-button close-btn">${CLOSE.btn}</a>
       <p class="sh-micro close-line">${CLOSE.line}</p>
     </div>
@@ -983,18 +979,7 @@ function initPortal(hero,mobile,page,D1,D){
   pinDriver(page,D1,D,render);
 }
 
-// ===== In their words =====
 
-(function(){
-  const sec=document.getElementById('proof'); const [d,m]=sec.querySelectorAll('.artboard'); const st={t:0};
-  const tone=['','black','white'];
-  const render=()=>`<div class="sh-proof ${tone[st.t]}"><p class="lbl">In their words</p><div class="row">${QUOTES.map((x,i)=>`<figure class="pi" style="--d:${i}"><div class="logo"><img class="logo-img" src="img/press/${x.img}-white.svg" alt="${x.src}" style="--h:${x.h}px"></div><blockquote class="q">${x.q}</blockquote></figure>`).join('')}</div></div>`;
-  function draw(play){ d.innerHTML=render(); m.innerHTML=render(); [d,m].forEach(b=>b.firstElementChild.classList.toggle('play',!!play)); sec.querySelectorAll('.grp button').forEach(b=>b.classList.toggle('on',+b.dataset.v===st.t)); fit(); }
-  sec._replay=()=>[d,m].forEach(b=>{const h=b.firstElementChild; h.classList.remove('play'); void h.offsetWidth; h.classList.add('play');});
-  sec.querySelector('.grp').addEventListener('click',e=>{const b=e.target.closest('button'); if(!b)return; st.t=+b.dataset.v; draw(true);});
-  sec.querySelector('.replay').addEventListener('click',sec._replay);
-  draw(false);
-})();
 
 // ===== Front Door Portal: one continuous dolly; the double doors part from the centre seam and swing inward as the camera passes through =====
 function initDoorPortal(hero,mobile,page,PD1,D){

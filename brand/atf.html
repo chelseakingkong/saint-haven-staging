@@ -445,15 +445,14 @@ a{color:inherit}
 @media (prefers-reduced-motion:reduce){.care-h .ln>span,.cc-h .ln>span,.cc-trio .ln>span{transform:none!important}.care-band{clip-path:none!important}}
 
 /* ============ One system for everything below the hero ============ */
-.page{--sec-pad:168px;--sec-x:160px}
+.page{--sec-pad:144px;--sec-x:160px}
+/* Spacing rule: every text section has --sec-pad above and below; full-bleed image sections have none.
+   Where two text sections on the same background meet, the second drops its top padding,
+   so every visible gap between sections on the page is exactly --sec-pad. */
 .page .sh-hero,.page .sec,.page .club{}
 .sec{position:relative;overflow:hidden;background:var(--surface-canvas);color:var(--text-primary);padding:var(--sec-pad) var(--sec-x)}
 .sec-in{position:relative;z-index:2;max-width:760px;margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center}
 .sec-eye{font-family:var(--font-body);font-weight:400;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted)}
-.sec-belief{padding-top:96px}
-@container ab (max-width:500px){ .sec-belief{padding-top:64px} }
-.pv-v6 .sec-belief{padding-top:77px}
-@container ab (max-width:500px){ .pv-v6 .sec-belief{padding-top:51px} }
 .sec-h{margin-top:24px;max-width:18ch;font-family:var(--font-display);font-weight:400;font-size:56px;line-height:1.06;letter-spacing:-.02em;color:var(--text-primary);text-wrap:balance}
 .sec-body{margin-top:32px;max-width:46ch}
 .sec-body p{font-family:var(--font-body);font-weight:300;font-size:17px;line-height:1.7;color:var(--text-secondary);text-wrap:pretty}
@@ -487,7 +486,7 @@ a{color:inherit}
 .intro-copy .sec-eye{color:#fff}
 .club-index span{}
 @container ab (max-width:500px){
-  .page{--sec-pad:104px;--sec-x:28px}
+  .page{--sec-pad:96px;--sec-x:28px}
   .sec-h{font-size:34px;margin-top:18px}
   .sec-body{margin-top:24px}
   .sec-body p{font-size:15px;line-height:1.65}
@@ -545,7 +544,6 @@ a{color:inherit}
 }
 
 /* As seen in: a calm logo wall for the options that already quote the press in the hero */
-.sec-seen{padding-top:72px;padding-bottom:72px}
 .seen{display:flex;flex-direction:column;align-items:center}
 .seen-h{font-family:var(--font-body);font-weight:400;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted)}
 .seen-grid{list-style:none;margin:48px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,200px);column-gap:48px;row-gap:56px;justify-items:center;align-items:center}
@@ -553,14 +551,18 @@ a{color:inherit}
 .seen-logo{height:calc(var(--h) * 1.07 * var(--o));width:auto;max-width:200px;object-fit:contain;opacity:.5;transition:opacity .4s var(--motion-ease-out)}
 .seen-grid li:hover .seen-logo{opacity:.9}
 .sec:not(.theme-dark) .seen-logo{filter:invert(1)}
-.seen.reveal li{opacity:0;transform:translateY(8px);transition:opacity .7s var(--motion-ease-out),transform .7s var(--motion-ease-out);transition-delay:calc(var(--i) * 50ms)}
-.seen.reveal.in li{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){ .seen.reveal li{transform:none;transition:opacity .2s linear} }
+/* logos come into focus one after another */
+.sec-seen .seen.reveal{transform:none}
+.seen.reveal li{opacity:0;filter:blur(8px);transition:opacity 1s var(--motion-ease-out),filter 1.3s var(--motion-ease-out);transition-delay:calc(var(--i) * 80ms)}
+.seen.reveal.in li{opacity:1;filter:blur(0)}
+@media (prefers-reduced-motion:reduce){ .seen.reveal li{filter:none;transition:opacity .2s linear} }
 .sec-seen + .sec-split{padding-top:0}
 .sec-belief + .sec-seen{padding-top:0}
 .sec-founder + .sec-split{padding-top:0}
+.sec-founder + .sec-seen{padding-top:0}
+/* stronger than .sec-split.rev's own padding shorthand */
+.page .sec-seen + .sec-split,.page .sec-founder + .sec-split,.page .sec-founder + .sec-seen,.page .sec-belief + .sec-seen{padding-top:0}
 @container ab (max-width:500px){
-  .sec-seen{padding-top:48px;padding-bottom:48px}
   .seen-h{font-size:11px}
   .seen-grid{margin-top:32px;grid-template-columns:repeat(2,150px);column-gap:22px;row-gap:36px}
   .seen-grid li{height:44px}
@@ -618,6 +620,16 @@ img.lq-in{transition:opacity .7s ease-out}
   .fd-by span{font-size:13px}
   .sec-founder .sec-body{margin-top:24px}
 }
+
+
+/* ===== As seen in → Inside the club, on Black and White (three treatments, switchable) ===== */
+/* shared: more air under the logos, and the image's top edge dissolves in as it scrolls up */
+.club-fade{position:absolute;left:0;right:0;top:0;height:62%;z-index:6;pointer-events:none;opacity:0;background:linear-gradient(180deg,var(--fade-c) 0%,var(--fade-c) 18%,rgba(13,13,13,.55) 52%,rgba(13,13,13,0) 100%)}
+.club.theme-dark .club-fade{--fade-c:#0d0d0d}
+.club:not(.theme-dark) .club-fade{--fade-c:#fff;background:linear-gradient(180deg,#fff 0%,#fff 18%,rgba(255,255,255,.55) 52%,rgba(255,255,255,0) 100%)}
+/* image top edge: blurred and veiled as it enters, sharp and clear by the top of the screen */
+.club-fade{-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 30%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,#000 30%,transparent 100%)}
+@media (prefers-reduced-transparency:reduce){ .club-fade{backdrop-filter:none;-webkit-backdrop-filter:none} }
 
 /* Closing panel: back at the front door */
 .sec-close{display:flex;flex-direction:column;align-items:center;justify-content:center}
@@ -874,6 +886,7 @@ function club(v,mobile){
         <div class="scene-copy"><h3 class="scene-h">${p.name}</h3><p class="scene-p">${p.text}</p></div>
       </div>`).join('')}
       <div class="club-index">${PILLARS.map((p,i)=>`<span data-i="${i}">${p.name}</span>`).join('')}</div>
+      ${logosUnderBelief(v)?'<div class="club-fade" aria-hidden="true"></div>':''}
     </div>
   </section>`;
 }
@@ -1071,7 +1084,7 @@ function pageHTML(v,s,mobile){
   const H=mobile?844:810, D1=K(v)==='v5'?Math.round(H*3.2):K(v)==='v4'?Math.round(H*2.2):0, D2=D1?Math.round(H*1.5):0, D=D1+D2;
   const top=D?`<section class="pg-pin" style="height:${H+D}px"><div class="pg-sticky" style="height:${H}px">${hero(v,s,mobile)}</div></section>`
              :`<section class="pg-hero" style="height:${H}px">${hero(v,s,mobile)}</section>`;
-  return `<div class="page pv-${v.id} ${v.theme==='dark'?'pg-dark':''}" data-d="${D}" data-d1="${D1}">${top}${D?'':belief(v,mobile,s)}${logosUnderBelief(v)?press(v,mobile):''}${club(v,mobile)}${care(v,mobile)}${concierge(v,mobile)}${founder(v,mobile)}${logosUnderBelief(v)?'':press(v,mobile)}${apply(v,mobile)}${closing(v,mobile)}</div>`;
+  return `<div class="page pv-${v.id} ${v.theme==='dark'?'pg-dark':''} ${logosUnderBelief(v)?'lfx':''}" data-d="${D}" data-d1="${D1}">${top}${D?'':belief(v,mobile,s)}${logosUnderBelief(v)?press(v,mobile):''}${club(v,mobile)}${care(v,mobile)}${concierge(v,mobile)}${founder(v,mobile)}${logosUnderBelief(v)?'':press(v,mobile)}${apply(v,mobile)}${closing(v,mobile)}</div>`;
 }
 const root=document.getElementById('options');
 VARIANTS.forEach((v,idx)=>{
@@ -1228,6 +1241,12 @@ function initDoorPortal(hero,mobile,page,PD1,D){
 // ===== Premium details, wired per artboard =====
 const APPLY_URL=location.hostname.endsWith('github.io')?'../index.html':'https://chelseakingkong.github.io/saint-haven-staging/';
 function premium(board,page,v,mobile){
+
+  // image top edge: fully veiled as the club enters the screen, clear by the time it reaches the top
+  const fade=page.querySelector('.club-fade');
+  if(fade){ const club=fade.closest('.club'), Hh=page.clientHeight;
+    const run=()=>{ const y=club.offsetTop-page.scrollTop; const t=Math.max(0,Math.min(1,y/Hh)); fade.style.opacity=(t*t*(3-2*t)).toFixed(3); };
+    page.addEventListener('scroll',()=>requestAnimationFrame(run),{passive:true}); run(); }
   // 2. blurred previews
   page.querySelectorAll('img').forEach(im=>{
     const f=(im.getAttribute('src')||'').split('/').pop(); const lq=window.LQIP&&LQIP[f]; if(!lq) return;

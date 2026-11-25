@@ -228,6 +228,63 @@ a{color:inherit}
 .sh-hero .sh-h,.sh-hero .sh-sub,.sh-hero .sh-cta{background:none}
 /* ============ SH/Hero · In their words band ============ */
 .sh-hero{--band:0px}
+/* ===== Press under the headline complex ===== */
+.hp{--hp-fg:rgba(255,255,255,.72);--hp-logo:.62}
+.sh-hero:not(.theme-dark) .hp{--hp-fg:rgba(0,0,0,.6);--hp-logo:.55}
+.hp-logo{height:calc(var(--h) * .72);width:auto;display:block;opacity:var(--hp-logo)}
+.sh-hero:not(.theme-dark) .hp-logo{filter:invert(1)}
+.hp-q{font-family:var(--font-body);font-weight:300;font-size:14px;line-height:1.55;color:var(--hp-fg);text-wrap:balance}
+/* row: three equal columns under the CTA */
+.hp-row{margin-top:64px;display:grid;grid-template-columns:repeat(3,236px);column-gap:72px;justify-content:center}
+.hp-item{display:flex;flex-direction:column;align-items:center;text-align:center;margin:0}
+.hp-item .hp-logo{height:calc(var(--h) * .72)}
+.hp-item>img{min-height:0}
+.hp-item .hp-q{margin-top:16px;max-width:24ch}
+.hp-row .hp-item,.hp-band .hp-item{justify-content:flex-start}
+.hp-row .hp-item>img,.hp-band .hp-item>img{height:calc(var(--h) * .72);margin-top:calc((40px - var(--h)) * .36)}
+/* Press row: the row keeps its layout box (110px desktop, 244px mobile) so the headline complex never moves;
+   inside it the logos are ~35% larger and sit 32px lower (the 64px gap becomes 96px) */
+.hp-row{height:110px;align-items:start}
+.hp-row .hp-item{transform:translateY(52px)}
+.hp-lbox{height:40px;display:flex;align-items:flex-end;justify-content:center}
+.hp-row .hp-lbox .hp-logo{height:calc(var(--h) * .97 * var(--b,1));margin:0}
+.hp-row .hp-q{margin-top:20px}
+/* band: anchored to the foot of the hero, the stack re-centres above it */
+.sh-hero:has(.hp-band){--band:208px}
+.hp-band{position:absolute;left:0;right:0;bottom:0;z-index:4;padding:0 0 72px}
+.hp-track{display:grid;grid-template-columns:repeat(3,236px);column-gap:96px;justify-content:center}
+/* spotlight: logos as a quiet index, one quote at a time */
+.hp-spot{margin-top:60px;display:flex;flex-direction:column;align-items:center}
+.hp-logos{display:flex;align-items:center;gap:48px}
+.hp-tab{appearance:none;background:none;border:0;padding:10px 6px;cursor:pointer;display:flex;align-items:center;height:48px}
+.hp-tab .hp-logo{opacity:.3;transition:opacity .4s var(--motion-ease-out)}
+.hp-tab.on .hp-logo{opacity:.9}
+.hp-tab:active .hp-logo{transform:scale(.97)}
+.hp-quotes{position:relative;margin-top:18px;width:560px;height:48px}
+.hp-spot .hp-q{position:absolute;left:0;right:0;top:0;margin:0;text-align:center;font-size:15px;opacity:0;transform:translateY(6px);transition:opacity .5s var(--motion-ease-out),transform .5s var(--motion-ease-out)}
+.hp-spot .hp-q.on{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){ .hp-spot .hp-q{transform:none;transition:opacity .2s linear} }
+@container ab (max-width:500px){
+  .hp-row{margin-top:40px;grid-template-columns:1fr;row-gap:26px}
+  .hp-row{height:244px}
+  .hp-row .hp-item{transform:translateY(8px)}
+  .hp-lbox{height:30px}
+  .hp-row .hp-lbox .hp-logo{height:calc(var(--h) * .75 * var(--b,1))}
+  .hp-row .hp-item>img{height:calc(var(--h) * .56);margin-top:0}
+  .hp-row .hp-q{margin-top:10px;font-size:13px}
+  .sh-hero:has(.hp-band){--band:136px}
+  .hp-band{padding:0 0 40px}
+  .hp-track{display:flex;grid-template-columns:none;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 56px;scrollbar-width:none;overscroll-behavior-x:contain}
+  .hp-track::-webkit-scrollbar{display:none}
+  .hp-band .hp-item{flex:0 0 278px;scroll-snap-align:center}
+  .hp-band .hp-item>img{height:calc(var(--h) * .56);margin-top:0}
+  .hp-band .hp-q{margin-top:10px;font-size:13px}
+  .hp-spot{margin-top:40px}
+  .hp-logos{gap:22px}
+  .hp-tab .hp-logo{height:calc(var(--h) * .52)}
+  .hp-quotes{width:300px;height:44px;margin-top:12px}
+  .hp-spot .hp-q{font-size:13px}
+}
 .sh-hero .stack{bottom:var(--band)}
 .sh-band{position:absolute;left:0;right:0;bottom:0;z-index:4;padding:0 128px 88px}
 .band-in{display:grid;grid-template-columns:repeat(4,1fr);gap:48px;align-items:start}
@@ -296,6 +353,7 @@ a{color:inherit}
 .page{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;scrollbar-width:none;overscroll-behavior:contain;background:var(--surface-canvas)}
 /* sections overlap by 1px so the scaled artboard never shows a hairline seam between them */
 .page>*+*{margin-top:-1px}
+.page.pg-dark{background:var(--sh-neutral-950,#0d0d0d)}
 .page::-webkit-scrollbar{display:none}
 .pg-hero{position:relative}
 .pg-pin{position:relative}
@@ -394,6 +452,8 @@ a{color:inherit}
 .sec-eye{font-family:var(--font-body);font-weight:400;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted)}
 .sec-belief{padding-top:96px}
 @container ab (max-width:500px){ .sec-belief{padding-top:64px} }
+.pv-v6 .sec-belief{padding-top:77px}
+@container ab (max-width:500px){ .pv-v6 .sec-belief{padding-top:51px} }
 .sec-h{margin-top:24px;max-width:18ch;font-family:var(--font-display);font-weight:400;font-size:56px;line-height:1.06;letter-spacing:-.02em;color:var(--text-primary);text-wrap:balance}
 .sec-body{margin-top:32px;max-width:46ch}
 .sec-body p{font-family:var(--font-body);font-weight:300;font-size:17px;line-height:1.7;color:var(--text-secondary);text-wrap:pretty}
@@ -484,6 +544,81 @@ a{color:inherit}
   .conc-trio li{font-size:22px}
 }
 
+/* As seen in: a calm logo wall for the options that already quote the press in the hero */
+.sec-seen{padding-top:72px;padding-bottom:72px}
+.seen{display:flex;flex-direction:column;align-items:center}
+.seen-h{font-family:var(--font-body);font-weight:400;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted)}
+.seen-grid{list-style:none;margin:48px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,200px);column-gap:48px;row-gap:56px;justify-items:center;align-items:center}
+.seen-grid li{height:56px;display:flex;align-items:center;justify-content:center}
+.seen-logo{height:calc(var(--h) * 1.07 * var(--o));width:auto;max-width:200px;object-fit:contain;opacity:.5;transition:opacity .4s var(--motion-ease-out)}
+.seen-grid li:hover .seen-logo{opacity:.9}
+.sec:not(.theme-dark) .seen-logo{filter:invert(1)}
+.seen.reveal li{opacity:0;transform:translateY(8px);transition:opacity .7s var(--motion-ease-out),transform .7s var(--motion-ease-out);transition-delay:calc(var(--i) * 50ms)}
+.seen.reveal.in li{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){ .seen.reveal li{transform:none;transition:opacity .2s linear} }
+.sec-seen + .sec-split{padding-top:0}
+.sec-belief + .sec-seen{padding-top:0}
+.sec-founder + .sec-split{padding-top:0}
+@container ab (max-width:500px){
+  .sec-seen{padding-top:48px;padding-bottom:48px}
+  .seen-h{font-size:11px}
+  .seen-grid{margin-top:32px;grid-template-columns:repeat(2,150px);column-gap:22px;row-gap:36px}
+  .seen-grid li{height:44px}
+  .seen-logo{height:calc(var(--h) * .8 * var(--o));max-width:150px}
+}
+
+
+/* ===== Premium details ===== */
+/* 2. Photos never pop in: a tiny blurred preview sits behind each image and the photo fades in over it */
+.lq-host{background-size:cover;background-position:center}
+img.lq{opacity:0}
+img.lq-in{transition:opacity .7s ease-out}
+
+/* 3. Apply opens the application in place, as a sheet over the page */
+.ap{position:absolute;inset:0;z-index:40;pointer-events:none}
+.ap.open{pointer-events:auto}
+.ap-scrim{position:absolute;inset:0;background:rgba(6,5,4,.55);opacity:0;transition:opacity .45s ease-out}
+.ap.open .ap-scrim{opacity:1}
+.ap-sheet{position:absolute;left:50%;bottom:0;width:min(1180px,calc(100% - 96px));height:calc(100% - 44px);margin-left:calc(min(1180px,calc(100% - 96px)) / -2);background:#fff;border-radius:18px 18px 0 0;overflow:hidden;transform:translateY(104%);transition:transform .55s cubic-bezier(.32,.72,0,1);box-shadow:0 -12px 48px rgba(0,0,0,.28)}
+.ap.open .ap-sheet{transform:none}
+.ap-sheet iframe{width:100%;height:100%;border:0;display:block}
+.ap-x{position:absolute;top:14px;right:14px;z-index:2;width:40px;height:40px;border-radius:50%;border:0;background:rgba(0,0,0,.06);color:#000;font:300 22px/1 var(--font-body);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background-color .2s ease-out,transform .1s ease-out}
+.ap-x:hover{background:rgba(0,0,0,.1)} .ap-x:active{transform:scale(.94)}
+.page{transition:transform .55s cubic-bezier(.32,.72,0,1),filter .45s ease-out;transform-origin:50% 0}
+.artboard.sheet-open .page{transform:scale(.97);filter:brightness(.92)}
+@media (prefers-reduced-motion:reduce){ .ap-sheet{transform:none;opacity:0;transition:opacity .25s linear} .ap.open .ap-sheet{opacity:1} .artboard.sheet-open .page{transform:none} }
+@container ab (max-width:500px){ .ap-sheet{width:100%;margin-left:-50%;height:calc(100% - 24px);border-radius:14px 14px 0 0} .ap-x{top:10px;right:10px;width:36px;height:36px} }
+
+/* 4. Hanging punctuation: quote marks sit outside the words, so the words themselves are centred */
+.hq-o{margin-left:-.42em}
+.hq-c{margin-right:-.42em}
+
+/* 5. No lone last words */
+.page p,.page blockquote{text-wrap:pretty}
+.page .sec-h,.page .scene-h,.page .sh-sub,.page .bq,.page .hp-q{text-wrap:balance}
+
+/* Founder */
+.fd{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);column-gap:112px;align-items:center;max-width:1120px;margin:0 auto}
+.fd-media{aspect-ratio:4/5;overflow:hidden;position:relative}
+.fd-media img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.fd-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:var(--surface-raised,rgba(127,127,127,.08));border:1px dashed var(--border-subtle);font-family:var(--font-body);color:var(--text-muted);text-align:center}
+.fd-ph span{font-size:14px;letter-spacing:.14em;text-transform:uppercase}
+.fd-ph small{font-size:12px;letter-spacing:.02em}
+.fd-q{margin:0;font-family:var(--font-display);font-weight:400;font-size:42px;line-height:1.14;letter-spacing:-.015em;color:var(--text-primary);text-wrap:balance}
+.fd-by{margin-top:36px;font-family:var(--font-body);font-weight:400;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-primary);display:flex;flex-direction:column;gap:6px}
+.fd-by span{font-weight:300;letter-spacing:.06em;text-transform:none;font-size:14px;color:var(--text-muted)}
+.sec-founder .sec-body{margin-top:32px;max-width:46ch}
+.sec-founder .sec-body p{text-align:left}
+.fd-hope{margin-top:0}
+@container ab (max-width:500px){
+  .fd{grid-template-columns:1fr;row-gap:40px}
+  .fd-media{margin:0 calc(var(--sec-x) * -1)}
+  .fd-q{font-size:28px}
+  .fd-by{margin-top:26px;font-size:11px}
+  .fd-by span{font-size:13px}
+  .sec-founder .sec-body{margin-top:24px}
+}
+
 /* Closing panel: back at the front door */
 .sec-close{display:flex;flex-direction:column;align-items:center;justify-content:center}
 .sec-close .sec-in{margin:auto}
@@ -507,6 +642,9 @@ a{color:inherit}
 .sec-split.rev{grid-template-columns:minmax(0,5fr) minmax(0,7fr);padding:var(--sec-pad) 0 var(--sec-pad) var(--sec-x)}
 .split-media{position:relative;height:720px;overflow:hidden}
 .split-media img{width:100%;height:100%;object-fit:cover;transform:scale(1.06);will-change:transform}
+.split-media.still img{transform:none}
+.care-btn{margin-top:40px;width:300px;border-radius:0}
+@container ab (max-width:500px){ .care-btn{width:100%;max-width:300px;height:var(--size-button-height-mobile,52px)} }
 .split-media.arch-open{background:transparent}
 .split-media.arch-open img{will-change:transform,clip-path}
 .split-media.dolly img{object-position:50% 55%}
@@ -535,9 +673,10 @@ a{color:inherit}
 @keyframes mqLeft{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @keyframes mqRight{from{transform:translateX(-50%)}to{transform:translateX(0)}}
 .mq-item{width:380px;flex:none;display:flex;flex-direction:column;align-items:center;text-align:center}
-.mq-item .bl{height:calc(var(--h) * .72);width:auto;opacity:.5}
+.mq-item .bl{height:var(--h);width:auto;opacity:.62}
 .sec:not(.theme-dark) .mq-item .bl{filter:invert(1)}
-.mq-item .bq{margin-top:26px;font-family:var(--font-display);font-weight:400;font-size:28px;line-height:1.25;letter-spacing:-.01em;color:var(--text-primary);max-width:20ch;text-wrap:balance}
+.mq-item{justify-content:flex-start}
+.mq-item .bq{margin-top:28px;font-family:var(--font-body);font-weight:300;font-size:18px;line-height:1.5;letter-spacing:0;color:var(--text-primary);max-width:26ch;text-wrap:balance}
 @container ab (max-width:500px){
   .sec-split,.sec-split.rev{grid-template-columns:1fr;gap:44px;padding:var(--sec-pad) var(--sec-x)}
   .sec-press + .sec-split{padding-top:0}
@@ -551,8 +690,8 @@ a{color:inherit}
   .mq-wrap{gap:56px}
   .mq-track{gap:40px;padding:0 20px}
   .mq-item{width:220px}
-  .mq-item .bl{height:calc(var(--h) * .5)}
-  .mq-item .bq{margin-top:14px;font-size:18px;line-height:1.3}
+  .mq-item .bl{height:calc(var(--h) * .85)}
+  .mq-item .bq{margin-top:18px;font-size:17px;line-height:1.5}
 }
 @media (prefers-reduced-motion:reduce){.mq-track{animation:none!important}}
 /* ============ SH/Proof · In their words ============ */
@@ -588,35 +727,19 @@ a{color:inherit}
 <div class="bar"><div class="wrap">
   <span class="lg" role="img" aria-label="Saint Haven"></span>
   <nav>
-    <a href="#v1">1 Black</a><a href="#v2">2 White</a><a href="#v4">3 Portal</a><a href="#v5">4 Front Door Portal</a><a href="#flags">Notes</a>
+    <a href="#v1">1 Black</a><a href="#v2">2 White</a><a href="#v4">3 Portal</a><a href="#v5">4 Front Door Portal</a><a href="#v7">5 Press band</a>
   </nav>
 </div></div>
 
-<header class="intro"><div class="wrap">
-  <p class="k">Saint Haven · Above the fold · Round 2 · One Message</p>
-  <h1>One message, nothing else</h1>
-  <p class="lede">Rebuilt around One Message in the visual language of the application flow: a centred logo over a hairline, one serif headline in capitals, a tracked capitals subhead, one wide button and a quiet line beneath it. There are four close variants of the same hero: black, white, the portal and the front door portal. Below them is the In their words section. The copy is word for word, and the switches let you try every headline, subhead and microcopy.</p>
-  <div class="rules">
-    <div><h4>Taken from the application flow</h4><ul><li>Logo centred, 64px header, hairline rule</li><li>Headline in IvyPresto capitals, one block, centred</li><li>Subhead in GT America Extended capitals, tracked 12%, grey</li><li>One 496 × 56 button with a 5px radius, and a tracked line beneath it</li></ul></div>
-    <div><h4>Motion</h4><ul><li>Headline lines rise from behind a mask, then everything else comes into focus</li><li>Done in about 2 seconds, and nothing loops</li><li>No lines or decoration. The type does the work.</li></ul></div>
-    <div><h4>Removed</h4><ul><li>Nav buttons, side columns and split layouts</li><li>The Centre Line and the glow</li><li>Anything competing with the headline</li></ul></div>
-  </div>
-</div></header>
+
 
 <div id="options"></div>
 
 
 
-<section class="foot" id="flags"><div class="wrap">
-  <h2>Notes</h2>
-  <div class="grid">
-    <div class="card rec"><h4>Recommendation</h4><p><b>Variant 1, Black, with headline 1, subhead B and microcopy 2.</b> It matches the application flow exactly, so the ad, the page and the form feel like one experience. Variant 3, Front Door, is the one to test against it, because it shows the real club straight away.</p></div>
-    <div class="card"><h4>Copy fit</h4><ul><li>Headlines 1 and 3 sit on one or two lines in capitals. Headlines 2 and 4 drop to a smaller size, so they still fit above the fold on mobile.</li><li>"Apply For Membership" and the subheads are set in capitals by the style. The copy itself is unchanged.</li><li>The featured-in line is set as text until we have the publication logos.</li></ul></div>
-    <div class="card"><h4>Motion</h4><ul><li>Headline: each line rises 900ms from a mask, 90ms apart, starting at 350ms.</li><li>Subhead, CTA, microcopy and the featured line come into focus from 800ms, 120ms apart.</li><li>Front Door: the film settles from 105% over 6s. Its own light is the only other movement.</li><li>In their words: each column rises 16px and fades in once, 120ms apart, when the section is 30% in view.</li></ul></div>
-    <div class="card"><h4>Still needed</h4><ul><li>Publication logos</li><li>IvyPresto Display Light and Thin. The page uses the brand fonts, but only IvyPresto Display Regular is installed, so headlines are one weight heavier than the guideline.</li><li>The source file and a still frame for the front-door film (variant 3)</li><li>Check the logo files with each publication's brand guidelines before launch, and confirm Esquire Australia uses the US wordmark.</li></ul></div>
-  </div>
-</div></section>
 
+
+<script src="img/lqip.js"></script>
 <script>
 const VIDEO="https://cdn.prod.website-files.com/691a56a26182cc58941e9b93%2F693b67b5179c213cd4aa111e_Saint%20Haven%20-%20Front%20Door%20Loop%20-%2001_prob4_16x9_1920x1080-optim_mp4.mp4";
 const HEAD=["Live your ultimate life.","Come for an hour. Feel it for the other twenty-three.","The best part of your day now has an address.","Everyone in your life gets the version of you that walks out of here."];
@@ -642,6 +765,32 @@ function headline(i,mobile,sentence){
   const parts=LINES[mobile?'m':'d'][i];
   return `<h1 class="sh-h ${size} ${sentence?'sentence':''}">${parts.map((p,k)=>`<span class="ln"><span style="--l:${k}">${p}</span></span>`).join('')}</h1>`;
 }
+const hq=q=>q.replace(/^\u201c/,'<span class="hq-o">\u201c</span>').replace(/\u201d$/,'<span class="hq-c">\u201d</span>');
+// three publications under the headline complex; logo height keeps the reference ratio to the quote (logo ≈ 1.7× the text)
+const P3=QUOTES.slice(0,3);
+function pressHero(v,mobile){
+  const logo=x=>`<img class="hp-logo" src="img/press/${x.img}-white.svg" alt="${x.pub}" style="--h:${x.h}px">`;
+  if(v.press==='spot') return `<div class="hp hp-spot rv" style="--d:2">
+      <div class="hp-logos" role="tablist" aria-label="In the press">${P3.map((x,i)=>`<button class="hp-tab${i?'':' on'}" role="tab" aria-selected="${!i}" data-i="${i}">${logo(x)}</button>`).join('')}</div>
+      <div class="hp-quotes">${P3.map((x,i)=>`<blockquote class="hp-q${i?'':' on'}" data-i="${i}">${hq(x.q)}</blockquote>`).join('')}</div>
+    </div>`;
+  const BAL={Esquire:1,Forbes:.95,'Robb Report':1};
+  const items=v.press==='row'
+    ? P3.map(x=>`<figure class="hp-item"><div class="hp-lbox" style="--b:${BAL[x.pub]||1}">${logo(x)}</div><blockquote class="hp-q">${hq(x.q)}</blockquote></figure>`).join('')
+    : P3.map(x=>`<figure class="hp-item">${logo(x)}<blockquote class="hp-q">${hq(x.q)}</blockquote></figure>`).join('');
+  if(v.press==='band') return `<div class="hp hp-band"><div class="hp-track">${items}</div></div>`;
+  return `<div class="hp hp-row rv" style="--d:2">${items}</div>`;
+}
+// spotlight: one quote at a time; advances on its own, answers a tap or hover immediately, pauses while you are with it
+function initSpot(hero){
+  const box=hero.querySelector('.hp-spot'); if(!box) return;
+  const tabs=[...box.querySelectorAll('.hp-tab')], qs=[...box.querySelectorAll('.hp-q')];
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches; let i=0, held=false;
+  const show=n=>{ i=n; tabs.forEach((t,k)=>{t.classList.toggle('on',k===n); t.setAttribute('aria-selected',k===n);}); qs.forEach((q,k)=>q.classList.toggle('on',k===n)); };
+  tabs.forEach((t,k)=>{ t.addEventListener('pointerdown',()=>show(k)); t.addEventListener('pointerenter',()=>show(k)); t.addEventListener('focus',()=>show(k)); });
+  box.addEventListener('pointerenter',()=>held=true); box.addEventListener('pointerleave',()=>held=false);
+  if(!reduce) hero._spot=setInterval(()=>{ if(!held && document.visibilityState==='visible') show((i+1)%tabs.length); },5200);
+}
 function hero(v,s,mobile){
   const theme=v.theme==='dark'?'theme-dark':'';
   return `<div class="sh-hero ${theme} ${v.cls||''}">
@@ -652,7 +801,9 @@ function hero(v,s,mobile){
       ${headline(s.h,mobile,s.c)}
       <p class="sh-sub rv" style="--d:0">${SUB[s.s]}</p>
       <div class="sh-cta rv" style="--d:1"><a class="sh-button">Apply For Membership</a><p class="sh-micro">${MICRO[s.m]}</p></div>
+      ${v.press==='row'||v.press==='spot'?pressHero(v,mobile):''}
     </div>
+    ${v.press==='band'?pressHero(v,mobile):''}
 
     ${(v.cls||'').match(/v-portal|v-doorportal/)?`<div class="inshade"></div><div class="inside"><div class="inside-in">
       <h2 class="sec-h fx" style="margin-top:0">${BELIEF.h}</h2>
@@ -660,6 +811,7 @@ function hero(v,s,mobile){
     </div></div>`:''}
   </div>`;
 }
+const K=v=>v.base||v.id;
 const VARIANTS=[
  {id:'v1',name:'Black',theme:'dark',def:{h:0,s:1,m:1,c:0},
   desc:'The application flow’s welcome screen, turned into the hero. Near-black and centred, with a hairline under the logo and nothing else.',
@@ -673,6 +825,9 @@ const VARIANTS=[
  {id:'v5',name:'Front Door Portal',theme:'dark',cls:'v-photo v-doorportal',def:{h:0,s:1,m:1,c:0,img:0},
   desc:'You land on the front door, exactly like Front Door. Scrolling starts one continuous camera move toward the door. As the door and its sign fill the frame, the pair parts at the centre seam and both leaves swing inward on their outer hinges while the camera keeps moving. Inside is dark at first, then the room comes up out of the darkness as you pass through.',
   note:'<b>Scroll inside the frame.</b> Once you are inside the room, the next scroll dims it and Our belief rises over it, the same as Portal. The two leaves are painted from the exact frame of the film at that moment, then turned in 3D, so it\u2019s the real door that opens. There\u2019s no hold and no jump, just one eased move, like the reference.'},
+ {id:'v7',base:'v2',name:'White · Press band',theme:'light',press:'band',def:{h:0,s:0,m:0,c:0},
+  desc:'Variant 2 with the three publications anchored to the foot of the hero, like a credit line, while the headline complex re-centres in the space above.',
+  note:'<b>Calmest of the three.</b> The proof frames the hero instead of joining the stack. On mobile the band becomes a swipeable row that snaps to each quote.'}
 ];
 
 // ===== Section 2 · Our belief, styled to continue each hero =====
@@ -688,8 +843,8 @@ const BELIEF_STYLE={
   v5:{theme:'theme-dark',band:'sm-bathhouse.jpg',note:'Black after the dark doorway, then the statement, then the bathhouse opens up beneath it as a full-width band, the first proper look inside.'}
 };
 function belief(v,mobile,st){
-  const b=BELIEF_STYLE[v.id];
-  const bgImg=v.id==='v4'?PORTAL_IMG[st.img||0]:null;
+  const b=BELIEF_STYLE[K(v)];
+  const bgImg=K(v)==='v4'?PORTAL_IMG[st.img||0]:null;
   return `<section class="sec sec-belief ${b.theme} ${bgImg?'has-bg':''}">
     ${bgImg?`<div class="sec-bg"><img src="img/${bgImg}" alt=""></div>`:''}
     <div class="sec-in reveal">
@@ -709,9 +864,9 @@ const PILLARS=[
 ];
 const CLUB_THEME={v1:'theme-dark',v2:'',v3:'theme-warm',v4:'theme-dark',v5:'theme-dark'};
 function club(v,mobile){
-  const H=mobile?844:810, inset=(v.id==='v2'||v.id==='v3');
+  const H=mobile?844:810, inset=(K(v)==='v2'||K(v)==='v3');
   const words=CLUB.h.split(' ');
-  return `<section class="club ${CLUB_THEME[v.id]} ${inset?'is-inset':''}" style="height:${Math.round(H*4.6)}px">
+  return `<section class="club ${CLUB_THEME[K(v)]} ${inset?'is-inset':''}" style="height:${Math.round(H*4.6)}px">
     <div class="club-stage" style="height:${H}px">
       <h2 class="sr-only">${CLUB.eye}: ${CLUB.h}</h2>
       ${PILLARS.map((p,i)=>`<div class="scene" data-i="${i}">
@@ -760,11 +915,12 @@ const CONC={eye:'Concierge',h:['Service you never','have to ask for.'],hm:['Serv
 const CARE_THEME={v1:'theme-dark',v2:'',v3:'theme-warm',v4:'theme-dark',v5:'theme-dark'};
 const CONC_THEME={v1:'theme-warm',v2:'theme-dark',v3:'theme-dark',v4:'theme-warm',v5:'theme-warm'};
 function care(v,mobile){
-  return `<section class="sec sec-split ${CARE_THEME[v.id]}">
-    <div class="split-media arch-open" data-fx><img src="img/${CARE.img}" alt="${CARE.alt}"></div>
+  return `<section class="sec sec-split ${CARE_THEME[K(v)]}">
+    <div class="split-media still" data-fx><img src="img/${CARE.img}" alt="${CARE.alt}"></div>
     <div class="split-copy reveal">
       <h2 class="sec-h">${CARE.h.join(' ')}</h2>
       <div class="sec-body"><p class="sec-strong">${CARE.lead}</p>${CARE.p.map(t=>`<p>${t}</p>`).join('')}</div>
+      <a class="sh-button care-btn">Apply For Membership</a>
     </div>
   </section>`;
 }
@@ -772,7 +928,7 @@ function care(v,mobile){
 const CONC_IMG=[{img:'conc-table.jpg',pos:'55% 62%',alt:'Lunch being served at Saint Haven'},{img:'conc-towel.jpg',pos:'42% 60%',alt:'The bathhouse lounge at Saint Haven Toorak, towels folded on the sauna benches'},{img:'conc-usual.jpg',pos:'50% 62%',alt:'The bar at Saint Haven North Sydney'}];
 function concierge(v,mobile){
   const H=mobile?844:810;
-  return `<section class="conc ${v.id==='v1'?'conc-dark':''}" style="height:${Math.round(H*3.2)}px">
+  return `<section class="conc ${K(v)==='v1'?'conc-dark':''}" style="height:${Math.round(H*3.2)}px">
     <div class="conc-stage" style="height:${H}px">
       <div class="conc-copy">
         <h2 class="sec-h">${CONC.h.join(' ')}</h2>
@@ -799,6 +955,26 @@ function initConc(sec,page,mobile){
   page.addEventListener('scroll',()=>requestAnimationFrame(render),{passive:true}); render();
 }
 
+// ===== Founder: Tim Gurner =====
+// Quotes are Tim's own words: the first is from the Saint Haven ad; the second is from his launch statement (apartments.com.au, 24 Nov 2022).
+// The write-up only restates what he has said publicly. Portrait: Gurner Group's official profile photo (gurner.com.au/profiles/tim-gurner).
+const FOUNDER={name:'Tim Gurner',role:'Founder, Saint Haven',img:'tim-gurner.jpg',
+  q:'\u201cFor me, and for the business, ultimate luxury is where you feel you\u2019re in your own home.\u201d',
+  bio:[],
+  hope:'\u201cI want to live every day with energy, passion, love, empathy and vigour and Saint Haven has been created to give people that feeling every day.\u201d'};
+function founder(v,mobile){
+  return `<section class="sec sec-founder ${CARE_THEME[K(v)]}">
+    <div class="fd">
+      <div class="fd-media">${FOUNDER.img?`<img src="img/${FOUNDER.img}" alt="Tim Gurner, founder of Saint Haven">`:`<div class="fd-ph"><span>Portrait of Tim Gurner</span><small>Awaiting an approved photo</small></div>`}</div>
+      <div class="fd-copy reveal">
+        <blockquote class="fd-q">${hq(FOUNDER.q)}</blockquote>
+        <div class="sec-body">${FOUNDER.bio.map(t=>`<p>${t}</p>`).join('')}<p class="fd-hope">${hq(FOUNDER.hope)}</p></div>
+        <p class="fd-by">${FOUNDER.name}<span>${FOUNDER.role}</span></p>
+      </div>
+    </div>
+  </section>`;
+}
+
 // ===== In their words (reviews panel): same logo-over-quote treatment as the hero band =====
 const PRESS=[
  {pub:'Women\u2019s Fitness',logo:'womens-fitness-white.png',h:30,q:'\u201cWhere ancient ritual meets cutting-edge science.\u201d',url:'https://womensfitnessmag.com.au/saint-haven-wellness-club/'},
@@ -823,9 +999,17 @@ function press(v,mobile){
     {img:'adr-white.png',h:30,src:'Australian Design Review',q:'\u201cBuilding on the runaway success of Saint Haven.\u201d'},
     {img:'dmarge-white.svg',h:20,src:'DMARGE',q:'\u201cThe most luxurious and impressive gym Australia has ever seen.\u201d'},
   ];
-  const item=x=>`<figure class="mq-item"><img class="bl" src="img/press/${x.img}" alt="${x.src}" style="--h:${x.h}px"><blockquote class="bq">${x.q}</blockquote></figure>`;
+  const item=x=>`<figure class="mq-item"><img class="bl" src="img/press/${x.img}" alt="${x.src}" style="--h:${x.h}px"><blockquote class="bq">${hq(x.q)}</blockquote></figure>`;
   const row=(list,dir)=>`<div class="mq"><div class="mq-track ${dir}">${list.map(item).join('')}${list.map(item).join('')}</div></div>`;
-  return `<section class="sec sec-press ${CARE_THEME[v.id]}">
+  {
+    // optical balance: each wordmark scaled so they read as one weight, not one height
+    const OPT={'Esquire Australia':.82,'Women\u2019s Fitness':1,'marie claire':1.05,'Robb Report':.86,'Urban List':1,'RUSSH':.95,'Forbes Australia':1,'Time Out':.85,'Australian Design Review':1.15,'DMARGE':1};
+    return `<section class="sec sec-seen ${CARE_THEME[K(v)]}">
+    <div class="seen reveal"><h2 class="seen-h">As seen in</h2>
+      <ul class="seen-grid">${ALL.map((x,i)=>`<li style="--i:${i}"><img class="seen-logo" src="img/press/${x.img}" alt="${x.src}" style="--h:${x.h}px;--o:${OPT[x.src]||1}"></li>`).join('')}</ul></div>
+  </section>`;
+  }
+  return `<section class="sec sec-press ${CARE_THEME[K(v)]}">
     <h2 class="sr-only">In their words</h2>
     <div class="mq-wrap reveal">${row(ALL.slice(0,5),'to-right')}${row(ALL.slice(5),'to-left')}</div>
   </section>`;
@@ -835,7 +1019,7 @@ function press(v,mobile){
 const APPLY={h:'By application, and for good reason.',strong:'The feeling of the club comes from the people in it.',p:'Every application is considered by our committee, so the faces you see each morning feel familiar and the club always feels like your own.'};
 const CLOSE={h:'The rest is best experienced in person.',p:'Applications take a few minutes. We look forward to receiving yours.',btn:'Join the waitlist',line:'Membership is limited. Curiosity isn\u2019t.'};
 function apply(v,mobile){
-  return `<section class="sec sec-split rev ${CARE_THEME[v.id]}">
+  return `<section class="sec sec-split rev ${CARE_THEME[K(v)]}">
     <div class="split-media dolly" data-fx><img src="img/apply-arches.jpg" alt="The arched corridor at Saint Haven South Yarra"></div>
     <div class="split-copy reveal">
       <h2 class="sec-h">${APPLY.h}</h2>
@@ -881,20 +1065,22 @@ function settle(page){
       const t=Math.max(0,Math.min(1,(top+H-y)/(H+box.offsetHeight))); im.style.transform=`scale(${(1.06-.06*t).toFixed(4)})`; }); };
   page.addEventListener('scroll',()=>requestAnimationFrame(run),{passive:true}); run();
 }
+// on the Black and White options the press logos sit straight under Our belief
+const logosUnderBelief=v=>v.id==='v1'||v.id==='v2';
 function pageHTML(v,s,mobile){
-  const H=mobile?844:810, D1=v.id==='v5'?Math.round(H*3.2):v.id==='v4'?Math.round(H*2.2):0, D2=D1?Math.round(H*1.5):0, D=D1+D2;
+  const H=mobile?844:810, D1=K(v)==='v5'?Math.round(H*3.2):K(v)==='v4'?Math.round(H*2.2):0, D2=D1?Math.round(H*1.5):0, D=D1+D2;
   const top=D?`<section class="pg-pin" style="height:${H+D}px"><div class="pg-sticky" style="height:${H}px">${hero(v,s,mobile)}</div></section>`
              :`<section class="pg-hero" style="height:${H}px">${hero(v,s,mobile)}</section>`;
-  return `<div class="page" data-d="${D}" data-d1="${D1}">${top}${D?'':belief(v,mobile,s)}${club(v,mobile)}${care(v,mobile)}${concierge(v,mobile)}${press(v,mobile)}${apply(v,mobile)}${closing(v,mobile)}</div>`;
+  return `<div class="page pv-${v.id} ${v.theme==='dark'?'pg-dark':''}" data-d="${D}" data-d1="${D1}">${top}${D?'':belief(v,mobile,s)}${logosUnderBelief(v)?press(v,mobile):''}${club(v,mobile)}${care(v,mobile)}${concierge(v,mobile)}${founder(v,mobile)}${logosUnderBelief(v)?'':press(v,mobile)}${apply(v,mobile)}${closing(v,mobile)}</div>`;
 }
 const root=document.getElementById('options');
 VARIANTS.forEach((v,idx)=>{
   const sec=document.createElement('section'); sec.className='opt'; sec.id=v.id;
   sec.innerHTML=`<div class="wrap">
-   <div class="opt-head"><div><p class="n">Variant ${idx+1}</p><h2>${v.name}</h2></div><p>${v.desc}</p></div>
+   <div class="opt-head"><div><p class="n">Variant ${idx+1}</p><h2>${v.name}</h2></div></div>
    <div class="boards">
-     <div class="board-col"><div class="frame"><div class="artboard d"></div></div><div class="cap">Desktop · 1440 × 810 · scroll inside the screen</div></div>
-     <div class="board-col mob"><div class="frame"><div class="artboard m"></div></div><div class="cap">Mobile · 390 × 844</div></div>
+     <div class="board-col"><div class="frame"><div class="artboard d"></div></div></div>
+     <div class="board-col mob"><div class="frame"><div class="artboard m"></div></div></div>
    </div>
    <div class="controls">
      <div class="grp" data-k="h"><span>Headline</span>${HEAD.map((_,i)=>`<button data-v="${i}">${i+1}</button>`).join('')}</div>
@@ -905,8 +1091,7 @@ VARIANTS.forEach((v,idx)=>{
      ${v.cls==='v-portal'?`<div class="grp" data-k="img"><span>Room</span><button data-v="0">South Yarra Portal</button><button data-v="1">North Sydney Bathhouse</button><button data-v="2">South Yarra Haven</button><button data-v="3">South Melbourne Arrival</button></div>`:''}
      <button class="playpage">Play the page</button>
      <button class="replay">Back to top</button>
-   </div>
-   <p class="note">${v.note} <span class="flow">Scroll inside the screen to move through the page: hero, then Our belief (${BELIEF_STYLE[v.id].note.charAt(0).toLowerCase()+BELIEF_STYLE[v.id].note.slice(1)}), then the Train, Bathe, Restore, Connect scenes, Personalised care, Concierge, In their words, By application and the closing invitation back at the front door.</span></p></div>`;
+   </div></div>`;
   root.appendChild(sec);
   const state={...v.def};
   const boards=[...sec.querySelectorAll('.artboard.d, .artboard.m')];
@@ -917,11 +1102,13 @@ VARIANTS.forEach((v,idx)=>{
       hero.classList.toggle('play',!!play);
       if(v.cls==='v-portal') initPortal(hero,mobile,page,+page.dataset.d1,D);
       if((v.cls||'').includes('v-doorportal')) initDoorPortal(hero,mobile,page,+page.dataset.d1,D);
+      if(v.press==='spot') initSpot(hero);
       const sio=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); }),{root:page,threshold:.25});
       initClub(page.querySelector('.club'),page,mobile);
       initConc(page.querySelector('.conc'),page,mobile);
       page.querySelectorAll('.reveal').forEach(el=>sio.observe(el));
       settle(page);
+      premium(b,page,v,mobile);
     });
     sec.querySelectorAll('.grp').forEach(g=>g.querySelectorAll('button').forEach(b=>b.classList.toggle('on',+b.dataset.v===state[g.dataset.k])));
     sec.querySelectorAll('video').forEach(x=>vio.observe(x));
@@ -1036,6 +1223,32 @@ function initDoorPortal(hero,mobile,page,PD1,D){
     bel(q);
   }
   pinDriver(page,PD1,D,render);
+}
+
+// ===== Premium details, wired per artboard =====
+const APPLY_URL=location.hostname.endsWith('github.io')?'../index.html':'https://chelseakingkong.github.io/saint-haven-staging/';
+function premium(board,page,v,mobile){
+  // 2. blurred previews
+  page.querySelectorAll('img').forEach(im=>{
+    const f=(im.getAttribute('src')||'').split('/').pop(); const lq=window.LQIP&&LQIP[f]; if(!lq) return;
+    const host=im.parentElement; if(!host.style.backgroundImage){ host.classList.add('lq-host'); host.style.backgroundImage=`url(${lq})`; }
+    if(!im.complete){ im.classList.add('lq'); im.addEventListener('load',()=>{ im.classList.add('lq-in'); requestAnimationFrame(()=>im.classList.remove('lq')); },{once:true}); }
+  });
+  // 3. application sheet: every Apply / Join the waitlist button opens it in place
+  board.insertAdjacentHTML('beforeend',`<div class="ap" aria-hidden="true"><div class="ap-scrim"></div><div class="ap-sheet" role="dialog" aria-modal="true" aria-label="Apply for membership"><button class="ap-x" aria-label="Close">×</button><iframe title="Saint Haven membership application"></iframe></div></div>`);
+  const ap=board.querySelector('.ap'), frame=ap.querySelector('iframe'), x=ap.querySelector('.ap-x'); let from=null;
+  const open=t=>{ from=t; if(!frame.src) frame.src=APPLY_URL; ap.classList.add('open'); ap.setAttribute('aria-hidden','false'); board.classList.add('sheet-open'); setTimeout(()=>x.focus({preventScroll:true}),60); };
+  const close=()=>{ ap.classList.remove('open'); ap.setAttribute('aria-hidden','true'); board.classList.remove('sheet-open'); if(from) from.focus({preventScroll:true}); };
+  if(board._apClick){ board.removeEventListener('click',board._apClick); board.removeEventListener('keydown',board._apKey); }
+  board._apClick=e=>{ const b=e.target.closest('.sh-button'); if(b&&board.contains(b)){ e.preventDefault(); open(b); } };
+  board._apKey=e=>{ if(e.key==='Escape'&&ap.classList.contains('open')) close(); };
+  board.addEventListener('click',board._apClick); board.addEventListener('keydown',board._apKey); board.classList.remove('sheet-open');
+  ap.querySelector('.ap-scrim').addEventListener('click',close); x.addEventListener('click',close);
+  // 5. no lone last words: tie the final two words of headings, quotes and body copy together
+  page.querySelectorAll('.sec-h,.scene-h,.scene-p,.sec-body p,.conc-copy p,.bq,.hp-q,.sh-sub,.sh-micro').forEach(el=>{
+    const w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT), nodes=[]; while(w.nextNode()) nodes.push(w.currentNode);
+    for(let i=nodes.length-1;i>=0;i--){ const t=nodes[i].nodeValue; if(/\S\s+\S+\s*$/.test(t)){ nodes[i].nodeValue=t.replace(/\s+(\S+\s*)$/,' $1'); break; } }
+  });
 }
 function fit(){ document.querySelectorAll('.frame').forEach(f=>{const a=f.querySelector('.artboard'); const s=f.clientWidth/a.offsetWidth; a.style.transform=`scale(${s})`; f.style.height=(a.offsetHeight*s)+'px';}); }
 addEventListener('resize',fit); fit(); document.fonts&&document.fonts.ready.then(fit);
